@@ -28,19 +28,15 @@ export default function Hero() {
 
   return (
     <section
-      style={{
-        background: "linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%)",
-      }}
-      className="
-        relative overflow-hidden
-        flex flex-col-reverse lg:flex-row
-        items-center justify-center
-        gap-12 lg:gap-80
-        px-6 lg:px-16 py-32
-      "
+      data-bg="linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%)"
+      className="relative overflow-hidden flex flex-col-reverse lg:flex-row items-center justify-center gap-12 lg:gap-80 px-6 lg:px-16 py-32"
     >
-      {/* 1) Línea decorativa a lo largo */}
-      <div className="absolute inset-0 pointer-events-none -z-0">
+      {/* Línea superior e inferior */}
+      <div className="absolute inset-x-0 top-0 h-[1px] bg-gray-200" />
+      <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gray-200" />
+
+      {/* SVG decorativo (wave) */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
         <svg
           viewBox="0 0 1440 120"
           className="w-full h-full"
@@ -55,7 +51,7 @@ export default function Hero() {
         </svg>
       </div>
 
-      {/* 2) BURBUJAS: ocultas en mobile, visibles md+ */}
+      {/* Burbujas (ocultas en mobile) */}
       {tips.map((tip, i) => (
         <div
           key={i}
@@ -75,7 +71,7 @@ export default function Hero() {
         </div>
       ))}
 
-      {/* 3) TEXTO + CTA */}
+      {/* Texto + CTA */}
       <div className="relative z-10 max-w-md lg:max-w-lg text-center lg:text-left space-y-6">
         <h1
           style={{ color: "#4B3F36" }}
@@ -102,7 +98,7 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* 4) AVATAR */}
+      {/* Avatar */}
       <div className="relative z-10 w-40 h-40 sm:w-48 sm:h-48 lg:w-64 lg:h-64">
         <Image
           src="/avatar.png"
