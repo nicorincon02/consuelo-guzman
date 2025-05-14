@@ -85,7 +85,7 @@ export default function Hero() {
         >
           <path
             d="M0,64L80,72C160,80,320,96,480,88C640,80,800,56,960,48C1120,40,1280,56,1360,64L1440,72"
-            stroke="rgba(0, 0, 0, 0.2)"
+            stroke="rgba(179, 140, 11, 0.2)"
             strokeWidth="2"
           />
         </svg>
