@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronRight, Check } from "lucide-react";
+import { sectionBackgrounds } from "./sectionBackgrounds";
 
 // Definir tipos para mayor seguridad y documentación
 type PlanId = 'basic' | 'standard' | 'premium';
@@ -63,7 +64,7 @@ export default function PricingSection() {
 
   return (
     <section
-      data-bg="linear-gradient(135deg, #F5F1EC 0%, #E2D8CD 100%)"
+      data-bg={sectionBackgrounds.pricing}
       className="relative overflow-hidden px-6 lg:px-16 py-12 md:py-16 lg:py-24 w-full"
     >
       {/* Línea superior e inferior */}

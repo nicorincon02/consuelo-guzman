@@ -8,9 +8,9 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Consuelo Guzmán | Servicios Profesionales",
+  title: "LIA | Asistente Virtual de Moda",
   description:
-    "Consuelo Guzmán ofrece servicios profesionales personalizados que transforman la apariencia y confianza de sus clientes.",
+    "LIA es tu asistente virtual de moda que te ayuda a mejorar tu vestuario y estilo personal mediante recomendaciones personalizadas.",
 };
 
 export default function RootLayout({

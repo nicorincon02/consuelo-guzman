@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { MessageCircle, PlayCircle, Send } from "lucide-react";
+import { sectionBackgrounds } from "./sectionBackgrounds";
 
 export default function Hero() {
   // Estado para los mensajes de la conversación simulada
@@ -48,7 +49,7 @@ export default function Hero() {
 
   return (
     <section
-      data-bg="linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%)"
+      data-bg={sectionBackgrounds.hero}
       className="relative overflow-hidden flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 px-6 lg:px-16 py-12 md:py-16 lg:py-24 h-screen w-full"
     >
       {/* Estilos globales para la animación */}

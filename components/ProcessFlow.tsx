@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Upload, MessageSquare, Calendar, Check } from "lucide-react";
+import { sectionBackgrounds } from "./sectionBackgrounds";
 
 interface Step {
   id: number;
@@ -91,7 +92,7 @@ export default function ProcessFlow(): React.ReactElement {
   return (
     <section
       id="process-flow"
-      data-bg="linear-gradient(135deg, #F9F5F0 0%, #F2ECE4 100%)"
+      data-bg={sectionBackgrounds.features}
       className="relative min-h-screen flex flex-col items-center justify-center py-16 px-6 overflow-hidden"
     >
       {/* Líneas decorativas */}

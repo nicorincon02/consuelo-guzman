@@ -2,21 +2,40 @@
 
 :root {
   --page-bg: linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%);
-}
-
-html {
-  background-color: var(--page-bg);
-  transition: background-color 0.8s ease;
+  /* Duración y curva de la transición para los fondos */
+  --transition-duration: 1000ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
   /* Usamos background-image para soportar gradientes */
   background-image: var(--page-bg);
   background-size: cover;
-  transition: background-image 0.8s ease;
+  /* Transición mejorada con variables */
+  transition: background-image var(--transition-duration) var(--transition-timing),
+              background-color var(--transition-duration) var(--transition-timing);
 }
 
 body {
-  /* Deja el fondo del body transparente */
+  /* Mantener el fondo del body transparente */
   background: transparent;
+}
+
+/* Asegurar que las secciones también tengan transiciones suaves */
+section[data-bg] {
+  transition: opacity 400ms ease;
+  /* Añadir sutil efecto de profundidad durante transiciones */
+  will-change: opacity, transform;
+}
+
+/* Optimizar el rendering para dispositivos móviles */
+@media (max-width: 768px) {
+  :root {
+    --transition-duration: 800ms; /* Transición ligeramente más rápida en móviles */
+  }
+  
+  html {
+    /* Simplificar los cálculos de renderizado para dispositivos móviles */
+    transition-property: background-image;
+  }
 }
