@@ -100,21 +100,6 @@ export default function ContactoSection() {
 
               <div className="flex items-start space-x-4">
                 <div className="bg-amber-100 p-3 rounded-lg">
-                  <MapPin className="h-6 w-6 text-amber-800" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-amber-900 mb-1">Ubicación</h4>
-                  <p className="text-amber-800/80 text-sm">
-                    Popayán, Cauca, Colombia
-                  </p>
-                  <p className="text-amber-700 font-medium text-sm mt-1">
-                    Servicio global online
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="bg-amber-100 p-3 rounded-lg">
                   <Clock className="h-6 w-6 text-amber-800" />
                 </div>
                 <div>

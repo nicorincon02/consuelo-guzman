@@ -5,6 +5,8 @@
   --page-bg: linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%);
   /* Variable de fuente Plus Jakarta Sans */
   --font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
+  /* Variable de fuente Great Vibes para LIA */
+  --font-great-vibes: var(--font-great-vibes), cursive;
   /* Variables de colores para consistencia */
   --primary-brown: #4B3F36;
   --primary-beige: #F5F1EC;
@@ -87,6 +89,58 @@ section {
     line-height: 1.4;
   }
   
+  /* Clase específica para la marca LIA con Great Vibes */
+  .lia-brand {
+    font-family: var(--font-great-vibes);
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Agregar una sombra sutil para mejor legibilidad */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Variaciones de tamaño para la marca LIA */
+  .lia-brand-large {
+    font-family: var(--font-great-vibes);
+    font-weight: 400;
+    font-size: 5rem;
+    letter-spacing: 0.03em;
+    line-height: 0.9;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+  
+  .lia-brand-medium {
+    font-family: var(--font-great-vibes);
+    font-weight: 400;
+    font-size: 2.5rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+  
+  .lia-brand-small {
+    font-family: var(--font-great-vibes);
+    font-weight: 400;
+    font-size: 1.8rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Variación extra pequeña para casos especiales */
+  .lia-brand-xs {
+    font-family: var(--font-great-vibes);
+    font-weight: 400;
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+  
   /* Clases para elementos que necesiten fondos semi-transparentes */
   .lia-card-bg {
     background: rgba(255, 255, 255, 0.7);
@@ -109,6 +163,12 @@ section {
   .font-jakarta-semibold { font-weight: 600; }
   .font-jakarta-bold { font-weight: 700; }
   .font-jakarta-extrabold { font-weight: 800; }
+  
+  /* Utilidades para la tipografía Great Vibes */
+  .font-great-vibes { 
+    font-family: var(--font-great-vibes); 
+    font-weight: 400;
+  }
   
   /* Utilidades para colores de marca */
   .text-primary { color: var(--primary-brown); }
@@ -138,6 +198,22 @@ section {
     /* En móviles usar scroll para mejor rendimiento */
     background-attachment: scroll;
   }
+  
+  .lia-brand-large {
+    font-size: 3.5rem;
+  }
+  
+  .lia-brand-medium {
+    font-size: 2rem;
+  }
+  
+  .lia-brand-small {
+    font-size: 1.5rem;
+  }
+  
+  .lia-brand-xs {
+    font-size: 1.2rem;
+  }
 }
 
 /* Soporte para usuarios que prefieren movimiento reducido */
@@ -146,5 +222,16 @@ section {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fallback si no se carga Great Vibes */
+@supports not (font-family: var(--font-great-vibes)) {
+  .lia-brand,
+  .lia-brand-large,
+  .lia-brand-medium,
+  .lia-brand-small,
+  .lia-brand-xs {
+    font-family: "Dancing Script", "Brush Script MT", cursive;
   }
 }

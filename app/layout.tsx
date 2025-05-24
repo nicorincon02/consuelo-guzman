@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Great_Vibes } from "next/font/google";
 import "./globals.css";
 
 // Configuración de Plus Jakarta Sans con múltiples pesos
@@ -9,6 +9,14 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
   weight: ["200", "300", "400", "500", "600", "700", "800"],
   variable: "--font-plus-jakarta",  
+});
+
+// Configuración de Great Vibes para la marca LIA
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"], // Great Vibes solo tiene peso 400
+  variable: "--font-great-vibes",
 });
 
 export const metadata: Metadata = {
@@ -23,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={plusJakartaSans.variable}>
+    <html lang="es" className={`${plusJakartaSans.variable} ${greatVibes.variable}`}>
       <body className={`${plusJakartaSans.className} antialiased`}>
-      {children}
+        {children}
       </body>
     </html>
   );

@@ -101,8 +101,19 @@ export default function Hero() {
             style={{ color: "#4B3F36" }}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
           >
-            <span className="block text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500 animate-pulse">
-              LIA
+            {/* LIA con Great Vibes usando estilos inline */}
+            <span 
+              className="bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500"
+              style={{ 
+                fontFamily: "'Great Vibes', cursive",
+                fontWeight: 400,
+                fontSize: 'clamp(4rem, 8vw, 6rem)', // Responsive
+                letterSpacing: '0.03em',
+                lineHeight: '0.9',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.15)'
+              }}
+            >
+              Lia
             </span>
             <span className="mt-2 block">Tu asistente personal de estilo</span>
           </h1>
@@ -138,7 +149,18 @@ export default function Hero() {
               className="inline-flex items-center justify-center font-medium px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition text-lg"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Habla con LIA
+              Habla con{" "}
+              <span 
+                className="ml-1"
+                style={{ 
+                  fontFamily: "'Great Vibes', cursive",
+                  fontWeight: 400,
+                  fontSize: '1.3rem',
+                  letterSpacing: '0.01em'
+                }}
+              >
+                Lia
+              </span>
             </a>
             <a
               href="#demo"
@@ -155,8 +177,18 @@ export default function Hero() {
           <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden shadow-2xl bg-white p-3">
             <div className="absolute top-0 inset-x-0 h-12 bg-blue-100 rounded-t-xl flex items-center justify-center">
               <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-2">L</div>
-                <span className="font-semibold text-blue-900">LIA</span>
+                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-2">
+                  <span 
+                    className="text-sm"
+                  >
+                    L
+                  </span>
+                </div>
+                <span 
+                  className="text-blue-900"
+                >
+                  LIA
+                </span>
               </div>
             </div>
             

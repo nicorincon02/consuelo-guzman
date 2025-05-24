@@ -8,7 +8,7 @@ interface NavLinkSubmenu {
   title: string;
   hasSubmenu: boolean;
   submenu?: string[];
-  href: string; // Agregamos la propiedad href
+  href: string;
 }
 
 const Navbar = () => {
@@ -98,10 +98,17 @@ const Navbar = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="flex items-center cursor-pointer" onClick={() => handleNavigation('#hero')}>
-                  <span className="text-xs text-gray-500 mr-2">Asistente virtual</span>
-                  <span className="text-2xl font-bold">
-                    <span className="text-3xl">L</span>
-                    <span>IA</span>
+                  <span className="text-xs text-gray-500 mr-3">Asistente virtual</span>
+                  {/* Aplicando font-family directamente para asegurar que se cargue Great Vibes */}
+                  <span 
+                    className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500"
+                    style={{ 
+                      fontFamily: "'Great Vibes', cursive",
+                      fontWeight: 600,
+                      letterSpacing: '0.02em'
+                    }}
+                  >
+                    Lia
                   </span>
                 </div>
                 <a 
@@ -193,9 +200,14 @@ const Navbar = () => {
           <div className="bg-white p-4 flex items-center justify-between shadow-md">
             {/* Logo */}
             <div className="flex items-center">
-              <span className="text-xs text-gray-500 mr-2">Popayán/Colombia</span>
+              <span className="text-xs text-gray-500 mr-3">Popayán/Colombia</span>
               <span 
-                className="text-2xl font-bold text-amber-800 cursor-pointer"
+                className="text-xl text-amber-800 cursor-pointer"
+                style={{ 
+                  fontFamily: "'Great Vibes', cursive",
+                  fontWeight: 400,
+                  letterSpacing: '0.01em'
+                }}
                 onClick={() => handleNavigation('#hero')}
               >
                 LIA
@@ -239,7 +251,17 @@ const Navbar = () => {
           <div className="h-full overflow-y-auto bg-amber-50">
             {/* Welcome message */}
             <div className="p-6">
-              <h2 className="text-xl font-bold text-amber-900 mb-4">Bienvenido a LIA</h2>
+              <h2 className="text-xl font-bold text-amber-900 mb-4">
+                Bienvenido a <span 
+                  className="text-amber-800"
+                  style={{ 
+                    fontFamily: "'Great Vibes', cursive",
+                    fontWeight: 400
+                  }}
+                >
+                  LIA
+                </span>
+              </h2>
               
               {/* Search bar */}
               <div className="relative w-full mb-8">
@@ -287,7 +309,16 @@ const Navbar = () => {
             
             {/* Footer del menú móvil */}
             <div className="absolute bottom-0 w-full p-4 bg-white border-t border-amber-200 flex justify-between items-center text-xs text-gray-500">
-              <span>LIA</span>
+              <span 
+                className="text-amber-800"
+                style={{ 
+                  fontFamily: "'Great Vibes', cursive",
+                  fontWeight: 400,
+                  fontSize: '1rem'
+                }}
+              >
+                LIA
+              </span>
               <a 
                 href="https://consueloguzman.com" 
                 className="hover:text-amber-800 transition-colors"

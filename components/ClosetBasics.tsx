@@ -216,7 +216,18 @@ const ClosetBasicsSection = () => {
             
             <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
               Descubre las prendas esenciales que forman la base de un guardarropa versátil. 
-              Con LIA, aprende a crear infinitas combinaciones con menos piezas.
+              Con {" "}
+              <span 
+                className="ml-1"
+                style={{ 
+                  fontFamily: "'Great Vibes', cursive",
+                  fontWeight: 400,
+                  fontSize: '1.5rem',
+                  letterSpacing: '0.01em'
+                }}
+              >
+                Lia
+              </span>, aprende a crear infinitas combinaciones con menos piezas.
             </p>
           </div>
 
@@ -314,7 +325,18 @@ const ClosetBasicsSection = () => {
           {/* CTA */}
           <div className="text-center mt-16">
             <button className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 backdrop-blur-sm">
-              Descubre tu Fondo de Closet con LIA
+              Descubre tu Fondo de Closet con {" "}
+              <span 
+                className="ml-1"
+                style={{ 
+                  fontFamily: "'Great Vibes', cursive",
+                  fontWeight: 400,
+                  fontSize: '1.5rem',
+                  letterSpacing: '0.01em'
+                }}
+              >
+                Lia
+              </span>
             </button>
           </div>
         </div>
