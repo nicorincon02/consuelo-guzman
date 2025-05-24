@@ -5,55 +5,76 @@ import { MessageCircle, PlayCircle, Send } from "lucide-react";
 import { sectionBackgrounds } from "./sectionBackgrounds";
 
 export default function Hero() {
-  // Estado para los mensajes de la conversación simulada
+  // Mensajes más cortos para el chat simulado
   const chatMessages = [
     { 
       role: "assistant", 
-      content: "¡Hola! Soy Lia, tu asistente de moda virtual. ¿En qué puedo ayudarte hoy?" 
+      content: "¡Hola! Soy Lia ✨" 
     },
     { 
       role: "user", 
-      content: "¿Qué puedo ponerme para una salida casual?" 
+      content: "¿Outfit casual?" 
     },
     { 
       role: "assistant", 
-      content: "Combina unos jeans rectos con una camisa blanca y zapatillas" 
+      content: "Jeans + camisa blanca" 
     },
     { 
       role: "user", 
-      content: "¿Y si hace calor?" 
+      content: "¿Para calor?" 
     },
     { 
       role: "assistant", 
-      content: "Opta por un vestido ligero y sandalias, es cómodo y fresco" 
+      content: "Vestido ligero 👗" 
     }
   ];
 
   const [visibleMessages, setVisibleMessages] = useState(1);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // TODOS LOS HOOKS SIEMPRE SE EJECUTAN
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Efecto para ir mostrando mensajes gradualmente
   useEffect(() => {
+    // Condición DENTRO del useEffect, no antes
+    if (!isMounted) return;
+    
     if (visibleMessages < chatMessages.length) {
       const timer = setTimeout(() => {
         setVisibleMessages(prev => prev + 1);
-      }, 2000); // Cada 2 segundos aparece un nuevo mensaje
+      }, 2000);
       return () => clearTimeout(timer);
     } else {
-      // Reiniciar después de mostrar todos
       const resetTimer = setTimeout(() => {
         setVisibleMessages(1);
       }, 5000);
       return () => clearTimeout(resetTimer);
     }
-  }, [visibleMessages, chatMessages.length]);
+  }, [visibleMessages, chatMessages.length, isMounted]);
+
+  // RENDERIZADO CONDICIONAL AL FINAL, NO AFECTA HOOKS
+  if (!isMounted) {
+    return (
+      <section className="relative min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-800 mx-auto mb-2"></div>
+          <p className="text-amber-800 text-sm">Cargando...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
       id="hero"
       data-bg={sectionBackgrounds.hero}
       className="relative overflow-hidden flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 px-6 lg:px-16 py-12 md:py-16 lg:py-24 min-h-screen w-full pt-20 md:pt-24"
+      suppressHydrationWarning={true}
     >
-      {/* Estilos globales para la animación */}
+      {/* Estilos específicos para Hero - Anti-conflictos */}
       <style jsx global>{`
         @keyframes fadeInUp {
           from {
@@ -70,6 +91,39 @@ export default function Hero() {
           animation-name: fadeInUp;
           animation-duration: 0.5s;
           animation-fill-mode: forwards;
+        }
+        
+        /* AISLAMIENTO ESPECÍFICO PARA HERO */
+        #hero {
+          isolation: isolate;
+        }
+        
+        #hero .hero-text-content * {
+          text-align: inherit !important;
+        }
+        
+        #hero .hero-text-content .text-center {
+          text-align: center !important;
+        }
+        
+        #hero .hero-text-content .lg\\:text-left {
+          text-align: center !important;
+        }
+        
+        @media (min-width: 1024px) {
+          #hero .hero-text-content .lg\\:text-left {
+            text-align: left !important;
+          }
+        }
+        
+        /* Chat específico - completamente aislado */
+        #hero .hero-chat {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        }
+        
+        #hero .hero-chat * {
+          text-align: left !important;
+          font-family: inherit !important;
         }
       `}</style>
 
@@ -93,21 +147,21 @@ export default function Hero() {
         </svg>
       </div>
 
-      {/* Contenedor central con máximo ancho para evitar espacio muerto */}
+      {/* Contenedor central */}
       <div className="w-full max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-between">
-        {/* Texto + CTA */}
-        <div className="relative z-10 max-w-md text-center lg:text-left space-y-4">
+        
+        {/* Texto + CTA - Con clases específicas */}
+        <div className="hero-text-content relative z-10 max-w-md text-center lg:text-left space-y-4">
           <h1
             style={{ color: "#4B3F36" }}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
           >
-            {/* LIA con Great Vibes usando estilos inline */}
             <span 
               className="bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500"
               style={{ 
                 fontFamily: "'Great Vibes', cursive",
                 fontWeight: 400,
-                fontSize: 'clamp(4rem, 8vw, 6rem)', // Responsive
+                fontSize: 'clamp(4rem, 8vw, 6rem)',
                 letterSpacing: '0.03em',
                 lineHeight: '0.9',
                 textShadow: '0 2px 4px rgba(0, 0, 0, 0.15)'
@@ -172,66 +226,143 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Conversación interactiva (visible solo en pantallas grandes) */}
-        <div className="hidden lg:block relative z-10 w-full max-w-xs sm:max-w-sm xl:max-w-md">
-          <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden shadow-2xl bg-white p-3">
-            <div className="absolute top-0 inset-x-0 h-12 bg-blue-100 rounded-t-xl flex items-center justify-center">
-              <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-2">
-                  <span 
-                    className="text-sm"
-                  >
-                    L
-                  </span>
-                </div>
-                <span 
-                  className="text-blue-900"
-                >
-                  LIA
-                </span>
+        {/* Chat simulado - Solo estilos inline críticos */}
+        <div className="hidden lg:block relative z-10">
+          <div 
+            style={{
+              width: '384px',
+              height: '500px',
+              backgroundColor: '#ffffff',
+              borderRadius: '16px',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              overflow: 'hidden',
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+            }}
+          >
+            
+            {/* Header */}
+            <div 
+              style={{
+                height: '80px',
+                backgroundColor: '#3B82F6',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 24px',
+                gap: '16px',
+                textAlign: 'left'
+              }}
+            >
+              <div style={{
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#ffffff',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <span style={{
+                  color: '#3B82F6',
+                  fontWeight: 'bold',
+                  fontSize: '18px'
+                }}>L</span>
+              </div>
+              <div>
+                <div style={{
+                  color: '#ffffff',
+                  fontWeight: '600',
+                  fontSize: '16px'
+                }}>LIA</div>
+                <div style={{
+                  color: 'rgba(219, 234, 254, 1)',
+                  fontSize: '14px'
+                }}>Asistente de Moda</div>
               </div>
             </div>
-            
-            {/* Area de mensajes */}
-            <div className="mt-12 h-full overflow-y-auto p-2 flex flex-col space-y-2">
+
+            {/* Mensajes */}
+            <div 
+              style={{
+                height: '320px',
+                overflowY: 'auto',
+                backgroundColor: '#F9FAFB',
+                padding: '24px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px'
+              }}
+            >
               {chatMessages.slice(0, visibleMessages).map((message, index) => (
                 <div 
                   key={index}
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} message-animate`}
+                  className="message-animate"
                   style={{
-                    animationDelay: `${index * 0.3}s`
+                    display: 'flex',
+                    justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
+                    animationDelay: `${index * 0.3}s`,
+                    textAlign: 'left'
                   }}
                 >
                   <div 
-                    className={`max-w-[80%] p-3 rounded-lg ${
-                      message.role === 'user' 
-                        ? 'bg-blue-500 text-white rounded-tr-none'
-                        : 'bg-gray-100 text-gray-800 rounded-tl-none'
-                    }`}
+                    style={{
+                      maxWidth: '75%',
+                      padding: '12px 16px',
+                      borderRadius: '18px',
+                      backgroundColor: message.role === 'user' ? '#3B82F6' : '#FFFFFF',
+                      color: message.role === 'user' ? '#FFFFFF' : '#374151',
+                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                      fontSize: '14px',
+                      lineHeight: '1.4',
+                      textAlign: 'left',
+                      wordWrap: 'break-word'
+                    }}
                   >
                     {message.content}
                   </div>
                 </div>
               ))}
             </div>
-            
-            {/* Input de texto */}
-            <div className="absolute bottom-3 inset-x-3 flex items-center bg-gray-100 rounded-full px-4 py-2">
-              <input 
-                type="text" 
-                placeholder="Escribe un mensaje..." 
-                className="flex-1 bg-transparent border-none outline-none text-sm"
-                disabled
-              />
-              <button 
-                className="ml-2 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white"
-                disabled
-              >
-                <Send size={16} />
+
+            {/* Input */}
+            <div 
+              style={{
+                height: '80px',
+                backgroundColor: '#ffffff',
+                borderTop: '1px solid #E5E7EB',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 24px',
+                gap: '12px'
+              }}
+            >
+              <div style={{
+                flex: 1,
+                backgroundColor: '#F3F4F6',
+                borderRadius: '9999px',
+                padding: '12px 20px',
+                fontSize: '14px',
+                color: '#6B7280'
+              }}>
+                Escribe un mensaje...
+              </div>
+              <button style={{
+                width: '40px',
+                height: '40px',
+                backgroundColor: '#3B82F6',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: 'none',
+                cursor: 'pointer'
+              }}>
+                <Send size={16} style={{ color: '#ffffff' }} />
               </button>
             </div>
+            
           </div>
         </div>
+
       </div>
     </section>
   );

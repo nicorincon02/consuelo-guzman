@@ -16,7 +16,7 @@ export default function ProcessFlow(): React.ReactElement {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-
+  
   const steps: Step[] = [
     {
       id: 1,
@@ -48,18 +48,14 @@ export default function ProcessFlow(): React.ReactElement {
     },
   ];
 
-  // Autoplay para recorrer los pasos automáticamente
   useEffect(() => {
     if (!isAutoPlaying) return;
-
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % steps.length);
     }, 4000);
-
     return () => clearInterval(interval);
   }, [isAutoPlaying, steps.length]);
 
-  // Observador de intersección para iniciar animación cuando la sección es visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -67,7 +63,7 @@ export default function ProcessFlow(): React.ReactElement {
           setIsVisible(true);
         } else {
           setIsVisible(false);
-          setActiveStep(0); // Reinicia cuando no está visible
+          setActiveStep(0);
         }
       },
       { threshold: 0.3 }
@@ -75,17 +71,14 @@ export default function ProcessFlow(): React.ReactElement {
 
     const section = document.getElementById("process-flow");
     if (section) observer.observe(section);
-
     return () => {
       if (section) observer.unobserve(section);
     };
   }, []);
 
-  // Pausa el autoplay cuando el usuario interactúa
   const handleStepClick = (index: number): void => {
     setActiveStep(index);
     setIsAutoPlaying(false);
-    // Reactivar autoplay después de un tiempo
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
@@ -93,7 +86,35 @@ export default function ProcessFlow(): React.ReactElement {
     <section
       id="process-flow"
       className="relative min-h-screen flex flex-col items-center justify-center py-16 px-6 overflow-hidden"
+      suppressHydrationWarning={true}
     >
+      {/* CSS específico para este componente */}
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* ESTILOS ESPECÍFICOS PARA EVITAR CONFLICTOS */
+        #process-flow h2,
+        #process-flow h3,
+        #process-flow p {
+          text-align: center !important;
+          display: block !important;
+          width: 100% !important;
+        }
+        
+        #process-flow .step-card {
+          text-align: center !important;
+        }
+      `}</style>
+
       {/* Líneas decorativas */}
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gray-200" />
       <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gray-200" />
@@ -117,11 +138,8 @@ export default function ProcessFlow(): React.ReactElement {
       <div className="max-w-6xl mx-auto w-full">
         {/* Encabezado de sección */}
         <div className="text-center mb-16 opacity-0 animate-[fadeInUp_1s_forwards]" style={{ animationDelay: '0.2s' }}>
-          <h2 
-            style={{ color: "#4B3F36" }}
-            className="text-3xl sm:text-4xl font-bold mb-4"
-          >
-            <span className="bg-clip-text text-center text-transparent bg-gradient-to-r from-amber-800 to-amber-500">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ color: "#4B3F36" }}>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500">
               Cómo funciona
             </span>
           </h2>
@@ -130,14 +148,15 @@ export default function ProcessFlow(): React.ReactElement {
           </p>
         </div>
 
-        {/* Visualización en dispositivos grandes: Tarjetas en línea */}
+        {/* Tarjetas desktop */}
         <div className="hidden lg:flex justify-between items-start gap-4 mb-12">
           {steps.map((step, index) => (
             <div
               key={step.id}
               onClick={() => handleStepClick(index)}
               className={`
-                w-64 p-6 rounded-xl cursor-pointer transition-all duration-500 transform
+                step-card w-64 p-6 rounded-xl cursor-pointer transition-all duration-500 transform
+                flex flex-col items-center
                 ${isVisible ? 'opacity-100' : 'opacity-0'} 
                 ${activeStep === index ? 'scale-105 shadow-xl bg-white' : 'bg-white/60 hover:bg-white/80'}
               `}
@@ -154,32 +173,40 @@ export default function ProcessFlow(): React.ReactElement {
               <span className="flex items-center justify-center w-8 h-8 text-sm font-bold rounded-full bg-amber-100 text-amber-800 mb-3">
                 {step.id}
               </span>
-              <h3 className="text-lg font-bold text-amber-900 mb-2">{step.title}</h3>
-              <p className="text-amber-800/70 text-sm">{step.description}</p>
+              <h3 className="text-lg font-bold text-amber-900 mb-2">
+                {step.title}
+              </h3>
+              <p className="text-amber-800/70 text-sm">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* Visualización en dispositivos móviles: Carrousel */}
+        {/* Carrousel móvil */}
         <div className="lg:hidden w-full">
           <div className="relative overflow-hidden w-full h-[400px]">
             {steps.map((step, index) => (
               <div
                 key={step.id}
                 className={`
-                  absolute top-0 left-0 w-full px-6 transition-all duration-500 transform
+                  step-card absolute top-0 left-0 w-full px-6 transition-all duration-500 transform
                   ${activeStep === index ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}
                 `}
               >
-                <div className="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center">
+                <div className="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center">
                   <div className={`w-20 h-20 mb-6 rounded-full flex items-center justify-center bg-gradient-to-br ${step.color}`}>
                     {step.icon}
                   </div>
                   <span className="flex items-center justify-center w-10 h-10 text-lg font-bold rounded-full bg-amber-100 text-amber-800 mb-4">
                     {step.id}
                   </span>
-                  <h3 className="text-xl font-bold text-amber-900 mb-3">{step.title}</h3>
-                  <p className="text-amber-800/70">{step.description}</p>
+                  <h3 className="text-xl font-bold text-amber-900 mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-amber-800/70">
+                    {step.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -219,20 +246,6 @@ export default function ProcessFlow(): React.ReactElement {
           </a>
         </div>
       </div>
-
-      {/* Estilos para animaciones */}
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </section>
   );
 }
