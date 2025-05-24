@@ -1,41 +1,150 @@
 @import "tailwindcss";
 
 :root {
+  /* Fondo fijo basado en el hero - eliminar variable dinámica */
   --page-bg: linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%);
-  /* Duración y curva de la transición para los fondos */
-  --transition-duration: 1000ms;
-  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Variable de fuente Plus Jakarta Sans */
+  --font-family: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
+  /* Variables de colores para consistencia */
+  --primary-brown: #4B3F36;
+  --primary-beige: #F5F1EC;
+  --primary-sand: #E2D8CD;
+  --accent-brown: #8A6D5B;
 }
 
 html {
-  /* Usamos background-image para soportar gradientes */
-  background-image: var(--page-bg);
+  /* Fondo fijo sin transiciones - elimina destellos completamente */
+  background: var(--page-bg);
   background-size: cover;
-  /* Transición mejorada con variables */
-  transition: background-image var(--transition-duration) var(--transition-timing),
-              background-color var(--transition-duration) var(--transition-timing);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /* Eliminar todas las transiciones de background */
+  min-height: 100vh;
 }
 
 body {
   /* Mantener el fondo del body transparente */
   background: transparent;
+  /* Aplicar Plus Jakarta Sans globalmente */
+  font-family: var(--font-family);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Eliminar scroll bounce en iOS */
+  -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
 }
 
-/* Asegurar que las secciones también tengan transiciones suaves */
-section[data-bg] {
-  transition: opacity 400ms ease;
-  /* Añadir sutil efecto de profundidad durante transiciones */
-  will-change: opacity, transform;
+/* Simplificar secciones - eliminar data-bg ya que no se usa */
+section {
+  background: transparent;
+  position: relative;
+  z-index: 1;
 }
 
-/* Optimizar el rendering para dispositivos móviles */
-@media (max-width: 768px) {
-  :root {
-    --transition-duration: 800ms; /* Transición ligeramente más rápida en móviles */
+/* Clases específicas para LIA con Plus Jakarta Sans */
+@layer components {
+  .lia-hero-title {
+    font-family: var(--font-family);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
   }
   
+  .lia-section-title {
+    font-family: var(--font-family);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+  
+  .lia-subtitle {
+    font-family: var(--font-family);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.4;
+  }
+  
+  .lia-body-text {
+    font-family: var(--font-family);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.6;
+  }
+  
+  .lia-button-text {
+    font-family: var(--font-family);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+  
+  .lia-caption {
+    font-family: var(--font-family);
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  
+  /* Clases para elementos que necesiten fondos semi-transparentes */
+  .lia-card-bg {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .lia-overlay-bg {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+  }
+}
+
+/* Utilidades de peso de fuente específicas para Plus Jakarta Sans */
+@layer utilities {
+  .font-jakarta-extralight { font-weight: 200; }
+  .font-jakarta-light { font-weight: 300; }
+  .font-jakarta-regular { font-weight: 400; }
+  .font-jakarta-medium { font-weight: 500; }
+  .font-jakarta-semibold { font-weight: 600; }
+  .font-jakarta-bold { font-weight: 700; }
+  .font-jakarta-extrabold { font-weight: 800; }
+  
+  /* Utilidades para colores de marca */
+  .text-primary { color: var(--primary-brown); }
+  .text-beige { color: var(--primary-beige); }
+  .text-sand { color: var(--primary-sand); }
+  .text-accent { color: var(--accent-brown); }
+  
+  .bg-primary { background-color: var(--primary-brown); }
+  .bg-beige { background-color: var(--primary-beige); }
+  .bg-sand { background-color: var(--primary-sand); }
+  .bg-accent { background-color: var(--accent-brown); }
+  
+  /* Utilidades para fondos semi-transparentes */
+  .bg-white-70 { background-color: rgba(255, 255, 255, 0.7); }
+  .bg-white-80 { background-color: rgba(255, 255, 255, 0.8); }
+  .bg-white-90 { background-color: rgba(255, 255, 255, 0.9); }
+  
+  /* Utilidades para backdrop blur */
+  .backdrop-blur-light { backdrop-filter: blur(5px); }
+  .backdrop-blur-medium { backdrop-filter: blur(10px); }
+  .backdrop-blur-heavy { backdrop-filter: blur(20px); }
+}
+
+/* Optimización para dispositivos móviles */
+@media (max-width: 768px) {
   html {
-    /* Simplificar los cálculos de renderizado para dispositivos móviles */
-    transition-property: background-image;
+    /* En móviles usar scroll para mejor rendimiento */
+    background-attachment: scroll;
+  }
+}
+
+/* Soporte para usuarios que prefieren movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

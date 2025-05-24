@@ -1,11 +1,15 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import ColorProvider from "@/components/ColorProvider";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+// Configuración de Plus Jakarta Sans con múltiples pesos
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta",  
+});
 
 export const metadata: Metadata = {
   title: "LIA | Asistente Virtual de Moda",
@@ -19,9 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ColorProvider>{children}</ColorProvider>
+    <html lang="es" className={plusJakartaSans.variable}>
+      <body className={`${plusJakartaSans.className} antialiased`}>
+      {children}
       </body>
     </html>
   );

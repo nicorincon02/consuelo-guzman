@@ -3,7 +3,9 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import PricingSection from "@/components/Pricing";
 import ProcessFlow from "@/components/ProcessFlow";
-// Eliminar la importación de ColorProvider
+import ClosetBasicsSection from "@/components/ClosetBasics";
+import SobreLiaSection from "@/components/SobreLiaSection";
+import ContactoSection from "@/components/ContactoSection";
 
 export default function Home() {
   return (
@@ -12,6 +14,9 @@ export default function Home() {
       <Hero />
       <PricingSection />
       <ProcessFlow />
+      <ClosetBasicsSection />
+      <SobreLiaSection />
+      <ContactoSection />
     </main>
   );
 }

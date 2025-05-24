@@ -1,61 +1,118 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, createContext, useContext, type ReactNode } from "react";
+
+// Context para compartir el estado del background entre componentes
+interface ColorContextType {
+  currentBackground: string;
+  setBackground: (bg: string) => void;
+  isTransitioning: boolean;
+}
+
+const ColorContext = createContext<ColorContextType | null>(null);
+
+// Hook personalizado para usar el contexto
+export const useColorProvider = () => {
+  const context = useContext(ColorContext);
+  if (!context) {
+    throw new Error('useColorProvider debe usarse dentro de ColorProvider');
+  }
+  return context;
+};
 
 export default function ColorProvider({ children }: { children: ReactNode }) {
-  // Estado para mantener el color actual y el anterior para crear transiciones suaves
-  const [currentBg, setCurrentBg] = useState<string | null>(null);
-  
-  useEffect(() => {
-    // Añadir la transición CSS en el root
-    document.documentElement.style.transition = "background 1000ms ease-in-out";
-    
-    // Seleccionamos las secciones que tengan data-bg
-    const sections = document.querySelectorAll<HTMLElement>("section[data-bg]");
-    
-    // Inicializar con el primer background si existe
-    if (sections.length > 0) {
-      const firstBg = sections[0].dataset.bg!;
-      setCurrentBg(firstBg);
-      document.documentElement.style.setProperty("--page-bg", firstBg);
-    }
+  const [currentBackground, setCurrentBackground] = useState<string>("linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%)");
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
-    // Configuración mejorada del observador para detección más precisa
+  // Función optimizada para cambiar el background sin destellos
+  const setBackground = (newBg: string) => {
+    if (currentBackground === newBg || !isInitialized) return;
+    
+    setIsTransitioning(true);
+    
+    // Usar doble requestAnimationFrame para sincronización perfecta
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Actualizar la variable CSS directamente para transición suave
+        document.documentElement.style.setProperty('--page-bg', newBg);
+        setCurrentBackground(newBg);
+        
+        // Finalizar transición después del tiempo especificado en CSS
+        setTimeout(() => {
+          setIsTransitioning(false);
+        }, 1000); // Coincide con --transition-duration en CSS
+      });
+    });
+  };
+
+  useEffect(() => {
+    // Inicializar la variable CSS con el valor por defecto
+    document.documentElement.style.setProperty('--page-bg', currentBackground);
+    
+    // Configurar transición optimizada en el HTML element
+    const htmlElement = document.documentElement;
+    htmlElement.style.transition = 'background-image var(--transition-duration) var(--transition-timing)';
+    
+    // Marcar como inicializado después de un frame
+    requestAnimationFrame(() => {
+      setIsInitialized(true);
+    });
+
+    // Configurar el observador con detección más suave
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          // Obtener el elemento y su background
-          const el = entry.target as HTMLElement;
-          const bg = el.dataset.bg!;
+        if (!isInitialized) return;
+        
+        // Filtrar entradas válidas y ordenar por visibilidad
+        const validEntries = entries
+          .filter(entry => {
+            const ratio = entry.intersectionRatio;
+            return entry.isIntersecting && ratio > 0.25;
+          })
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (validEntries.length > 0) {
+          const mostVisible = validEntries[0];
+          const element = mostVisible.target as HTMLElement;
+          const newBg = element.dataset.bg;
           
-          // Calcular cuánto de la sección es visible (ratio de intersección)
-          const ratio = entry.intersectionRatio;
-          
-          if (entry.isIntersecting && ratio > 0.2) {
-            // Solo cambiar si es un color diferente para evitar transiciones innecesarias
-            if (currentBg !== bg) {
-              setCurrentBg(bg);
-              document.documentElement.style.setProperty("--page-bg", bg);
-            }
+          if (newBg && newBg !== currentBackground) {
+            setBackground(newBg);
           }
-        });
+        }
       },
-      { 
-        // Umbral más bajo para detección más temprana y valores intermedios para transiciones más suaves
-        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
-        // Margen para comenzar a detectar antes de que la sección esté completamente visible
-        rootMargin: "-10% 0px -10% 0px"
+      {
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+        rootMargin: "-15% 0px -15% 0px" // Zona de activación optimizada
       }
     );
 
-    sections.forEach((sec) => observer.observe(sec));
-    
+    // Observar secciones con data-bg
+    const sections = document.querySelectorAll<HTMLElement>("section[data-bg]");
+    sections.forEach(section => observer.observe(section));
+
+    // Configurar background inicial si existe
+    if (sections.length > 0 && sections[0].dataset.bg) {
+      const initialBg = sections[0].dataset.bg;
+      document.documentElement.style.setProperty('--page-bg', initialBg);
+      setCurrentBackground(initialBg);
+    }
+
     return () => {
       observer.disconnect();
-      // Limpiar estilos al desmontar
-      document.documentElement.style.removeProperty("transition");
+      // Limpiar transiciones al desmontar
+      htmlElement.style.removeProperty('transition');
     };
-  }, [currentBg]);
+  }, [isInitialized, currentBackground]);
 
-  return <>{children}</>;
+  return (
+    <ColorContext.Provider value={{ 
+      currentBackground, 
+      setBackground, 
+      isTransitioning 
+    }}>
+      {children}
+    </ColorContext.Provider>
+  );
 }

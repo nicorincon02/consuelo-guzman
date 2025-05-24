@@ -92,7 +92,6 @@ export default function ProcessFlow(): React.ReactElement {
   return (
     <section
       id="process-flow"
-      data-bg={sectionBackgrounds.features}
       className="relative min-h-screen flex flex-col items-center justify-center py-16 px-6 overflow-hidden"
     >
       {/* Líneas decorativas */}
@@ -122,7 +121,7 @@ export default function ProcessFlow(): React.ReactElement {
             style={{ color: "#4B3F36" }}
             className="text-3xl sm:text-4xl font-bold mb-4"
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500">
+            <span className="bg-clip-text text-center text-transparent bg-gradient-to-r from-amber-800 to-amber-500">
               Cómo funciona
             </span>
           </h2>

@@ -49,8 +49,9 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       data-bg={sectionBackgrounds.hero}
-      className="relative overflow-hidden flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 px-6 lg:px-16 py-12 md:py-16 lg:py-24 h-screen w-full"
+      className="relative overflow-hidden flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 px-6 lg:px-16 py-12 md:py-16 lg:py-24 min-h-screen w-full pt-20 md:pt-24"
     >
       {/* Estilos globales para la animación */}
       <style jsx global>{`
