@@ -150,29 +150,45 @@ export default function ProcessFlowSection(): React.ReactElement {
     return () => carousel.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Componente de tarjeta con flip
+  // Componente de tarjeta con flip corregido
   const ProcessCard: React.FC<{ step: ProcessStep; index: number }> = ({ step, index }) => (
     <div className="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4">
-      <div className="group perspective-1000 h-96">
-        <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+      <div className="group h-96" style={{ perspective: '1000px' }}>
+        <div 
+          className="relative w-full h-full transition-transform duration-700 cursor-pointer"
+          style={{
+            transformStyle: 'preserve-3d',
+            transform: 'rotateY(0deg)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'rotateY(180deg)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'rotateY(0deg)';
+          }}
+        >
           
           {/* Cara frontal */}
-          <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-xl">
-            <div className={`h-full bg-gradient-to-br ${step.color} flex flex-col justify-between p-6 text-white relative`}>
+          <div 
+            className="absolute inset-0 rounded-2xl overflow-hidden shadow-xl"
+            style={{ backfaceVisibility: 'hidden' }}
+          >
+            {/* Imagen de fondo */}
             <div className="absolute inset-0">
               <Image
                 src={step.imageUrl}
                 alt={step.title}
                 fill
-                className="object-cover rounded-2xl"
+                className="object-cover"
               />
-            </div>
-              {/* Imagen de fondo con overlay */}
+              {/* Overlay gradiente */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${step.color} opacity-80`}></div>
               <div className="absolute inset-0 bg-black/20"></div>
-              
-              {/* Contenido frontal */}
-              <div className="relative z-10">
-                
+            </div>
+            
+            {/* Contenido frontal */}
+            <div className="relative z-10 h-full flex flex-col justify-between p-6 text-white">
+              <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
                     {step.icon}
@@ -187,7 +203,7 @@ export default function ProcessFlowSection(): React.ReactElement {
               </div>
 
               {/* Indicador de hover */}
-              <div className="relative z-10 text-center">
+              <div className="text-center">
                 <div className="inline-flex items-center text-white/80 text-sm">
                   <span>Hover para más detalles</span>
                   <svg className="ml-2 w-4 h-4 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,8 +215,14 @@ export default function ProcessFlowSection(): React.ReactElement {
           </div>
 
           {/* Cara trasera */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden shadow-xl">
-            <div className="h-full bg-white flex flex-col justify-between p-6">
+          <div 
+            className="absolute inset-0 rounded-2xl overflow-hidden shadow-xl bg-white"
+            style={{ 
+              backfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)'
+            }}
+          >
+            <div className="h-full flex flex-col justify-between p-6">
               
               {/* Encabezado trasero */}
               <div>
@@ -221,7 +243,13 @@ export default function ProcessFlowSection(): React.ReactElement {
 
               {/* Botón de acción */}
               <div className="text-center">
-                <button className={`w-full bg-gradient-to-r ${step.color} text-white py-3 px-6 rounded-full font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105`}>
+                <button 
+                  className={`w-full bg-gradient-to-r ${step.color} text-white py-3 px-6 rounded-full font-medium hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log(`Acción: ${step.actionText}`);
+                  }}
+                >
                   {step.actionText}
                 </button>
               </div>
@@ -240,48 +268,6 @@ export default function ProcessFlowSection(): React.ReactElement {
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
-      {/* Estilos CSS personalizados */}
-      <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .transform-style-preserve-3d {
-          transform-style: preserve-3d;
-        }
-        
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-        
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-        
-        .group:hover .group-hover\\:rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-
-        /* Scrollbar personalizada para el carrusel */
-        .carousel-container::-webkit-scrollbar {
-          height: 4px;
-        }
-        
-        .carousel-container::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.1);
-          border-radius: 2px;
-        }
-        
-        .carousel-container::-webkit-scrollbar-thumb {
-          background: rgba(139, 109, 91, 0.5);
-          border-radius: 2px;
-        }
-        
-        .carousel-container::-webkit-scrollbar-thumb:hover {
-          background: rgba(139, 109, 91, 0.7);
-        }
-      `}</style>
-
       {/* Líneas decorativas */}
       <div className="absolute inset-x-0 top-0 h-[1px] bg-gray-200" />
       <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gray-200" />
@@ -354,8 +340,11 @@ export default function ProcessFlowSection(): React.ReactElement {
         <div className="relative">
           <div
             ref={carouselRef}
-            className="carousel-container flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4"
-            style={{ scrollbarWidth: 'thin' }}
+            className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4"
+            style={{ 
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'rgba(139, 109, 91, 0.5) transparent'
+            }}
           >
             {processSteps.map((step, index) => (
               <ProcessCard key={step.id} step={step} index={index} />
