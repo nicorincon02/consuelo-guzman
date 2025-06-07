@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronRight, Check } from "lucide-react";
+import { useRegistrationModal } from "./RegistrationModal";
 
 // Definir tipos para mayor seguridad y documentación
 type PlanId = 'basic' | 'standard' | 'premium';
@@ -15,6 +16,7 @@ interface Plan {
 }
 
 export default function PricingSection() {
+  const { openRegistrationModal } = useRegistrationModal();
   const [selectedPlan, setSelectedPlan] = useState<PlanId | null>(null);
   
   const plans: Plan[] = [
@@ -58,7 +60,7 @@ export default function PricingSection() {
   
   const handleSelectPlan = (id: PlanId): void => {
     setSelectedPlan(id);
-    // Aquí podríamos añadir lógica para redirigir a página de pago
+    openRegistrationModal();
   };
 
   return (

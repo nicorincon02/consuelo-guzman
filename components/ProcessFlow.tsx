@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, MessageCircle, Camera, Cloud, Shirt } from "lucide-react";
 import { sectionBackgrounds } from "./sectionBackgrounds";
+import { useRegistrationModal } from "./RegistrationModal";
 import Image from "next/image";
 
 // Interfaces para TypeScript
@@ -23,6 +24,7 @@ interface CarouselControls {
 }
 
 export default function ProcessFlowSection(): React.ReactElement {
+  const { openRegistrationModal } = useRegistrationModal();
   // Estados del componente
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
@@ -381,7 +383,9 @@ export default function ProcessFlowSection(): React.ReactElement {
 
         {/* CTA final */}
         <div className="text-center mt-16">
-          <button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+          <button 
+          onClick={openRegistrationModal} 
+          className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             Comenzar mi Journey con {" "}
             <span 
               style={{ 

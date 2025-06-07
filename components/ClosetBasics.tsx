@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useRegistrationModal } from './RegistrationModal';
 
 // Tipos mejorados y simplificados
 interface ClosetItem {
@@ -23,6 +24,7 @@ interface TooltipProps {
 }
 
 const ClosetBasicsSection = () => {
+  const { openRegistrationModal } = useRegistrationModal();
   const [hoveredItem, setHoveredItem] = useState<ClosetItem | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
@@ -304,7 +306,9 @@ const ClosetBasicsSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+          <button 
+          onClick={openRegistrationModal}
+          className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             Descubre tu Fondo de Closet con <span 
               style={{ 
                 fontFamily: "'Great Vibes', cursive",

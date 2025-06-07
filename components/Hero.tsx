@@ -3,8 +3,11 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, PlayCircle, Send } from "lucide-react";
 import { sectionBackgrounds } from "./sectionBackgrounds";
+import { useRegistrationModal } from "./RegistrationModal";
 
 export default function Hero() {
+
+  const { openRegistrationModal } = useRegistrationModal ();
   // Mensajes más cortos para el chat simulado
   const chatMessages = [
     { 
@@ -197,8 +200,8 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-            <a
-              href="#chat"
+            <button
+              onClick={openRegistrationModal}
               style={{ backgroundColor: "#8A6D5B", color: "#ffffff" }}
               className="inline-flex items-center justify-center font-medium px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition text-lg"
             >
@@ -215,7 +218,7 @@ export default function Hero() {
               >
                 Lia
               </span>
-            </a>
+            </button>
             <a
               href="#demo"
               className="inline-flex items-center justify-center font-medium px-5 py-2.5 rounded-full shadow-sm bg-transparent text-amber-800 border border-amber-800/30 hover:bg-amber-50 transition text-sm"

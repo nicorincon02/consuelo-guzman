@@ -5,8 +5,10 @@ import React, { useState } from "react";
 import { Mail, MessageCircle, MapPin, Clock, Send } from "lucide-react";
 import { FaInstagram, FaYoutube } from "react-icons/fa";
 import { sectionBackgrounds } from "./sectionBackgrounds";
+import { useRegistrationModal } from "./RegistrationModal";
 
 export default function ContactoSection() {
+  const { openRegistrationModal } = useRegistrationModal();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -223,7 +225,9 @@ export default function ContactoSection() {
             Tu primer análisis de estilo es completamente gratuito.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-amber-800 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:bg-amber-700 transition-colors">
+            <button
+            onClick={openRegistrationModal} 
+            className="bg-amber-800 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:bg-amber-700 transition-colors">
               Comenzar gratis
             </button>
             <button className="border-2 border-amber-800 text-amber-800 px-8 py-4 rounded-full font-medium text-lg hover:bg-amber-800 hover:text-white transition-colors">

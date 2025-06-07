@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Great_Vibes } from "next/font/google";
 import "./globals.css";
+import { ModalProvider } from "@/components/RegistrationModal";
 
 // Configuración de Plus Jakarta Sans con múltiples pesos
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -33,7 +34,9 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${plusJakartaSans.variable} ${greatVibes.variable}`}>
       <body className={`${plusJakartaSans.className} antialiased`}>
-        {children}
+        <ModalProvider>
+          {children}
+        </ModalProvider>
       </body>
     </html>
   );
