@@ -222,16 +222,16 @@ export default function ContactoSection() {
           </h3>
           <p className="text-amber-800/80 mb-6 max-w-2xl mx-auto">
             Únete a miles de mujeres que ya descubrieron su mejor versión con LIA. 
-            Tu primer análisis de estilo es completamente gratuito.
+            
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
             onClick={openRegistrationModal} 
             className="bg-amber-800 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:bg-amber-700 transition-colors">
-              Comenzar gratis
+              Comienza ahora
             </button>
             <button className="border-2 border-amber-800 text-amber-800 px-8 py-4 rounded-full font-medium text-lg hover:bg-amber-800 hover:text-white transition-colors">
-              Ver demo
+              Cómo funciona
             </button>
           </div>
         </div>

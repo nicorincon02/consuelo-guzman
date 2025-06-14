@@ -387,7 +387,7 @@ export default function ProcessFlowSection(): React.ReactElement {
           </button>
           
           <p className="text-gray-600 mt-4 text-sm">
-            Sin compromisos • Gratis para empezar • Resultados instantáneos
+            Sin compromisos  • Resultados instantáneos
           </p>
         </div>
       </div>

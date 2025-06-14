@@ -182,7 +182,7 @@ export default function Hero() {
           <div className="grid grid-cols-1 gap-3 my-6 text-left">
             <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
               <h3 className="font-bold text-amber-800 text-lg">Análisis 24/7</h3>
-              <p className="text-sm text-gray-700">Recomendaciones a cualquier hora</p>
+              <p className="text-sm text-gray-700">Recomendaciones a cualquier horaa través de WhatsApp</p>
             </div>
             <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
               <h3 className="font-bold text-amber-800 text-lg">Personalización</h3>
