@@ -4,6 +4,7 @@
   /* Variables esenciales de diseño */
   --page-bg: linear-gradient(135deg, #E2D8CD 0%, #F5F1EC 100%);
   --font-primary: var(--font-plus-jakarta), system-ui, -apple-system, sans-serif;
+  --font-brand: var(--font-playfair-display), serif;
   
   /* Paleta de colores de marca */
   --color-primary-brown: #4B3F36;
@@ -32,7 +33,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  /* REMOVIDO: text-align, letter-spacing que causaban conflictos */
 }
 
 /* Secciones base - sin estilos de layout específicos */
@@ -74,6 +74,29 @@ section {
   .font-jakarta-medium { font-weight: 500; }
   .font-jakarta-semibold { font-weight: 600; }
   .font-jakarta-bold { font-weight: 700; }
+  
+  /* Utilidades para la marca LIA con Playfair Display */
+  .font-brand { font-family: var(--font-brand); }
+  .font-brand-regular { font-family: var(--font-brand); font-weight: 400; }
+  .font-brand-medium { font-family: var(--font-brand); font-weight: 500; }
+  .font-brand-semibold { font-family: var(--font-brand); font-weight: 600; }
+  .font-brand-bold { font-family: var(--font-brand); font-weight: 700; }
+  
+  /* Estilos específicos para el logo LIA */
+  .lia-logo {
+    font-family: var(--font-brand);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 0.9;
+  }
+  
+  .lia-logo-large {
+    font-family: var(--font-brand);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    line-height: 0.8;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
 }
 
 /* ==============================================

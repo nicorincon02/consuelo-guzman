@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { X, User, Mail, MessageCircle, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import Image from 'next/image';
 
 // Context para el modal
 interface ModalContextType {
@@ -186,18 +187,23 @@ const RegistrationModal: React.FC = () => {
                 }}
               >
                 <div className="w-6 h-6 rounded-full border-2 border-gray-600 relative">
-                  <div className="absolute inset-1 border-l border-gray-600 rounded-full transform rotate-12"></div>
+                <Image
+                  src="/LIA-color.png"
+                  alt="LIA Avatar"
+                  width={40}
+                  height={40}
+                  style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                  }}
+                />
                 </div>
               </div>
               <div>
                 <h2 className="text-xl font-bold text-gray-800">
-                  Únete a <span 
-                    style={{ 
-                      fontFamily: "'Great Vibes', cursive",
-                      color: '#8B5A2B'
-                    }}
-                  >
-                    Lia
+                  Únete a <span className='lia-logo'>
+                    LIA
                   </span>
                 </h2>
                 <p className="text-sm text-gray-600">Tu journey de estilo comienza aquí</p>
@@ -231,16 +237,9 @@ const RegistrationModal: React.FC = () => {
             <div className="space-y-4">
               <div className="text-center mb-6">
                 <p className="text-gray-700">
-                  Comienza tu transformación de estilo con 
+                  Comienza tu transformación de estilo con   
                   <span 
-                    className="mx-1"
-                    style={{ 
-                      fontFamily: "'Great Vibes', cursive",
-                      color: '#8B5A2B',
-                      fontSize: '1.1em'
-                    }}
-                  >
-                    Lia
+                    className="lia-logo">  LIA
                   </span>
                   - solo necesitamos estos datos para contactarte
                 </p>
@@ -330,7 +329,9 @@ const RegistrationModal: React.FC = () => {
                     <span>Enviando...</span>
                   </>
                 ) : (
-                  <span>Comenzar con Lia</span>
+                  <span>Comenzar con
+                    <span className='lia-logo'> LIA </span>
+                  </span>
                 )}
               </button>
 

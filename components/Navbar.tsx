@@ -99,16 +99,11 @@ const Navbar = () => {
               <div className="flex-shrink-0">
                 <div className="flex items-center cursor-pointer" onClick={() => handleNavigation('#hero')}>
                   <span className="text-xs text-gray-500 mr-3">Asistente virtual</span>
-                  {/* Aplicando font-family directamente para asegurar que se cargue Great Vibes */}
+                  {/* Logo con Playfair Display */}
                   <span 
-                    className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500"
-                    style={{ 
-                      fontFamily: "'Great Vibes', cursive",
-                      fontWeight: 600,
-                      letterSpacing: '0.02em'
-                    }}
+                    className="text-3xl bg-clip-text lia-logo"
                   >
-                    Lia
+                    LIA
                   </span>
                 </div>
                 <a 
@@ -202,12 +197,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <span className="text-xs text-gray-500 mr-3">Popayán/Colombia</span>
               <span 
-                className="text-xl text-amber-800 cursor-pointer"
-                style={{ 
-                  fontFamily: "'Great Vibes', cursive",
-                  fontWeight: 400,
-                  letterSpacing: '0.01em'
-                }}
+                className="text-xl text-amber-800 cursor-pointer lia-logo"
                 onClick={() => handleNavigation('#hero')}
               >
                 LIA
@@ -252,15 +242,7 @@ const Navbar = () => {
             {/* Welcome message */}
             <div className="p-6">
               <h2 className="text-xl font-bold text-amber-900 mb-4">
-                Bienvenido a <span 
-                  className="text-amber-800"
-                  style={{ 
-                    fontFamily: "'Great Vibes', cursive",
-                    fontWeight: 400
-                  }}
-                >
-                  LIA
-                </span>
+                Bienvenido a <span className="text-amber-800 lia-logo">LIA</span>
               </h2>
               
               {/* Search bar */}
@@ -309,16 +291,7 @@ const Navbar = () => {
             
             {/* Footer del menú móvil */}
             <div className="absolute bottom-0 w-full p-4 bg-white border-t border-amber-200 flex justify-between items-center text-xs text-gray-500">
-              <span 
-                className="text-amber-800"
-                style={{ 
-                  fontFamily: "'Great Vibes', cursive",
-                  fontWeight: 400,
-                  fontSize: '1rem'
-                }}
-              >
-                LIA
-              </span>
+              <span className="text-amber-800 lia-logo text-base">LIA</span>
               <a 
                 href="https://consueloguzman.com" 
                 className="hover:text-amber-800 transition-colors"

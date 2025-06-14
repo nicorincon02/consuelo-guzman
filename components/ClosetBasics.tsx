@@ -197,13 +197,9 @@ const ClosetBasicsSection = () => {
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
             Descubre las prendas esenciales que forman la base de un guardarropa versátil. 
             Con <span 
-              className="font-bold text-amber-600"
-              style={{ 
-                fontFamily: "'Great Vibes', cursive",
-                fontSize: '1.2em'
-              }}
+              className="lia-logo text-xl"
             >
-              Lia
+              LIA
             </span>, aprende a crear infinitas combinaciones con menos piezas.
           </p>
         </div>
@@ -309,13 +305,9 @@ const ClosetBasicsSection = () => {
           <button 
           onClick={openRegistrationModal}
           className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-            Descubre tu Fondo de Closet con <span 
-              style={{ 
-                fontFamily: "'Great Vibes', cursive",
-                fontSize: '1.2em'
-              }}
+            Descubre tu Fondo de Closet con <span className='lia-logo text-xl'
             >
-              Lia
+              LIA
             </span>
           </button>
         </div>

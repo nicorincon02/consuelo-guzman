@@ -284,15 +284,9 @@ export default function ProcessFlowSection(): React.ReactElement {
           
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-800 mb-6">
             Tu Journey con <span 
-              className="bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500"
-              style={{ 
-                fontFamily: "'Great Vibes', cursive",
-                fontWeight: 400,
-                fontSize: '1.2em',
-                letterSpacing: '0.01em'
-              }}
+              className="lia-logo-large"
             >
-              Lia
+              LIA
             </span>
           </h2>
           
@@ -387,15 +381,8 @@ export default function ProcessFlowSection(): React.ReactElement {
           onClick={openRegistrationModal} 
           className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             Comenzar mi Journey con {" "}
-            <span 
-              style={{ 
-                fontFamily: "'Great Vibes', cursive",
-                fontWeight: 400,
-                fontSize: '1.3rem',
-                letterSpacing: '0.01em'
-              }}
-            >
-              Lia
+            <span className="lia-logo text-xl">
+              LIA
             </span>
           </button>
           

@@ -50,15 +50,9 @@ export default function SobreLiaSection() {
         {/* Encabezado principal */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-amber-900 mb-6">
-            Conoce a <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-800 to-amber-500"
-                style={{ 
-                  fontFamily: "'Great Vibes', cursive",
-                  fontWeight: 400,
-                  fontSize: '5rem',
-                  letterSpacing: '0.01em'
-                }}
+            Conoce a <span className="lia-logo-large text-black" 
               >
-                Lia
+                LIA
               </span>
           </h2>
           <p className="text-xl text-amber-800/80 max-w-3xl mx-auto leading-relaxed">
@@ -114,14 +108,8 @@ export default function SobreLiaSection() {
               </p>
             </div>
             <div className="bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl p-8 text-center">
-              <div className="text-6xl font-bold text-amber-800 mb-2"
-              style={{ 
-                fontFamily: "'Great Vibes', cursive",
-                fontWeight: 400,
-                fontSize: '5rem',
-                letterSpacing: '0.01em'
-              }}
-              >Lia</div>
+              <div className="bg-clip-text lia-logo text-6xl"
+              >LIA</div>
               <div className="text-amber-700 text-lg font-medium">
                 Love, Intelligence & Authenticity
               </div>

@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Great_Vibes } from "next/font/google";
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ModalProvider } from "@/components/RegistrationModal";
 
@@ -12,12 +12,12 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",  
 });
 
-// Configuración de Great Vibes para la marca LIA
-const greatVibes = Great_Vibes({
+// Configuración de Playfair Display para la marca LIA
+const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400"], // Great Vibes solo tiene peso 400
-  variable: "--font-great-vibes",
+  weight: ["400", "500", "600", "700"], // Pesos disponibles
+  variable: "--font-playfair-display",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${plusJakartaSans.variable} ${greatVibes.variable}`}>
+    <html lang="es" className={`${plusJakartaSans.variable} ${playfairDisplay.variable}`}>
       <body className={`${plusJakartaSans.className} antialiased`}>
         <ModalProvider>
           {children}
