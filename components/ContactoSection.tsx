@@ -76,7 +76,10 @@ export default function ContactoSection() {
                   <p className="text-amber-800/80 text-sm">
                     La forma más rápida de obtener respuestas. Disponible 24/7.
                   </p>
-                  <button className="text-amber-700 font-medium text-sm mt-2 hover:text-amber-600 transition-colors">
+                  <button 
+                  onClick={openRegistrationModal}
+                  className="text-amber-700 font-medium text-sm mt-2 hover:text-amber-600 transition-colors">
+                     
                     Iniciar chat →
                   </button>
                 </div>
@@ -230,9 +233,11 @@ export default function ContactoSection() {
             className="bg-amber-800 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:bg-amber-700 transition-colors">
               Comienza ahora
             </button>
-            <button className="border-2 border-amber-800 text-amber-800 px-8 py-4 rounded-full font-medium text-lg hover:bg-amber-800 hover:text-white transition-colors">
+            <a
+              href="#process-flow"
+              className="border-2 border-amber-800 text-amber-800 px-8 py-4 rounded-full font-medium text-lg hover:bg-amber-800 hover:text-white transition-colors">
               Cómo funciona
-            </button>
+            </a>
           </div>
         </div>
 
@@ -248,7 +253,7 @@ export default function ContactoSection() {
             <div>
               <h4 className="font-bold text-amber-900 mb-3">Enlaces rápidos</h4>
               <ul className="space-y-2 text-sm text-amber-800/70">
-                <li><a href="#servicios" className="hover:text-amber-700">Servicios</a></li>
+                <li><a href="#pricing" className="hover:text-amber-700">Servicios</a></li>
                 <li><a href="#sobre-lia" className="hover:text-amber-700">Sobre LIA</a></li>
                 <li><a href="https://consueloguzman.com/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-700">Consuelo Guzmán</a></li>
               </ul>

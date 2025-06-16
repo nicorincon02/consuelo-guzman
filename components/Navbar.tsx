@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Search } from 'lucide-react';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import Image from 'next/image';
 
 // Definir interfaces para TypeScript
 interface NavLinkSubmenu {
@@ -94,21 +95,39 @@ const Navbar = () => {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo y Ubicación */}
+            {/* Logo y Brand */}
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="flex items-center cursor-pointer" onClick={() => handleNavigation('#hero')}>
-                  <span className="text-xs text-gray-500 mr-3">Asistente virtual</span>
-                  {/* Logo con Playfair Display */}
-                  <span 
-                    className="text-3xl bg-clip-text lia-logo"
-                  >
-                    LIA
-                  </span>
+                <div 
+                  className="flex items-center cursor-pointer group" 
+                  onClick={() => handleNavigation('#hero')}
+                >
+                  {/* Contenedor del logo con texto descriptivo */}
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xs text-gray-500">Asistente virtual</span>
+                    
+                    {/* Logo y nombre combinados */}
+                    <div className="flex items-center">
+                      <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+                        <Image
+                          src="/LIA-color.png"
+                          alt="LIA - Asistente Virtual de Moda"
+                          fill
+                          className="object-contain"
+                          priority
+                        />
+                      </div>
+                      <span className="text-3xl lia-logo transition-colors duration-300 group-hover:text-amber-700">
+                        LIA
+                      </span>
+                    </div>
+                  </div>
                 </div>
+                
+                {/* Crédito del creador */}
                 <a 
                   href="https://consueloguzman.com/" 
-                  className="text-xs text-gray-600 ml-6 hover:text-amber-800 transition-colors cursor-pointer"
+                  className="text-xs text-gray-600 ml-16 hover:text-amber-800 transition-colors cursor-pointer"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -193,15 +212,25 @@ const Navbar = () => {
         <div className="fixed inset-0 z-50 md:hidden">
           {/* Header del menú */}
           <div className="bg-white p-4 flex items-center justify-between shadow-md">
-            {/* Logo */}
+            {/* Logo móvil */}
             <div className="flex items-center">
               <span className="text-xs text-gray-500 mr-3">Popayán/Colombia</span>
-              <span 
-                className="text-xl text-amber-800 cursor-pointer lia-logo"
+              <div 
+                className="flex items-center cursor-pointer space-x-2"
                 onClick={() => handleNavigation('#hero')}
               >
-                LIA
-              </span>
+                <div className="relative w-8 h-8">
+                  <Image
+                    src="/LIA-color.png"
+                    alt="LIA Logo"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-xl text-amber-800 lia-logo">
+                  LIA
+                </span>
+              </div>
             </div>
             
             {/* Botón de cerrar */}
@@ -289,9 +318,19 @@ const Navbar = () => {
               </nav>
             </div>
             
-            {/* Footer del menú móvil */}
+            {/* Footer del menú móvil con logo */}
             <div className="absolute bottom-0 w-full p-4 bg-white border-t border-amber-200 flex justify-between items-center text-xs text-gray-500">
-              <span className="text-amber-800 lia-logo text-base">LIA</span>
+              <div className="flex items-center space-x-2">
+                <div className="relative w-4 h-4">
+                  <Image
+                    src="/LIA-color.png"
+                    alt="LIA Logo"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-amber-800 lia-logo text-base">LIA</span>
+              </div>
               <a 
                 href="https://consueloguzman.com" 
                 className="hover:text-amber-800 transition-colors"

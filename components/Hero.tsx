@@ -5,6 +5,9 @@ import { MessageCircle, PlayCircle, Send } from "lucide-react";
 import { sectionBackgrounds } from "./sectionBackgrounds";
 import { useRegistrationModal } from "./RegistrationModal";
 import Image from "next/image";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaCirclePlay } from "react-icons/fa6";
+
 export default function Hero() {
 
   const { openRegistrationModal } = useRegistrationModal ();
@@ -154,7 +157,7 @@ export default function Hero() {
       <div className="w-full max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-between">
         
         {/* Texto + CTA - Con clases específicas */}
-        <div className="hero-text-content relative z-10 max-w-md text-center lg:text-left space-y-4">
+        <div className="hero-text-content relative z-10 max-w-2xl text-center lg:text-left space-y-4">
           <h1
             style={{ color: "#4B3F36" }}
             className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
@@ -168,7 +171,7 @@ export default function Hero() {
             >
               LIA
             </span>
-            <span className="mt-2 block">Tu asistente personal de estilo</span>
+            <span className="mt-2 block">Tu asistente personal de estilo en WhatsApp </span>
           </h1>
           
           <p
@@ -201,7 +204,7 @@ export default function Hero() {
               style={{ backgroundColor: "#8A6D5B", color: "#ffffff" }}
               className="inline-flex items-center justify-center font-medium px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition text-lg"
             >
-              <MessageCircle className="w-5 h-5 mr-2" />
+              <FaWhatsapp className="w-5 h-5 mr-2" />
               Habla con{" "}
               <span 
                 className="ml-1 lia-logo text-xl"
@@ -210,10 +213,10 @@ export default function Hero() {
               </span>
             </button>
             <a
-              href="#demo"
+              href="#"
               className="inline-flex items-center justify-center font-medium px-5 py-2.5 rounded-full shadow-sm bg-transparent text-amber-800 border border-amber-800/30 hover:bg-amber-50 transition text-sm"
             >
-              <PlayCircle className="w-4 h-4 mr-2" />
+              <FaCirclePlay className="w-4 h-4 mr-2" />
               Ver cómo funciona
             </a>
           </div>
@@ -281,7 +284,7 @@ export default function Hero() {
               <div style={{
                 width: '40px',
                 height: '40px',
-                backgroundColor: '#25D366',
+                backgroundColor: '#a6716c',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
@@ -328,14 +331,16 @@ export default function Hero() {
                 </svg>
               </div>
             </div>
-
+            
             {/* Fondo de mensajes */}
             <div 
               style={{
                 height: '460px',
                 overflowY: 'auto',
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23e5ddd5" fill-opacity="0.1"%3E%3Cpath d="M0 0h40v40H0z"/%3E%3Cpath d="M20 20c0-11.046-8.954-20-20-20v40c11.046 0 20-8.954 20-20z"/%3E%3C/g%3E%3C/svg%3E")',
-                backgroundColor: '#E5DDD5',
+                backgroundImage: 'url("/whatsapp-background.png")',
+                backgroundSize: 'cover', // Mantiene el tamaño original para repetir como patrón
+                backgroundPosition: 'center',
+                backgroundColor: '#E5DDD5', // Fallback si no carga la imagen
                 padding: '16px',
                 display: 'flex',
                 flexDirection: 'column',

@@ -13,8 +13,8 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
-      <PricingSection />
       <ProcessFlowSection />
+      <PricingSection />
       <ClosetBasicsSection />
       <SobreLiaSection />
       <ContactoSection />

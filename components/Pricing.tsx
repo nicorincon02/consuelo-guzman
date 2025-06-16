@@ -32,14 +32,10 @@ export default function PricingSection() {
       'Análisis completo de tu armario actual',
       'Recomendaciones de outfits personalizadas',
       'Asesoría de colorimetría y morfología',
-      'Guía de compras inteligentes',
       'Soporte 24/7 por WhatsApp',
-      'Creación de looks',
-      'Tips de combinaciones diarias',
       'Análisis de ocasiones especiales'
     ],
     highlights: [
-      'Todo incluido',
       'Sin restricciones',
       'Respaldado por profesionales'
     ]
@@ -201,8 +197,15 @@ export default function PricingSection() {
                       className="text-4xl font-bold mb-4 flex items-center justify-center gap-3"
                       style={{ color: '#2C2C2C' }}
                     >
-                      <Gem className="w-10 h-10 luxury-text-gradient" />
-                      <span className="luxury-text-gradient">{plan.name}</span>
+                      {/* 🎯 AQUÍ ESTÁ LA IMPLEMENTACIÓN */}
+                      {plan.name.includes('LIA') ? (
+                        <>
+                          <span className="lia-logo text-5xl luxury-text-gradient">{plan.name.split('  ')[0]}</span>
+                          <span className="luxury-text-gradient">{'  ' + plan.name.split('  ').slice(1).join('  ')}</span>
+                        </>
+                      ) : (
+                        <span className="luxury-text-gradient">{plan.name}</span>
+                      )}
                     </h3>
                     
                     <div className="mb-6">
@@ -304,7 +307,7 @@ export default function PricingSection() {
                       e.currentTarget.style.color = '#fff';
                     }}
                   >
-                    🌟 Activar LIA Esencial 🌟
+                    🌟 Activar <span className="lia-logo">LIA</span> Esencial 🌟
                   </button>
                   
                   {/* Información adicional */}
@@ -359,10 +362,10 @@ export default function PricingSection() {
             {/* Call to action final */}
             <div className="mt-16 text-center">
               <a 
-                href="#como-funciona" 
+                href="#process-flow" 
                 className="inline-flex items-center text-xl text-white font-bold hover:underline transition-all duration-300 luxury-text-gradient hover:scale-105"
               >
-                ✨ Descubre la magia de LIA ✨ <ChevronRight className="ml-2 w-6 h-6" />
+                ✨ Descubre la magia de  <span className="lia-logo"> LIA </span> ✨ <ChevronRight className="ml-2 w-6 h-6" />
               </a>
             </div>
           </div>

@@ -7,8 +7,8 @@ import { sectionBackgrounds } from "./sectionBackgrounds";
 
 export default function SobreLiaSection() {
   const estadisticas = [
-    { numero: "10,000+", descripcion: "Usuarios activos" },
-    { numero: "50,000+", descripcion: "Looks creados" },
+    { numero: "500+", descripcion: "Usuarios activos" },
+    { numero: "10,000+", descripcion: "Looks creados" },
     { numero: "95%", descripcion: "Satisfacción" },
     { numero: "24/7", descripcion: "Disponibilidad" }
   ];

@@ -1,0 +1,73 @@
+{
+  "name": "LIA - Asistente Virtual de Moda",
+  "short_name": "LIA",
+  "description": "Tu asistente personal de moda impulsado por IA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F1EC",
+  "theme_color": "#8A6D5B",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "es",
+  "categories": ["lifestyle", "fashion", "shopping"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chat con LIA",
+      "short_name": "Chat",
+      "description": "Inicia una conversación con LIA",
+      "url": "/#hero",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Ver Planes",
+      "short_name": "Planes",
+      "description": "Explora nuestros planes de servicio",
+      "url": "/#pricing",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
