@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Search } from 'lucide-react';
-import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaYoutube, FaTiktok  } from 'react-icons/fa';
 import Image from 'next/image';
 
 // Definir interfaces para TypeScript
@@ -69,7 +69,7 @@ const Navbar = () => {
       href: '#hero'
     },
     { 
-      title: 'Planes y servicios', 
+      title: 'LIA esencial', 
       hasSubmenu: false,
       href: '#pricing'
     },
@@ -81,7 +81,7 @@ const Navbar = () => {
     { 
       title: 'Consuelo Guzmán', 
       hasSubmenu: false,
-      href: 'https://consueloguzman.com/'
+      href: 'https://consueloguzman.com/sobre-mi/'
     },
     { 
       title: 'Contacto', 
@@ -95,44 +95,47 @@ const Navbar = () => {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo y Brand */}
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <div 
-                  className="flex items-center cursor-pointer group" 
-                  onClick={() => handleNavigation('#hero')}
-                >
-                  {/* Contenedor del logo con texto descriptivo */}
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs text-gray-500">Asistente virtual</span>
-                    
-                    {/* Logo y nombre combinados */}
-                    <div className="flex items-center">
-                      <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
-                        <Image
-                          src="/LIA-color.png"
-                          alt="LIA - Asistente Virtual de Moda"
-                          fill
-                          className="object-contain"
-                          priority
-                        />
-                      </div>
-                      <span className="text-3xl lia-logo transition-colors duration-300 group-hover:text-amber-700">
-                        LIA
-                      </span>
-                    </div>
-                  </div>
+            
+            {/* Sección izquierda: Brand completo en una línea */}
+            <div className="flex items-center space-x-4">
+              <div 
+                className="flex items-center cursor-pointer group space-x-3" 
+                onClick={() => handleNavigation('#hero')}
+              >
+                {/* Texto descriptivo */}
+                <span className="text-xs text-gray-500 hidden sm:block">
+                  Asistente virtual
+                </span>
+                
+                {/* Logo */}
+                <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform duration-300 group-hover:scale-110">
+                  <Image
+                    src="/LIA-color.png"
+                    alt="LIA - Asistente Virtual de Moda"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
                 </div>
                 
+                {/* Nombre LIA */}
+                <span className="text-2xl sm:text-3xl lia-logo transition-colors duration-300 group-hover:text-amber-700">
+                  LIA
+                </span>
+                
                 {/* Crédito del creador */}
-                <a 
-                  href="https://consueloguzman.com/" 
-                  className="text-xs text-gray-600 ml-16 hover:text-amber-800 transition-colors cursor-pointer"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  By Consuelo Guzmán
-                </a>
+                <span className="text-xs text-gray-600 hidden lg:block">
+                  By{" "}
+                  <a 
+                    href="https://consueloguzman.com/" 
+                    className="hover:text-amber-800 transition-colors underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Consuelo Guzmán
+                  </a>
+                </span>
               </div>
             </div>
 
@@ -169,10 +172,10 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Botones de Navbar Mobile y Desktop */}
-            <div className="flex items-center">
+            {/* Sección derecha: Controles */}
+            <div className="flex items-center space-x-3">
               {/* Botón de Menú (solo móvil) */}
-              <div className="md:hidden mr-2">
+              <div className="md:hidden">
                 <button
                   onClick={() => setIsOpen(true)}
                   className="rounded-full bg-amber-100 px-4 py-1 text-amber-900 font-medium text-sm hover:bg-amber-200 transition-colors focus:outline-none"
@@ -181,25 +184,34 @@ const Navbar = () => {
                 </button>
               </div>
               
-              {/* Iconos sociales (ambas vistas) */}
-              <div className="flex items-center space-x-2">
+              {/* Iconos sociales */}
+              <div className="flex items-center space-x-1">
+                <a 
+                  href="https://www.tiktok.com/@consueloguzmanoficial" 
+                  className="text-gray-700 hover:text-amber-800 p-2 transition-colors rounded-full hover:bg-amber-50"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Síguenos en TikTok"
+                >
+                  <FaTiktok className="h-4 w-4" />
+                </a>
                 <a 
                   href="https://www.instagram.com/consueloguzmanoficial/" 
-                  className="text-gray-700 hover:text-amber-800 p-1 transition-colors"
+                  className="text-gray-700 hover:text-amber-800 p-2 transition-colors rounded-full hover:bg-amber-50"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Síguenos en Instagram"
                 >
-                  <FaInstagram className="h-5 w-5" />
+                  <FaInstagram className="h-4 w-4" />
                 </a>
                 <a 
                   href="https://www.youtube.com/@consuelopersonalshop" 
-                  className="text-gray-700 hover:text-amber-800 p-1 transition-colors"
+                  className="text-gray-700 hover:text-amber-800 p-2 transition-colors rounded-full hover:bg-amber-50"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Suscríbete a nuestro canal de YouTube"
                 >
-                  <FaYoutube className="h-5 w-5" />
+                  <FaYoutube className="h-4 w-4" />
                 </a>
               </div>
             </div>
@@ -207,19 +219,19 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Menú móvil fullscreen - se superpone en la pantalla */}
+      {/* Menú móvil fullscreen */}
       {isOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
-          {/* Header del menú */}
+          {/* Header del menú móvil */}
           <div className="bg-white p-4 flex items-center justify-between shadow-md">
-            {/* Logo móvil */}
-            <div className="flex items-center">
-              <span className="text-xs text-gray-500 mr-3">Popayán/Colombia</span>
+            {/* Logo móvil - también en una línea */}
+            <div className="flex items-center space-x-2">
+              <span className="text-xs text-gray-500">Popayán, Colombia</span>
               <div 
                 className="flex items-center cursor-pointer space-x-2"
                 onClick={() => handleNavigation('#hero')}
               >
-                <div className="relative w-8 h-8">
+                <div className="relative w-6 h-6">
                   <Image
                     src="/LIA-color.png"
                     alt="LIA Logo"
@@ -227,54 +239,60 @@ const Navbar = () => {
                     className="object-contain"
                   />
                 </div>
-                <span className="text-xl text-amber-800 lia-logo">
+                <span className="text-lg text-amber-800 lia-logo">
                   LIA
                 </span>
               </div>
             </div>
             
-            {/* Botón de cerrar */}
-            <div className="flex items-center">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="rounded-full border border-gray-300 px-4 py-1 text-gray-700 text-sm font-medium hover:bg-gray-100 transition-colors focus:outline-none"
-              >
-                Cerrar
-              </button>
-              
-              {/* Iconos sociales */}
-              <div className="ml-2 flex items-center space-x-2">
+            {/* Controles de cierre */}
+            <div className="flex items-center space-x-2">
+              {/* Iconos sociales móviles */}
+              <div className="flex items-center space-x-1">
                 <a 
                   href="https://www.instagram.com/consueloguzmanoficial/" 
                   className="text-gray-700 hover:text-amber-800 p-1 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Síguenos en Instagram"
+                  aria-label="Instagram"
                 >
-                  <FaInstagram className="h-5 w-5" />
+                  <FaInstagram className="h-4 w-4" />
                 </a>
                 <a 
                   href="https://www.youtube.com/@consuelopersonalshop" 
                   className="text-gray-700 hover:text-amber-800 p-1 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Suscríbete a nuestro canal de YouTube"
+                  aria-label="YouTube"
                 >
-                  <FaYoutube className="h-5 w-5" />
+                  <FaYoutube className="h-4 w-4" />
                 </a>
               </div>
+              
+              {/* Botón de cerrar */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="rounded-full border border-gray-300 px-3 py-1 text-gray-700 text-sm font-medium hover:bg-gray-100 transition-colors focus:outline-none"
+              >
+                Cerrar
+              </button>
             </div>
           </div>
           
           {/* Contenido principal del menú móvil */}
           <div className="h-full overflow-y-auto bg-amber-50">
-            {/* Welcome message */}
             <div className="p-6">
+              {/* Bienvenida */}
               <h2 className="text-xl font-bold text-amber-900 mb-4">
                 Bienvenido a <span className="text-amber-800 lia-logo">LIA</span>
               </h2>
               
-              {/* Search bar */}
+              {/* Crédito visible en móvil */}
+              <p className="text-sm text-amber-700 mb-6">
+                By <span className="font-medium">Consuelo Guzmán</span>
+              </p>
+              
+              {/* Barra de búsqueda */}
               <div className="relative w-full mb-8">
                 <input
                   type="text"
@@ -286,7 +304,7 @@ const Navbar = () => {
                 </button>
               </div>
               
-              {/* Menu links */}
+              {/* Enlaces de navegación */}
               <nav className="space-y-1">
                 {navLinks.map((link, index) => (
                   <div key={index} className="border-b border-amber-200 py-3">
@@ -318,7 +336,7 @@ const Navbar = () => {
               </nav>
             </div>
             
-            {/* Footer del menú móvil con logo */}
+            {/* Footer del menú móvil */}
             <div className="absolute bottom-0 w-full p-4 bg-white border-t border-amber-200 flex justify-between items-center text-xs text-gray-500">
               <div className="flex items-center space-x-2">
                 <div className="relative w-4 h-4">
@@ -329,7 +347,7 @@ const Navbar = () => {
                     className="object-contain"
                   />
                 </div>
-                <span className="text-amber-800 lia-logo text-base">LIA</span>
+                <span className="text-amber-800 lia-logo text-sm">LIA</span>
               </div>
               <a 
                 href="https://consueloguzman.com" 
