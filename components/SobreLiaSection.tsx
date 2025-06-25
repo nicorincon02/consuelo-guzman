@@ -4,33 +4,34 @@
 import React from "react";
 import { Brain, Heart, Star, Zap } from "lucide-react";
 import { sectionBackgrounds } from "./sectionBackgrounds";
+import Image from "next/image";
 
 export default function SobreLiaSection() {
   const estadisticas = [
     { numero: "500+", descripcion: "Usuarios activos" },
-    { numero: "10,000+", descripcion: "Looks creados" },
+    { numero: "5,000+", descripcion: "Looks creados" },
     { numero: "95%", descripcion: "Satisfacción" },
     { numero: "24/7", descripcion: "Disponibilidad" }
   ];
 
   const caracteristicas = [
     {
-      icon: <Brain className="h-8 w-8 text-amber-800" />,
+      icon: <Brain className="h-8 w-8 text-stone-200" />,
       title: "Inteligencia Artificial Avanzada",
       description: "LIA utiliza algoritmos de deep learning para entender tu estilo único y preferencias personales."
     },
     {
-      icon: <Heart className="h-8 w-8 text-amber-800" />,
+      icon: <Heart className="h-8 w-8 text-stone-200" />,
       title: "Enfoque Personal",
       description: "Cada recomendación está diseñada específicamente para ti, considerando tu tipo de cuerpo, estilo de vida y presupuesto."
     },
     {
-      icon: <Star className="h-8 w-8 text-amber-800" />,
-      title: "Expertise en Moda",
-      description: "Respaldado por años de experiencia de Consuelo Guzmán en asesoría de imagen y personal shopping."
+      icon: <Star className="h-8 w-8 text-stone-200" />,
+      title: "Personal Shopper",
+      description: "Respaldado por 16 años de experiencia de Consuelo Guzmán en asesoría de imagen y personal shopping."
     },
     {
-      icon: <Zap className="h-8 w-8 text-amber-800" />,
+      icon: <Zap className="h-8 w-8 text-stone-200" />,
       title: "Resultados Instantáneos",
       description: "Obtén respuestas y sugerencias al instante. No más dudas frente al espejo cada mañana."
     }
@@ -49,13 +50,13 @@ export default function SobreLiaSection() {
       <div className="max-w-6xl mx-auto">
         {/* Encabezado principal */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-amber-900 mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6" style={{ color: '#4B3F36' }}>
             Conoce a <span className="lia-logo-large text-black" 
               >
                 LIA
               </span>
           </h2>
-          <p className="text-xl text-amber-800/80 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl max-w-3xl mx-auto leading-relaxed" style={{color:'#4a3f37'}}>
             LIA es más que un asistente virtual de moda. Es tu compañera personal en el journey hacia un estilo auténtico y confiado. Combina la experiencia humana en moda con la precisión de la inteligencia artificial.
           </p>
         </div>
@@ -64,7 +65,7 @@ export default function SobreLiaSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {estadisticas.map((stat, index) => (
             <div key={index} className="text-center bg-white/60 rounded-xl p-6 shadow-sm">
-              <div className="text-3xl font-bold text-amber-900 mb-2">
+              <div className="text-3xl font-bold mb-2" style={{color:"#bf7c4c"}}>
                 {stat.numero}
               </div>
               <div className="text-amber-800/70 text-sm">
@@ -78,11 +79,11 @@ export default function SobreLiaSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {caracteristicas.map((caracteristica, index) => (
             <div key={index} className="flex items-start space-x-4">
-              <div className="flex-shrink-0 bg-amber-100 p-3 rounded-lg">
+              <div className="flex-shrink-0 p-3 rounded-lg" style={{background:'#8a6d5b'}}>
                 {caracteristica.icon}
               </div>
               <div>
-                <h3 className="text-lg font-bold text-amber-900 mb-2">
+                <h3 className="text-lg font-bold mb-2" style={{color:"#8a6d5b"}}>
                   {caracteristica.title}
                 </h3>
                 <p className="text-amber-800/80">
@@ -101,7 +102,7 @@ export default function SobreLiaSection() {
                 Nuestra Misión
               </h3>
               <p className="text-amber-800/80 mb-4">
-                Democratizar el acceso a asesoría de imagen de calidad. Creemos que todos merecen sentirse seguros y auténticos con su estilo personal, sin importar su presupuesto o ubicación.
+                Democratizar el acceso a la asesoría de imagen de calidad a todas las mujeres que merecen sentirse seguras y auténticas con su imagen y estilo personal, sacándole el máximo partido a su belleza y a su armario haciendo compras efectivas.
               </p>
               <p className="text-amber-800/80">
                 LIA nació de la visión de Consuelo Guzmán de llevar su expertise en moda a miles de personas, combinando el toque humano con la eficiencia de la tecnología.

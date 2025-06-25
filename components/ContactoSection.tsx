@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import { Mail, MessageCircle, MapPin, Clock, Send } from "lucide-react";
-import { FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 import { sectionBackgrounds } from "./sectionBackgrounds";
 import { useRegistrationModal } from "./RegistrationModal";
 
@@ -44,10 +44,10 @@ export default function ContactoSection() {
       <div className="max-w-6xl mx-auto">
         {/* Encabezado */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-amber-900 mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ color: '#4B3F36' }}>
             Contáctanos
           </h2>
-          <p className="text-lg text-amber-800/80 max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{color:'#4a3f37'}}>
             ¿Tienes preguntas sobre LIA? ¿Necesitas ayuda personalizada? Estamos aquí para ti.
           </p>
         </div>
@@ -68,8 +68,8 @@ export default function ContactoSection() {
             {/* Métodos de contacto */}
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
-                <div className="bg-amber-100 p-3 rounded-lg">
-                  <MessageCircle className="h-6 w-6 text-amber-800" />
+                <div className="bg-amber-100 p-3 rounded-lg" style={{background:'#8a6d5b'}}>
+                  <MessageCircle className="h-6 w-6 text-stone-200" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-amber-900 mb-1">Chat con LIA</h4>
@@ -86,8 +86,8 @@ export default function ContactoSection() {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="bg-amber-100 p-3 rounded-lg">
-                  <Mail className="h-6 w-6 text-amber-800" />
+                <div className="p-3 rounded-lg" style={{background:'#8a6d5b'}}>
+                  <Mail className="h-6 w-6 text-stone-200" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-amber-900 mb-1">Email</h4>
@@ -104,8 +104,8 @@ export default function ContactoSection() {
               </div>
 
               <div className="flex items-start space-x-4">
-                <div className="bg-amber-100 p-3 rounded-lg">
-                  <Clock className="h-6 w-6 text-amber-800" />
+                <div className="p-3 rounded-lg" style={{background:'#8a6d5b'}}>
+                  <Clock className="h-6 w-6 text-stone-200" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-amber-900 mb-1">Horarios</h4>
@@ -124,22 +124,31 @@ export default function ContactoSection() {
               <h4 className="font-semibold text-amber-900 mb-4">Síguenos</h4>
               <div className="flex space-x-4">
                 <a 
+                    href="https://www.tiktok.com/@consueloguzmanoficial" 
+                    className="p-3 rounded-lg text-amber-800 hover:text-gray-200 hover:bg-amber-900 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Síguenos en TikTok"
+                  >
+                    <FaTiktok className="h-6 w-6" />
+                  </a>
+                <a 
                   href="https://www.instagram.com/consueloguzmanoficial/" 
-                  className="bg-amber-100 p-3 rounded-lg hover:bg-amber-200 transition-colors"
+                  className="p-3 rounded-lg text-amber-800 hover:text-gray-200 hover:bg-amber-900 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Síguenos en Instagram"
                 >
-                  <FaInstagram className="h-6 w-6 text-amber-800" />
+                  <FaInstagram className="h-6 w-6" />
                 </a>
                 <a 
                   href="https://www.youtube.com/@consuelopersonalshop" 
-                  className="bg-amber-100 p-3 rounded-lg hover:bg-amber-200 transition-colors"
+                  className="p-3 rounded-lg text-amber-800 hover:text-gray-200 hover:bg-amber-900 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Suscríbete a nuestro canal de YouTube"
                 >
-                  <FaYoutube className="h-6 w-6 text-amber-800" />
+                  <FaYoutube className="h-6 w-6" />
                 </a>
               </div>
             </div>
@@ -162,7 +171,7 @@ export default function ContactoSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 transition-colors"
+                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 transition-colors"
                   placeholder="Tu nombre"
                   required
                 />
@@ -178,7 +187,7 @@ export default function ContactoSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 transition-colors"
+                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 transition-colors"
                   placeholder="tu@email.com"
                   required
                 />
@@ -194,7 +203,7 @@ export default function ContactoSection() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className="w-full px-4 py-3 border border-amber-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 resize-none transition-colors"
+                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 resize-none transition-colors"
                   placeholder="Cuéntanos cómo podemos ayudarte..."
                   required
                 />
@@ -209,8 +218,8 @@ export default function ContactoSection() {
               </button>
             </form>
 
-            <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-200">
-              <p className="text-sm text-amber-800">
+            <div className="mt-6 p-4 rounded-lg" style={{background:'#8a6d5b'}}>
+              <p className="text-sm text-stone-200">
                 <strong>Respuesta garantizada:</strong> Te responderemos en máximo 24 horas. 
                 Para asistencia inmediata, usa el chat con LIA.
               </p>
@@ -219,7 +228,7 @@ export default function ContactoSection() {
         </div>
 
         {/* CTA final */}
-        <div className="text-center mt-16 bg-gradient-to-r from-amber-100 to-amber-200 rounded-2xl p-8">
+        <div className="text-center mt-16 rounded-2xl p-8">
           <h3 className="text-2xl font-bold text-amber-900 mb-4">
             ¿Lista para transformar tu estilo?
           </h3>

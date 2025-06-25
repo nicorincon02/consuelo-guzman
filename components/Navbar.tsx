@@ -250,6 +250,15 @@ const Navbar = () => {
               {/* Iconos sociales móviles */}
               <div className="flex items-center space-x-1">
                 <a 
+                  href="https://www.tiktok.com/@consueloguzmanoficial" 
+                  className="text-gray-700 hover:text-amber-800 p-2 transition-colors rounded-full hover:bg-amber-50"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Síguenos en TikTok"
+                >
+                  <FaTiktok className="h-4 w-4" />
+                </a>
+                <a 
                   href="https://www.instagram.com/consueloguzmanoficial/" 
                   className="text-gray-700 hover:text-amber-800 p-1 transition-colors"
                   target="_blank"

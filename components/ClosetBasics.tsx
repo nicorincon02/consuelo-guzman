@@ -273,7 +273,7 @@ const ClosetBasicsSection = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-sm" style={{ color: liaColors.dark }}>
-            Tu <span style={{ color: liaColors.brown }}>Fondo de Closet</span>
+            Tu <span style={{ color: liaColors.brown }}>Fondo de Armario</span>
           </h2>
           
           <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: `${liaColors.dark}E6` }}>
@@ -474,7 +474,7 @@ const ClosetBasicsSection = () => {
               e.currentTarget.style.boxShadow = '0 10px 15px rgba(75, 63, 54, 0.15)';
             }}
           >
-            Descubre tu Fondo de Closet con <span className='lia-logo text-xl'>
+            Descubre tu Fondo de armario con <span className='lia-logo text-xl'>
               LIA
             </span>
           </button>

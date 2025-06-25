@@ -27,17 +27,15 @@ export default function PricingSection() {
     name: 'LIA Esencial',
     price: '$35.000',
     period: 'COP/mes',
-    badge: 'Plan Exclusivo',
     features: [
-      'Análisis completo de tu armario actual',
-      'Recomendaciones de outfits personalizadas',
-      'Asesoría de colorimetría y morfología',
-      'Soporte 24/7 por WhatsApp',
-      'Análisis de ocasiones especiales'
+      'Análisis de estilo, visagismo, morfología y colorimetria',
+      'Recomendaciones de 7 outfits semanales desde tu armario',
+      'Propuestas personalizadas de compras de prendas y accesorios',
+      'Respuesta a preguntas de estilo e imagen personal',
+      'Servicio 24/7 por WhatsApp'
     ],
     highlights: [
-      'Sin restricciones',
-      'Respaldado por profesionales'
+      'Respaldado por Consuelo Guzmán'
     ]
   };
   
@@ -115,48 +113,8 @@ export default function PricingSection() {
 
       <section
         id="pricing"
-        className="relative overflow-hidden w-full min-h-screen flex items-center"
-        style={{ 
-          background: 'radial-gradient(ellipse at center, #1a1a1a 0%, #000000 70%, #0a0a0a 100%)'
-        }}
-      >
-        {/* Efectos de escarcha y elementos flotantes */}
-        <div className="sparkle-bg">
-          {[...Array(10)].map((_, i) => (
-            <div key={i} className="sparkle">
-              <Sparkles className="w-4 h-4" />
-            </div>
-          ))}
-        </div>
+        className="relative overflow-hidden w-full min-h-screen flex items-center">
 
-        {/* Gemas flotantes */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="floating-gem absolute top-20 left-10" style={{ color: '#FFD700' }}>
-            <Gem className="w-8 h-8 opacity-30" />
-          </div>
-          <div className="floating-gem absolute top-40 right-20" style={{ color: '#FFA500' }}>
-            <Star className="w-6 h-6 opacity-40" />
-          </div>
-          <div className="floating-gem absolute bottom-32 left-1/4" style={{ color: '#FF8C00' }}>
-            <Crown className="w-10 h-10 opacity-25" />
-          </div>
-          <div className="floating-gem absolute top-60 right-1/3" style={{ color: '#D4A574' }}>
-            <Sparkles className="w-7 h-7 opacity-35" />
-          </div>
-          <div className="floating-gem absolute bottom-20 right-10" style={{ color: '#FFD700' }}>
-            <Gem className="w-5 h-5 opacity-30" />
-          </div>
-        </div>
-
-        {/* Líneas doradas */}
-        <div 
-          className="absolute inset-x-0 top-0 h-[2px]" 
-          style={{ background: 'linear-gradient(90deg, transparent, #FFD700, transparent)' }}
-        />
-        <div 
-          className="absolute inset-x-0 bottom-0 h-[2px]" 
-          style={{ background: 'linear-gradient(90deg, transparent, #FFD700, transparent)' }}
-        />
 
         {/* Contenido principal */}
         <div className="relative z-20 px-6 lg:px-16 py-12 md:py-16 lg:py-24 w-full">
@@ -165,11 +123,11 @@ export default function PricingSection() {
             {/* Header dramático */}
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-3 mb-6">
-                <Crown className="w-8 h-8" style={{ color: '#FFD700' }} />
+
                 <h2 className="text-5xl text-white sm:text-6xl font-bold luxury-text-gradient">
                   Plan Exclusivo
                 </h2>
-                <Crown className="w-8 h-8" style={{ color: '#FFD700' }} />
+          
               </div>
               <p 
                 className="text-xl max-w-3xl mx-auto"
@@ -186,8 +144,6 @@ export default function PricingSection() {
                   className="relative border-2 rounded-3xl p-10 transition-all shadow-2xl backdrop-blur-sm transform hover:scale-105 shimmer-effect"
                   style={{ 
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 241, 236, 0.9) 100%)',
-                    borderColor: '#FFD700',
-                    boxShadow: '0 25px 50px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6)'
                   }}
                 >
                   
@@ -221,18 +177,15 @@ export default function PricingSection() {
                         {plan.period}
                       </span>
                     </div>
-                    
-                    {/* Highlights premium */}
+                   {/* Highlights premium */}
                     <div className="flex flex-wrap justify-center gap-3 mb-8">
                       {plan.highlights.map((highlight, index) => (
                         <span 
                           key={index} 
                           className="px-4 py-2 rounded-full text-sm font-bold border-2 shimmer-effect"
                           style={{ 
-                            background: 'linear-gradient(135deg, #FFD700, #FFA500)',
-                            color: '#000',
-                            borderColor: '#FF8C00',
-                            boxShadow: '0 4px 15px rgba(255, 215, 0, 0.4)'
+                            background: 'linear-gradient(135deg, #8A6D5B, #4B3F36)',
+                            color: '#fcfdfc',
                           }}
                         >
                           {highlight}
@@ -248,7 +201,7 @@ export default function PricingSection() {
                         <span 
                           className="mr-4 mt-1 flex-shrink-0 p-1 rounded-full"
                           style={{ 
-                            background: 'linear-gradient(135deg, #FFD700, #FFA500)',
+                            background: 'linear-gradient(135deg, #efe9e3, #eee6e1)',
                             color: '#000'
                           }}
                         >
@@ -294,20 +247,18 @@ export default function PricingSection() {
                     onClick={handleSelectPlan}
                     className="w-full text-white py-5 px-8 rounded-full font-bold text-xl transition-all duration-500 shadow-2xl hover:shadow-2xl transform hover:scale-105 mb-6 shimmer-effect"
                     style={{ 
-                      background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2C2C2C 100%)',
-                      border: '2px solid #FFD700',
-                      boxShadow: '0 15px 35px rgba(255, 215, 0, 0.4)'
+                      background: 'linear-gradient(to right, #8A6D5B, #4B3F36)',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%)';
-                      e.currentTarget.style.color = '#000';
+                      e.currentTarget.style.background = 'linear-gradient(to right, #4B3F36, #8A6D5B)';
+                      e.currentTarget.style.color = '#fffff';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2C2C2C 100%)';
+                      e.currentTarget.style.background = 'linear-gradient(to right, #8A6D5B, #4B3F36)';
                       e.currentTarget.style.color = '#fff';
                     }}
                   >
-                    🌟 Activar <span className="lia-logo">LIA</span> Esencial 🌟
+                    Activar <span className="lia-logo">LIA</span> Esencial
                   </button>
                   
                   {/* Información adicional */}
@@ -315,7 +266,7 @@ export default function PricingSection() {
                     className="text-center text-xs font-medium"
                     style={{ color: '#8B7355' }}
                   >
-                    ✨ Acceso inmediato • Sin permanencia • Acceso 24/7 ✨
+                    Acceso inmediato • Sin permanencia • Acceso 24/7
                   </p>
                 </div>
               </div>
@@ -325,15 +276,15 @@ export default function PricingSection() {
             <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 { icon: '⚡', title: 'Transformación Instantánea', desc: 'Resultados desde el primer día con LIA' },
-                { icon: '👑', title: 'Experiencia VIP', desc: 'Tratamiento exclusivo y personalizado' },
-                { icon: '💎', title: 'Valor Incomparable', desc: 'Inversión que se paga sola en confianza' }
+                { icon: '👑', title: 'Experiencia VIP', desc: 'Vivencia personalizada y exclusiva' },
+                { icon: '💎', title: 'Valor Incomparable', desc: 'Un asesor de imagen 24/7' }
               ].map((benefit, index) => (
                 <div 
                   key={index}
                   className="text-center p-8 backdrop-blur-sm rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:scale-105 shimmer-effect"
                   style={{ 
                     background: 'linear-gradient(135deg, rgba(245, 241, 236, 0.15) 0%, rgba(232, 221, 212, 0.1) 100%)',
-                    borderColor: '#D4A574',
+                    borderColor: '',
                     boxShadow: '0 10px 30px rgba(212, 165, 116, 0.2)'
                   }}
                 >
@@ -348,11 +299,11 @@ export default function PricingSection() {
                   </div>
                   <h3 
                     className="text-2xl font-bold mb-4"
-                    style={{ color: '#D4A574' }}
+                    style={{ color: '#000000' }}
                   >
                     {benefit.title}
                   </h3>
-                  <p style={{ color: '#F5F1EC' }}>
+                  <p style={{ color: '#000000' }}>
                     {benefit.desc}
                   </p>
                 </div>
@@ -363,9 +314,9 @@ export default function PricingSection() {
             <div className="mt-16 text-center">
               <a 
                 href="#process-flow" 
-                className="inline-flex items-center text-xl text-white font-bold hover:underline transition-all duration-300 luxury-text-gradient hover:scale-105"
+                className="inline-flex items-center text-xl text-black font-bold hover:underline transition-all duration-300 luxury-text-gradient hover:scale-105" 
               >
-                ✨ Descubre la magia de  <span className="lia-logo"> LIA </span> ✨ <ChevronRight className="ml-2 w-6 h-6" />
+                Descubre la magia de  <span className="lia-logo"> LIA </span> <ChevronRight className="ml-2 w-6 h-6" />
               </a>
             </div>
           </div>
