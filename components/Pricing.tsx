@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronRight, Check, Star, Sparkles, Shield, Crown, Gem } from "lucide-react";
+import { ChevronRight, Check, Shield, Crown } from "lucide-react";
 import { useRegistrationModal } from "./RegistrationModal";
+import Image from "next/image";
 
 // Definir tipos para mayor seguridad y documentación
 type PlanId = 'esencial';
@@ -46,95 +47,50 @@ export default function PricingSection() {
 
   return (
     <>
-      {/* Estilos CSS para efectos especiales */}
-      <style jsx>{`
-        @keyframes sparkle {
-          0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-          50% { opacity: 1; transform: scale(1) rotate(180deg); }
-        }
-        
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        .sparkle-bg {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          pointer-events: none;
-        }
-        
-        .sparkle {
-          position: absolute;
-          color: #FFD700;
-          animation: sparkle 3s infinite;
-        }
-        
-        .sparkle:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
-        .sparkle:nth-child(2) { top: 20%; left: 80%; animation-delay: 1s; }
-        .sparkle:nth-child(3) { top: 40%; left: 20%; animation-delay: 2s; }
-        .sparkle:nth-child(4) { top: 60%; left: 90%; animation-delay: 0.5s; }
-        .sparkle:nth-child(5) { top: 80%; left: 30%; animation-delay: 1.5s; }
-        .sparkle:nth-child(6) { top: 15%; left: 60%; animation-delay: 2.5s; }
-        .sparkle:nth-child(7) { top: 70%; left: 70%; animation-delay: 0.8s; }
-        .sparkle:nth-child(8) { top: 30%; left: 50%; animation-delay: 1.8s; }
-        .sparkle:nth-child(9) { top: 90%; left: 10%; animation-delay: 0.3s; }
-        .sparkle:nth-child(10) { top: 50%; left: 85%; animation-delay: 2.2s; }
-        
-        .floating-gem {
-          animation: float 6s ease-in-out infinite;
-        }
-        
-        .floating-gem:nth-child(odd) {
-          animation-delay: -2s;
-        }
-        
-        
-        .glow-effect {
-        
-        .luxury-gradient {
-          background: linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #FF8C00 50%, #D4A574 75%, #8B7355 100%);
-        }
-        
-        .luxury-text-gradient {
-          background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-      `}</style>
-
       <section
         id="pricing"
         className="relative overflow-hidden w-full min-h-screen flex items-center">
-
 
         {/* Contenido principal */}
         <div className="relative z-20 px-6 lg:px-16 py-12 md:py-16 lg:py-24 w-full">
           <div className="max-w-6xl mx-auto relative z-10">
             
-            {/* Header dramático */}
+            {/* 🎯 AQUÍ ES DONDE DEBES PONER TU IMAGEN */}
+            {/* Header con imagen en lugar de texto */}
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-3 mb-6">
-
-                <h2 className="text-5xl text-white sm:text-6xl font-bold luxury-text-gradient">
-                  Plan Exclusivo
-                </h2>
-          
+              <div className="relative w-full max-w-4xl mx-auto mb-8">
+                {/* Contenedor de la imagen con efectos estéticos */}
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl backdrop-blur-sm">
+                  <Image
+                    src="/pricing.png" 
+                    alt="Plan Exclusivo LIA"
+                    width={800}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    style={{
+                      filter: 'brightness(1.1) contrast(1.05) saturate(1.1)',
+                    }}
+                    priority
+                  />
+                  
+                  {/* Overlay sutil para mejor legibilidad si hay texto superpuesto */}
+                  <div 
+                    className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"
+                    style={{ 
+                      background: 'linear-gradient(135deg, rgba(0,0,0,0.1) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)'
+                    }}
+                  />
+                  
+                  {/* Marco decorativo opcional */}
+                  <div 
+                    className="absolute inset-0 rounded-3xl border-2"
+                    style={{ 
+                      borderColor: 'rgba(138, 109, 91, 0.3)',
+                      background: 'linear-gradient(45deg, transparent, rgba(138, 109, 91, 0.1), transparent)'
+                    }}
+                  />
+                </div>          
               </div>
-              <p 
-                className="text-xl max-w-3xl mx-auto"
-                style={{ color: '#F5F1EC' }}
-              >
-                La experiencia premium de moda que transformará tu estilo para siempre
-              </p>
             </div>
             
             {/* Plan único con efectos premium */}
@@ -153,11 +109,10 @@ export default function PricingSection() {
                       className="text-4xl font-bold mb-4 flex items-center justify-center gap-3"
                       style={{ color: '#2C2C2C' }}
                     >
-                      {/* 🎯 AQUÍ ESTÁ LA IMPLEMENTACIÓN */}
                       {plan.name.includes('LIA') ? (
                         <>
-                          <span className="lia-logo text-5xl luxury-text-gradient">{plan.name.split('  ')[0]}</span>
-                          <span className="luxury-text-gradient">{'  ' + plan.name.split('  ').slice(1).join('  ')}</span>
+                          <span className="lia-logo text-5xl luxury-text-gradient">{plan.name.split(' ')[0]}</span>
+                          <span className="luxury-text-gradient">{' ' + plan.name.split(' ').slice(1).join(' ')}</span>
                         </>
                       ) : (
                         <span className="luxury-text-gradient">{plan.name}</span>

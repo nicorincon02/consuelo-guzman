@@ -51,10 +51,9 @@ export default function SobreLiaSection() {
         {/* Encabezado principal */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6" style={{ color: '#4B3F36' }}>
-            Conoce a <span className="lia-logo-large text-black" 
-              >
-                LIA
-              </span>
+            Conoce a <span className="lia-logo-large text-black">
+              LIA
+            </span>
           </h2>
           <p className="text-xl max-w-3xl mx-auto leading-relaxed" style={{color:'#4a3f37'}}>
             LIA es más que un asistente virtual de moda. Es tu compañera personal en el journey hacia un estilo auténtico y confiado. Combina la experiencia humana en moda con la precisión de la inteligencia artificial.
@@ -94,7 +93,7 @@ export default function SobreLiaSection() {
           ))}
         </div>
 
-        {/* Historia y misión */}
+        {/* Historia y misión con imagen */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
@@ -108,15 +107,18 @@ export default function SobreLiaSection() {
                 LIA nació de la visión de Consuelo Guzmán de llevar su expertise en moda a miles de personas, combinando el toque humano con la eficiencia de la tecnología.
               </p>
             </div>
-            <div className="bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl p-8 text-center">
-              <div className="bg-clip-text lia-logo text-6xl"
-              >LIA</div>
-              <div className="text-amber-700 text-lg font-medium">
-                Love, Intelligence & Authenticity
-              </div>
-              <div className="text-amber-600 text-sm mt-2">
-                Amor, Inteligencia y Autenticidad
-              </div>
+            
+            {/* Reemplazar el cuadro amarillo por la imagen */}
+            <div className="relative rounded-xl overflow-hidden shadow-md">
+              <Image
+                src="/banner-horizontal.jpeg"
+                alt="LIA - Love, Intelligence & Authenticity"
+                width={400}
+                height={300}
+                className="w-full h-auto object-cover"
+                priority={true} // Cambia a true si es una imagen importante para la carga inicial
+              />
+              {/* Overlay opcional con texto si quieres mantener algo de información sobre la imagen */}
             </div>
           </div>
         </div>

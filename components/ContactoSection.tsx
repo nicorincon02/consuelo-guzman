@@ -24,6 +24,14 @@ export default function ContactoSection() {
     alert('¡Mensaje enviado! Te contactaremos pronto.');
   };
 
+    const liaColors = {
+    beige: '#F5F1EC',
+    sand: '#E2D8CD', 
+    brown: '#8A6D5B',
+    dark: '#4B3F36'
+  };
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -211,7 +219,7 @@ export default function ContactoSection() {
 
               <button
                 type="submit"
-                className="w-full bg-amber-800 text-white py-3 px-6 rounded-lg font-medium hover:bg-amber-700 transition-colors flex items-center justify-center space-x-2"
+                className="w-full text-white py-3 px-6 rounded-lg font-medium hover:bg-amber-700 transition-colors flex items-center justify-center space-x-2" style={{background:'#a5706d'}}
               >
                 <Send className="h-5 w-5" />
                 <span>Enviar mensaje</span>
@@ -239,7 +247,21 @@ export default function ContactoSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
             onClick={openRegistrationModal} 
-            className="bg-amber-800 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:bg-amber-700 transition-colors">
+            className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg transform hover:-translate-y-1"
+            style={{
+              background: `linear-gradient(to right, ${liaColors.brown}, ${liaColors.dark})`,
+              color: '#FFFFFF',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = `linear-gradient(to right, ${liaColors.dark}, ${liaColors.brown})`;
+              e.currentTarget.style.boxShadow = '0 20px 25px rgba(75, 63, 54, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = `linear-gradient(to right, ${liaColors.brown}, ${liaColors.dark})`;
+              e.currentTarget.style.boxShadow = '0 10px 15px rgba(75, 63, 54, 0.15)';
+            }}
+          >
               Comienza ahora
             </button>
             <a
