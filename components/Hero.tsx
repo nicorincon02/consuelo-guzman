@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { MessageCircle, PlayCircle, Send } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { MessageCircle, PlayCircle } from "lucide-react";
 import { FaWhatsapp, FaSignal } from "react-icons/fa";
 import { FaCirclePlay } from "react-icons/fa6";
 import { IoIosBatteryFull, IoIosWifi } from "react-icons/io";
@@ -13,6 +13,7 @@ const useRegistrationModal = () => ({
   openRegistrationModal: () => console.log('Modal de registro abierto')
 });
 
+
 const sectionBackgrounds = {
   hero: "linear-gradient(135deg, #F5F1EC 0%, #E2D8CD 100%)"
 };
@@ -20,57 +21,102 @@ const sectionBackgrounds = {
 export default function Hero() {
   const { openRegistrationModal } = useRegistrationModal();
   
-  // Mensajes más cortos para el chat simulado
-  const chatMessages = [
+  // Interfaces para tipos de mensajes
+  interface TextMessage {
+    role: "assistant" | "user";
+    content: string;
+    type: "text";
+  }
+
+  interface ImageMessage {
+    role: "assistant" | "user";
+    content: string;
+    type: "image";
+    imageUrl: string;
+    imageAlt: string;
+  }
+
+  type ChatMessage = TextMessage | ImageMessage;
+
+  // Mensajes con soporte para imágenes
+  const chatMessages: ChatMessage[] = [
     { 
       role: "assistant", 
-      content: "¡Hola! Soy Lia ✨" 
+      content: "¡Hola! Soy Lia ✨ Tu asistente de imagen personal",
+      type: "text"
     },
     { 
       role: "user", 
-      content: "¿Outfit casual?" 
+      content: "¿Qué outfit me recomiendas para hoy?",
+      type: "text"
     },
     { 
       role: "assistant", 
-      content: "Jeans + camisa blanca" 
+      content: "¡Aquí tienes tus looks para esta semana! 👗",
+      type: "text"
+    },
+    {
+      role: "assistant",
+      content: "",
+      type: "image",
+      imageUrl: "/collage1.png",
+      imageAlt: "Look casual elegante - Blazer negro, jeans y top blanco"
     },
     { 
       role: "user", 
-      content: "¿Para calor?" 
+      content: "¡Me encanta! ¿Tienes más opciones?",
+      type: "text"
     },
-    { 
-      role: "assistant", 
-      content: "Vestido ligero 👗" 
+    {
+      role: "assistant",
+      content: "¡Por supuesto! Aquí tienes otra opción perfecta 💫",
+      type: "text"
+    },
+    {
+      role: "assistant",
+      content: "",
+      type: "image",
+      imageUrl: "/collage2.png",
+      imageAlt: "Look profesional - Camisa a rayas y pantalón negro"
     }
   ];
 
   const [visibleMessages, setVisibleMessages] = useState(1);
   const [isMounted, setIsMounted] = useState(false);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  // TODOS LOS HOOKS SIEMPRE SE EJECUTAN
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   // Efecto para ir mostrando mensajes gradualmente
   useEffect(() => {
-    // Condición DENTRO del useEffect, no antes
     if (!isMounted) return;
     
     if (visibleMessages < chatMessages.length) {
       const timer = setTimeout(() => {
         setVisibleMessages(prev => prev + 1);
-      }, 2000);
+      }, 2500); // Más tiempo para que se puedan ver las imágenes
       return () => clearTimeout(timer);
     } else {
       const resetTimer = setTimeout(() => {
         setVisibleMessages(1);
-      }, 5000);
+      }, 8000); // Más tiempo antes de reiniciar
       return () => clearTimeout(resetTimer);
     }
+    
   }, [visibleMessages, chatMessages.length, isMounted]);
 
-  // RENDERIZADO CONDICIONAL AL FINAL, NO AFECTA HOOKS
+  const scrollToBottom = () => {
+  if (messagesContainerRef.current) {
+    const container = messagesContainerRef.current;
+    container.scrollTo({
+      top: container.scrollHeight,  // Ir al final del contenido
+      behavior: 'smooth'           // Animación suave
+    });
+  }
+};
+
   if (!isMounted) {
     return (
       <section className="relative min-h-screen flex items-center justify-center">
@@ -90,7 +136,7 @@ export default function Hero() {
       suppressHydrationWarning={true}
       style={{ background: sectionBackgrounds.hero }}
     >
-      {/* Estilos específicos para Hero - Anti-conflictos */}
+      {/* Estilos específicos para Hero */}
       <style jsx global>{`
         @keyframes fadeInUp {
           from {
@@ -113,15 +159,19 @@ export default function Hero() {
           50% { transform: translateY(-18px) rotate(-2deg); }
         }
         
-        .decorative-float {
-          animation: float-delayed 4s ease-in-out infinite;
-        }
-        
         .message-animate {
           opacity: 0;
           animation-name: fadeInUp;
           animation-duration: 0.5s;
           animation-fill-mode: forwards;
+        }
+        
+        .message-image {
+          transition: transform 0.3s ease;
+        }
+        
+        .message-image:hover {
+          transform: scale(1.05);
         }
         
         /* AISLAMIENTO ESPECÍFICO PARA HERO */
@@ -189,7 +239,7 @@ export default function Hero() {
       {/* Contenedor central */}
       <div className="w-full max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-between">
         
-        {/* Texto + CTA - Con clases específicas */}
+        {/* Texto + CTA */}
         <div className="hero-text-content relative z-10 max-w-2xl text-center lg:text-left space-y-4">
           <h1
             style={{ color: "#4B3F36" }}
@@ -266,31 +316,30 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Chat simulado estilo WhatsApp con elementos decorativos */}
+        {/* Chat simulado estilo WhatsApp */}
         <div className="hidden lg:block relative z-10 hero-chat">
-          {/* Elementos decorativos de WhatsApp flotantes */}
-          <div className="absolute -top-8 -left-8 w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+          {/* Elementos decorativos flotantes */}
+          <div className="absolute -top-8 -left-8 w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg animate-float">
             <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
             </svg>
           </div>
 
-          {/* Mockup del teléfono usando tu imagen real - Tamaño aumentado */}
+          {/* Mockup del teléfono */}
           <div className="relative w-96 h-[750px]">
             {/* Tu imagen del teléfono como fondo/marco */}
             <div 
               className="absolute inset-0 bg-contain bg-no-repeat bg-center z-10"
               style={{
-                backgroundImage: "url('/phone-mockup.png')", // Aquí va tu imagen
+                backgroundImage: "url('/phone-mockup.png')",
                 backgroundSize: 'contain'
               }}
             />
             
-            {/* Pantalla del teléfono - área de contenido posicionada sobre tu imagen */}
+            {/* Pantalla del teléfono */}
             <div 
               className="absolute bg-white rounded-3xl overflow-hidden shadow-inner"
               style={{ 
-                // Ajustado para el tamaño más grande
                 top: '1%',         
                 bottom: '1.5%',      
                 left: '5%',        
@@ -299,7 +348,7 @@ export default function Hero() {
               }}
             >
               
-              {/* Status Bar del iPhone */}
+              {/* Status Bar */}
               <div 
                 className="flex justify-between items-center px-6 py-2 text-black"
                 style={{
@@ -311,26 +360,9 @@ export default function Hero() {
               >
                 <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
                 <div className="flex items-center gap-1">
-                  <FaSignal
-                  style={{
-                    width: '20px',
-                    height: '20px'
-                  }
-                  } />
-                  <IoIosWifi
-                  style={{
-                    width: '20px',
-                    height: '20px'
-                  }
-                  } />
-                  <IoIosBatteryFull
-                  style={{
-                    width: '20px',
-                    height: '20px'
-                  }
-                  } />
-
-
+                  <FaSignal style={{ width: '20px', height: '20px' }} />
+                  <IoIosWifi style={{ width: '20px', height: '20px' }} />
+                  <IoIosBatteryFull style={{ width: '20px', height: '20px' }} />
                 </div>
               </div>
               
@@ -351,11 +383,10 @@ export default function Hero() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 
-                {/* Avatar de Lia - Recuperando el original */}
+                {/* Avatar de Lia */}
                 <div style={{
                   width: '50px',
                   height: '50px',
-                  backgroundColor: '',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
@@ -404,19 +435,22 @@ export default function Hero() {
                 </div>
               </div>
               
-              {/* Fondo de mensajes - Recuperando el fondo original */}
+              {/* Área de mensajes con scroll automático */}
               <div 
+                ref={messagesContainerRef}
                 style={{
                   height: 'calc(100% - 164px)',
                   overflowY: 'auto',
+                  overflowX: 'hidden',
                   backgroundImage: 'url("/whatsapp-background.png")',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  backgroundColor: '#E5DDD5', // Fallback si no carga la imagen
+                  backgroundColor: '#E5DDD5',
                   padding: '16px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '8px',
+                  scrollBehavior: 'smooth'
                 }}
               >
                 {chatMessages.slice(0, visibleMessages).map((message, index) => (
@@ -432,8 +466,8 @@ export default function Hero() {
                   >
                     <div 
                       style={{
-                        maxWidth: '75%',
-                        padding: '6px 10px',
+                        maxWidth: message.type === 'image' ? '85%' : '75%',
+                        padding: message.type === 'image' ? '4px' : '6px 10px',
                         borderRadius: message.role === 'user' 
                           ? '16px 16px 4px 16px' 
                           : '16px 16px 16px 4px',
@@ -447,30 +481,71 @@ export default function Hero() {
                         position: 'relative'
                       }}
                     >
-                      {message.content}
-                      <div style={{
-                        fontSize: '10px',
-                        color: '#999999',
-                        textAlign: 'right',
-                        marginTop: '2px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        gap: '3px'
-                      }}>
-                        <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                        {message.role === 'user' && (
-                          <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                          </svg>
-                        )}
-                      </div>
+                      {message.type === 'image' ? (
+                        <div className="message-image">
+                          <Image
+                            src={message.imageUrl}
+                            alt={message.imageAlt}
+                            width={200}
+                            height={250}
+                            className="rounded-lg w-full h-auto object-cover"
+                            style={{
+                              maxWidth: '100%',
+                              height: 'auto'
+                            }}
+                            onLoad={() => {
+                              // Hacer scroll cuando la imagen termine de cargar
+                              setTimeout(scrollToBottom, 100);
+                            }}
+                          />
+                          {/* Timestamp para imagen */}
+                          <div style={{
+                            fontSize: '10px',
+                            color: '#999999',
+                            textAlign: 'right',
+                            marginTop: '4px',
+                            padding: '0 4px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            gap: '3px'
+                          }}>
+                            <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                            {message.role === 'user' && (
+                              <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                              </svg>
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          {message.content}
+                          <div style={{
+                            fontSize: '10px',
+                            color: '#999999',
+                            textAlign: 'right',
+                            marginTop: '2px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            gap: '3px'
+                          }}>
+                            <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                            {message.role === 'user' && (
+                              <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                              </svg>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Input de WhatsApp - Ajustado al tamaño */}
+              {/* Input de WhatsApp */}
               <div 
                 style={{
                   height: '60px',
@@ -482,7 +557,7 @@ export default function Hero() {
                   borderTop: '1px solid #E5E5E5'
                 }}
               >
-                {/* Botón + (izquierda) */}
+                {/* Botón + */}
                 <div style={{
                   width: '20px',
                   height: '20px',
@@ -495,7 +570,7 @@ export default function Hero() {
                   </svg>
                 </div>
                 
-                {/* Campo de input mockup */}
+                {/* Campo de input */}
                 <div style={{
                   flex: 1,
                   height: '32px',
@@ -515,7 +590,6 @@ export default function Hero() {
                     Mensaje
                   </div>
                   
-                  {/* Icono de sticker DENTRO del input */}
                   <div style={{
                     width: '16px',
                     height: '16px',
@@ -533,7 +607,7 @@ export default function Hero() {
                   </div>
                 </div>
                 
-                {/* Icono de cámara (FUERA del input) */}
+                {/* Icono de cámara */}
                 <div style={{
                   width: '20px',
                   height: '20px',
@@ -546,7 +620,7 @@ export default function Hero() {
                   </svg>
                 </div>
                 
-                {/* Icono de micrófono (FUERA del input) */}
+                {/* Icono de micrófono */}
                 <div style={{
                   width: '20px',
                   height: '20px',
