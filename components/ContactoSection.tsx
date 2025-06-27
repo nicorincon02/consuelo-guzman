@@ -286,7 +286,7 @@ export default function ContactoSection() {
               <ul className="space-y-2 text-sm text-amber-800/70">
                 <li><a href="#pricing" className="hover:text-amber-700">Servicios</a></li>
                 <li><a href="#sobre-lia" className="hover:text-amber-700">Sobre LIA</a></li>
-                <li><a href="https://consueloguzman.com/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-700">Consuelo Guzmán</a></li>
+                <li><a href="https://consueloguzman.com/sobre-mi/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-700">Consuelo Guzmán</a></li>
               </ul>
             </div>
             <div>

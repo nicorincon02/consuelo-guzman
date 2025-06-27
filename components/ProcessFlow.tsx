@@ -1,11 +1,17 @@
-         
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, MessageCircle, Camera, Cloud, Shirt } from "lucide-react";
-import { sectionBackgrounds } from "./sectionBackgrounds";
-import { useRegistrationModal } from "./RegistrationModal";
 import Image from "next/image";
+
+// Simulamos los hooks y componentes necesarios
+const useRegistrationModal = () => ({
+  openRegistrationModal: () => console.log("Modal opened")
+});
+
+const sectionBackgrounds = {
+  features: "linear-gradient(135deg, #F5F1EC 0%, #E2D8CD 100%)"
+};
 
 // Interfaces para TypeScript
 interface ProcessStep {
@@ -27,18 +33,18 @@ interface CarouselControls {
 export default function ProcessFlowSection(): React.ReactElement {
   const { openRegistrationModal } = useRegistrationModal();
   
-  // Estados del componente
+  // Estados del componente - Simplificados para evitar conflictos
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [scrollControls, setScrollControls] = useState<CarouselControls>({
     canScrollLeft: false,
     canScrollRight: true
   });
-  const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
 
   // Referencias
   const carouselRef = useRef<HTMLDivElement>(null);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
 
   // Colores hex de la paleta LIA
   const liaColors = {
@@ -82,7 +88,7 @@ export default function ProcessFlowSection(): React.ReactElement {
     },
     {
       id: 4,
-      title: "Compra con Lia ",
+      title: "Compra con Lia",
       shortDescription: "Usa la selección de Lia",
       fullDescription: "Comparte tus actividades del día, clima actual y tipo de ocasión para para la que necesites vestirte, Lia te guiará y te propondrá prendas y accesorios para comprar.",
       icon: <Shirt className="h-6 w-6" />,
@@ -105,10 +111,10 @@ export default function ProcessFlowSection(): React.ReactElement {
 
   const getVisibleCards = (): number => {
     if (typeof window === 'undefined') return 1;
-    if (window.innerWidth >= 1280) return 4; // xl: todas las cards
-    if (window.innerWidth >= 1024) return 3; // lg: 3 cards
-    if (window.innerWidth >= 768) return 2;  // md: 2 cards
-    return 1; // sm: 1 card
+    if (window.innerWidth >= 1280) return 4;
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 768) return 2;
+    return 1;
   };
 
   const scrollToSlide = (index: number): void => {
@@ -138,16 +144,28 @@ export default function ProcessFlowSection(): React.ReactElement {
     scrollToSlide(prevIndex);
   };
 
-  // Control de flip de tarjetas
+  // Control de flip mejorado - Usando manipulación directa del DOM
   const handleCardFlip = (cardId: number, isHovered: boolean): void => {
-    setFlippedCards(prev => {
-      const newSet = new Set(prev);
-      if (isHovered) {
-        newSet.add(cardId);
-      } else {
-        newSet.delete(cardId);
+    const cardElement = cardRefs.current.get(cardId);
+    if (!cardElement) return;
+
+    const inner = cardElement.querySelector('.process-card-inner') as HTMLElement;
+    if (!inner) return;
+
+    if (isHovered) {
+      inner.style.transform = 'rotateY(180deg)';
+    } else {
+      inner.style.transform = 'rotateY(0deg)';
+    }
+  };
+
+  // Función para resetear todas las tarjetas a su estado original
+  const resetAllCards = (): void => {
+    cardRefs.current.forEach((cardElement) => {
+      const inner = cardElement.querySelector('.process-card-inner') as HTMLElement;
+      if (inner) {
+        inner.style.transform = 'rotateY(0deg)';
       }
-      return newSet;
     });
   };
 
@@ -185,57 +203,77 @@ export default function ProcessFlowSection(): React.ReactElement {
 
     const handleResize = (): void => {
       updateScrollControls();
+      resetAllCards(); // Reset cards on resize
     };
 
     carousel.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
     updateScrollControls();
 
+    // Cleanup al desmontar
     return () => {
       carousel.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      resetAllCards();
     };
   }, []);
 
+  // Reset cards cuando cambia el slide en móvil
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      resetAllCards();
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [currentSlide]);
+
   // Función para obtener el color del texto basado en el fondo
   const getTextColorForStep = (stepId: number): { color: string; opacity: string } => {
-    // Para gradientes más oscuros (steps 3 y 4), usar texto blanco
     if (stepId >= 3) return { color: '#FFFFFF', opacity: '0.95' };
-    // Para gradientes más claros (steps 1 y 2), usar texto oscuro
     return { color: '#4B3F36', opacity: '0.9' };
   };
 
-  // Función para obtener el color del overlay según el paso
   const getOverlayOpacity = (stepId: number): string => {
     switch (stepId) {
-      case 1: return 'opacity-75'; // Más transparente para colores claros
+      case 1: return 'opacity-75';
       case 2: return 'opacity-80';
       case 3: return 'opacity-85';
-      case 4: return 'opacity-90'; // Más opaco para mejor contraste
+      case 4: return 'opacity-90';
       default: return 'opacity-80';
     }
   };
 
-  // Componente de tarjeta mejorado con colores hex directos
+  // Componente de tarjeta mejorado con mejor gestión del flip
   const ProcessCard: React.FC<{ step: ProcessStep; index: number; isStaticGrid?: boolean }> = ({ step, index, isStaticGrid = false }) => {
-    const isFlipped = flippedCards.has(step.id);
     const textColors = getTextColorForStep(step.id);
     const overlayOpacity = getOverlayOpacity(step.id);
 
     return (
       <div className={isStaticGrid ? "" : "flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 px-4"}>
         <div 
+          ref={(el) => {
+            if (el) {
+              cardRefs.current.set(step.id, el);
+            } else {
+              cardRefs.current.delete(step.id);
+            }
+          }}
           className="group h-96 cursor-pointer w-full max-w-sm mx-auto"
           style={{ perspective: '1000px' }}
           onMouseEnter={() => handleCardFlip(step.id, true)}
           onMouseLeave={() => handleCardFlip(step.id, false)}
+          onTouchStart={() => handleCardFlip(step.id, true)}
+          onTouchEnd={() => {
+            // Delay para touch devices
+            setTimeout(() => handleCardFlip(step.id, false), 2000);
+          }}
         >
           <div 
             className="process-card-inner relative w-full h-full"
             style={{ 
               transformStyle: 'preserve-3d',
-              transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-              transition: 'transform 0.7s ease-in-out'
+              transform: 'rotateY(0deg)',
+              transition: 'transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)'
             }}
           >
             
@@ -244,7 +282,6 @@ export default function ProcessFlowSection(): React.ReactElement {
               className="process-card-front absolute inset-0 rounded-xl overflow-hidden shadow-lg"
               style={{ backfaceVisibility: 'hidden' }}
             >
-              {/* Imagen de fondo */}
               <div className="absolute inset-0">
                 <Image
                   src={step.imageUrl}
@@ -252,7 +289,11 @@ export default function ProcessFlowSection(): React.ReactElement {
                   fill
                   className="object-cover"
                 />
-                {/* Overlay gradiente con colores hex */}
+                <div
+                  className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center"
+                  style={{ backgroundColor: '#E5E5E5' }}
+                >
+                </div>
                 <div 
                   className="absolute inset-0"
                   style={{ 
@@ -268,7 +309,6 @@ export default function ProcessFlowSection(): React.ReactElement {
                 ></div>
               </div>
               
-              {/* Contenido frontal */}
               <div 
                 className="relative z-10 h-full flex flex-col justify-between p-6"
                 style={{ color: textColors.color }}
@@ -308,7 +348,6 @@ export default function ProcessFlowSection(): React.ReactElement {
                   </p>
                 </div>
 
-                {/* Indicador de hover */}
                 <div className="text-center">
                   <div 
                     className="inline-flex items-center text-sm"
@@ -334,8 +373,6 @@ export default function ProcessFlowSection(): React.ReactElement {
               }}
             >
               <div className="h-full flex flex-col justify-between p-6">
-                
-                {/* Encabezado trasero */}
                 <div>
                   <div className="flex items-center mb-4">
                     <div 
@@ -366,13 +403,12 @@ export default function ProcessFlowSection(): React.ReactElement {
                   
                   <p 
                     className="leading-relaxed text-sm mb-6"
-                    style={{ color: '#4B3F36CC' }} // 80% opacity
+                    style={{ color: '#4B3F36CC' }}
                   >
                     {step.fullDescription}
                   </p>
                 </div>
 
-                {/* Botón de acción */}
                 <div className="text-center">
                   <button 
                     className="w-full py-3 px-6 rounded-full font-medium text-sm transition-all duration-300 transform hover:scale-105"
@@ -410,7 +446,6 @@ export default function ProcessFlowSection(): React.ReactElement {
 
   return (
     <>
-      {/* Estilos CSS específicos para el efecto flip */}
       <style jsx global>{`
         .process-card-inner {
           transform-style: preserve-3d;
@@ -431,6 +466,22 @@ export default function ProcessFlowSection(): React.ReactElement {
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
+
+        /* Específicos para producción - Forzar estados iniciales */
+        .process-card-inner {
+          transform: rotateY(0deg) !important;
+        }
+        
+        .process-card-inner:hover {
+          transform: rotateY(180deg) !important;
+        }
+
+        /* Media queries para dispositivos táctiles */
+        @media (hover: none) and (pointer: coarse) {
+          .process-card-inner:hover {
+            transform: rotateY(0deg) !important;
+          }
+        }
       `}</style>
 
       <section
@@ -438,14 +489,15 @@ export default function ProcessFlowSection(): React.ReactElement {
         data-bg={sectionBackgrounds.features}
         className="relative overflow-hidden py-16 px-6 lg:px-16"
         onMouseEnter={() => setIsAutoPlaying(false)}
-        onMouseLeave={() => setIsAutoPlaying(true)}
+        onMouseLeave={() => {
+          setIsAutoPlaying(true);
+          resetAllCards(); // Reset all cards when leaving section
+        }}
       >
-        {/* Líneas decorativas */}
         <div className="absolute inset-x-0 top-0 h-[1px] bg-gray-200" />
         <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gray-200" />
 
         <div className="max-w-7xl mx-auto">
-          {/* Encabezado */}
           <div className="text-center mb-12">
             <div 
               className="inline-flex items-center gap-2 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
@@ -462,7 +514,7 @@ export default function ProcessFlowSection(): React.ReactElement {
             </div>
             
             <h2 className="text-4xl sm:text-5xl font-bold mb-6" style={{ color: '#4B3F36' }}>
-              Tu Journey con <span className="lia-logo-large">LIA</span>
+              Tu Journey con <span className="font-serif italic">LIA</span>
             </h2>
             
             <p className="text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: '#4B3F36CC' }}>
@@ -470,7 +522,6 @@ export default function ProcessFlowSection(): React.ReactElement {
             </p>
           </div>
 
-          {/* Controles del carrusel - Solo en móvil y tablet */}
           <div className="flex justify-between items-center mb-8 xl:hidden">
             <div className="flex space-x-2">
               {processSteps.map((_, index) => (
@@ -481,16 +532,6 @@ export default function ProcessFlowSection(): React.ReactElement {
                   style={{
                     backgroundColor: currentSlide === index ? '#8A6D5B' : '#E2D8CD',
                     width: currentSlide === index ? '32px' : '12px'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (currentSlide !== index) {
-                      e.currentTarget.style.backgroundColor = '#8A6D5BB3'; // 70% opacity
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (currentSlide !== index) {
-                      e.currentTarget.style.backgroundColor = '#E2D8CD';
-                    }
                   }}
                   aria-label={`Ir al paso ${index + 1}`}
                 />
@@ -505,13 +546,7 @@ export default function ProcessFlowSection(): React.ReactElement {
                   backgroundColor: 'rgba(255, 255, 255, 0.8)',
                   backdropFilter: 'blur(10px)',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  border: '1px solid #E2D8CD4D' // 30% opacity
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                  border: '1px solid #E2D8CD4D'
                 }}
                 aria-label="Paso anterior"
               >
@@ -524,13 +559,7 @@ export default function ProcessFlowSection(): React.ReactElement {
                   backgroundColor: 'rgba(255, 255, 255, 0.8)',
                   backdropFilter: 'blur(10px)',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  border: '1px solid #E2D8CD4D' // 30% opacity
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#FFFFFF';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                  border: '1px solid #E2D8CD4D'
                 }}
                 aria-label="Siguiente paso"
               >
@@ -539,16 +568,13 @@ export default function ProcessFlowSection(): React.ReactElement {
             </div>
           </div>
 
-          {/* Contenedor de tarjetas */}
           <div className="relative">
-            {/* En pantallas XL, mostrar grid estático con Tailwind */}
             <div className="hidden xl:grid xl:grid-cols-4 xl:gap-6">
               {processSteps.map((step, index) => (
                 <ProcessCard key={step.id} step={step} index={index} isStaticGrid={true} />
               ))}
             </div>
 
-            {/* En pantallas menores, usar carrusel */}
             <div className="xl:hidden">
               <div
                 ref={carouselRef}
@@ -561,34 +587,32 @@ export default function ProcessFlowSection(): React.ReactElement {
             </div>
           </div>
 
-          {/* Información adicional */}
           <div className="mt-16 grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-brandSand/30">
-              <div className="w-16 h-16 bg-brandBeige rounded-full flex items-center justify-center mx-auto mb-4 border border-brandSand/50">
+            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-gray-300">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-300">
                 <span className="text-2xl">⚡</span>
               </div>
-              <h3 className="text-xl font-semibold text-brandDark mb-3">Rápido</h3>
-              <p className="text-brandDark/80">Todo el proceso toma menos de 10 minutos</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Rápido</h3>
+              <p className="text-gray-700">Todo el proceso toma menos de 10 minutos</p>
             </div>
             
-            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-brandSand/30">
-              <div className="w-16 h-16 bg-brandBeige rounded-full flex items-center justify-center mx-auto mb-4 border border-brandSand/50">
+            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-gray-300">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-300">
                 <span className="text-2xl">🎯</span>
               </div>
-              <h3 className="text-xl font-semibold text-brandDark mb-3">Personalizado</h3>
-              <p className="text-brandDark/80">Cada recomendación está hecha específicamente para ti</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Personalizado</h3>
+              <p className="text-gray-700">Cada recomendación está hecha específicamente para ti</p>
             </div>
             
-            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-brandSand/30">
-              <div className="w-16 h-16 bg-brandBeige rounded-full flex items-center justify-center mx-auto mb-4 border border-brandSand/50">
+            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-gray-300">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-300">
                 <span className="text-2xl">🔄</span>
               </div>
-              <h3 className="text-xl font-semibold text-brandDark mb-3">Adaptable</h3>
-              <p className="text-brandDark/80">Siempre puedes actualizar tu perfil y preferencias</p>
+              <h3 className="text-xl font-semibold text-gray-800 mb-3">Adaptable</h3>
+              <p className="text-gray-700">Siempre puedes actualizar tu perfil y preferencias</p>
             </div>
           </div>
 
-          {/* CTA final */}
           <div className="text-center mt-16">
             <button 
               onClick={openRegistrationModal} 
@@ -598,16 +622,8 @@ export default function ProcessFlowSection(): React.ReactElement {
                 color: '#FFFFFF',
                 border: '1px solid rgba(255, 255, 255, 0.2)'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to right, #4B3F36, #8A6D5B)';
-                e.currentTarget.style.boxShadow = '0 20px 25px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'linear-gradient(to right, #8A6D5B, #4B3F36)';
-                e.currentTarget.style.boxShadow = '0 10px 15px rgba(0, 0, 0, 0.1)';
-              }}
             >
-              Comenzar mi Journey con <span className="lia-logo text-xl">LIA</span>
+              Comenzar mi Journey con <span className="font-serif italic">LIA</span>
             </button>
             
             <p className="mt-4 text-sm" style={{ color: '#4B3F3699' }}>
