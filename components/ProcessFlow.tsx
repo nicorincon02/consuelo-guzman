@@ -3,11 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, MessageCircle, Camera, Cloud, Shirt } from "lucide-react";
 import Image from "next/image";
-
-// Simulamos los hooks y componentes necesarios
-const useRegistrationModal = () => ({
-  openRegistrationModal: () => console.log("Modal opened")
-});
+import { useRegistrationModal } from "./RegistrationModal";
 
 const sectionBackgrounds = {
   features: "linear-gradient(135deg, #F5F1EC 0%, #E2D8CD 100%)"

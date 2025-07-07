@@ -7,11 +7,8 @@ import { FaCirclePlay } from "react-icons/fa6";
 import { IoIosBatteryFull, IoIosWifi } from "react-icons/io";
 import { PiSticker } from "react-icons/pi";
 import Image from "next/image";
+import { useRegistrationModal } from "./RegistrationModal";
 
-// Simulamos los hooks y contextos para el ejemplo
-const useRegistrationModal = () => ({
-  openRegistrationModal: () => console.log('Modal de registro abierto')
-});
 
 const sectionBackgrounds = {
   hero: "linear-gradient(135deg, #F5F1EC 0%, #E2D8CD 100%)"

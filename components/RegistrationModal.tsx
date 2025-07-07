@@ -103,7 +103,8 @@ const RegistrationModal: React.FC = () => {
     setStatus('loading');
 
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycby0P7riBgH07kmJpEws37fqNiOdlSBu-UTl1oDxvALajIhV5YSi4Rz3OSYIc9HNY789AA/exec', {
+      // Guardar datos en la base de datos
+      await fetch('https://script.google.com/macros/s/AKfycby0P7riBgH07kmJpEws37fqNiOdlSBu-UTl1oDxvALajIhV5YSi4Rz3OSYIc9HNY789AA/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -117,22 +118,34 @@ const RegistrationModal: React.FC = () => {
       });
 
       setStatus('success');
-      
-      // Cerrar modal después de 3 segundos
-      setTimeout(() => {
-        closeModal();
-        setStatus('idle');
-        setFormData({
-          nombre: '',
-          email: '',
-          telefono: ''
-        });
-      }, 3000);
 
     } catch (error) {
-      console.error('Error al enviar formulario:', error);
+      console.error('Error al guardar datos:', error);
       setStatus('error');
     }
+  };
+
+  // Función para abrir WhatsApp con mensaje predefinido
+  const openWhatsApp = (): void => {
+    const phoneNumber = "573166308080"; // Número de WhatsApp sin signos + ni espacios
+    const message = `¡Hola! Soy ${formData.nombre} y quiero comenzar mi transformación de estilo con LIA 🌟\n\nMis datos de contacto:\n📧 ${formData.email}\n📱 ${formData.telefono}\n\n¿Podemos empezar? ✨`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    // Abrir WhatsApp en nueva pestaña
+    window.open(whatsappURL, '_blank');
+    
+    // Cerrar modal después de abrir WhatsApp
+    setTimeout(() => {
+      closeModal();
+      setStatus('idle');
+      setFormData({
+        nombre: '',
+        email: '',
+        telefono: ''
+      });
+    }, 1000);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -223,13 +236,24 @@ const RegistrationModal: React.FC = () => {
           {status === 'success' ? (
             <div className="text-center py-8">
               <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">¡Registro exitoso!</h3>
-              <p className="text-gray-600 mb-4">
-                Nos pondremos en contacto contigo en las próximas 24 horas para comenzar tu transformación de estilo.
+              <h3 className="text-xl font-bold text-gray-800 mb-2">¡Perfecto! Datos guardados</h3>
+              <p className="text-gray-600 mb-6">
+                Ahora conectemos contigo en WhatsApp para comenzar tu transformación de estilo personal con LIA.
               </p>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              
+              <button
+                onClick={openWhatsApp}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-4 px-6 rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center space-x-3"
+              >
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                </svg>
+                <span className="text-lg">Comenzar en WhatsApp</span>
+              </button>
+              
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
                 <p className="text-sm text-green-700">
-                  <strong>Próximos pasos:</strong> Te enviaremos un WhatsApp con una mini-consulta gratuita y tu primer análisis de estilo.
+                  <strong>🚀 ¡Tu journey comienza ahora!</strong> Te llevaremos a WhatsApp donde LIA te dará la bienvenida y comenzarás tu primer análisis de estilo.
                 </p>
               </div>
             </div>
@@ -237,18 +261,16 @@ const RegistrationModal: React.FC = () => {
             <div className="space-y-4">
               <div className="text-center mb-6">
                 <p className="text-gray-700">
-                  Comienza tu transformación de estilo con   
-                  <span 
-                    className="lia-logo">  LIA
-                  </span>
-                  - solo necesitamos estos datos para contactarte
+                  ¡Bienvenida al futuro de la moda! Vamos a crear tu perfil para que 
+                  <span className="lia-logo"> LIA </span>
+                  pueda ayudarte de manera personalizada ✨
                 </p>
               </div>
 
               {/* Campos del formulario */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nombre completo *
+                  ¿Cómo te gusta que te llamen? *
                 </label>
                 <div className="relative">
                   <input
@@ -260,7 +282,7 @@ const RegistrationModal: React.FC = () => {
                     className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors ${
                       errors.nombre ? 'border-red-300 bg-red-50' : 'border-gray-300'
                     }`}
-                    placeholder="Tu nombre completo"
+                    placeholder="Tu nombre favorito"
                   />
                   <User className="absolute left-3 top-3.5 h-4 w-4 text-gray-400" />
                 </div>
@@ -269,7 +291,7 @@ const RegistrationModal: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Correo electrónico *
+                  Tu email para actualizaciones *
                 </label>
                 <div className="relative">
                   <input
@@ -290,7 +312,7 @@ const RegistrationModal: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  WhatsApp *
+                  WhatsApp para conversar con LIA *
                 </label>
                 <div className="relative">
                   <input
@@ -313,7 +335,7 @@ const RegistrationModal: React.FC = () => {
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center space-x-2">
                   <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
                   <p className="text-red-700 text-sm">
-                    Hubo un error al enviar tu información. Por favor, intenta de nuevo.
+                    Hubo un error al crear tu perfil. Por favor, intenta de nuevo.
                   </p>
                 </div>
               )}
@@ -326,7 +348,7 @@ const RegistrationModal: React.FC = () => {
                 {status === 'loading' ? (
                   <>
                     <Loader className="h-4 w-4 animate-spin" />
-                    <span>Enviando...</span>
+                    <span>Creando tu perfil...</span>
                   </>
                 ) : (
                   <span>Comenzar con
@@ -336,8 +358,8 @@ const RegistrationModal: React.FC = () => {
               </button>
 
               <p className="text-xs text-gray-500 text-center">
-                Al registrarte, aceptas nuestros términos de servicio y política de privacidad. 
-                Tu información está segura con nosotros.
+                Al crear tu perfil, aceptas que LIA guarde tu información para brindarte una experiencia personalizada. 
+                Tu privacidad es importante para nosotros.
               </p>
             </div>
           )}
@@ -348,15 +370,15 @@ const RegistrationModal: React.FC = () => {
           <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
             <div className="flex items-center space-x-1">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              <span>100% Gratuito</span>
+              <span>100% Personalizado</span>
             </div>
             <div className="flex items-center space-x-1">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              <span>Sin compromiso</span>
+              <span>Resultados inmediatos</span>
             </div>
             <div className="flex items-center space-x-1">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              <span>Respuesta en 24h</span>
+              <span>Siempre disponible</span>
             </div>
           </div>
         </div>
