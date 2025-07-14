@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, MessageCircle, Camera, Cloud, Shirt } from "lucide-react";
+import { ChevronLeft, ChevronRight, MessageCircle, Camera, Cloud, Shirt, Zap, Goal, Combine  } from "lucide-react";
 import Image from "next/image";
 import { useRegistrationModal } from "./RegistrationModal";
 
@@ -69,7 +69,7 @@ export default function ProcessFlowSection(): React.ReactElement {
       fullDescription: "Tomate selfies para que Lia analice tu visagismo, morfología y colorimetria y así personalice todas las propuestas que te envíe.",
       icon: <Camera className="h-6 w-6" />,
       imageUrl: "/process/step-2.png",
-      color: "linear-gradient(to bottom right, #e3c6b8, #E2D8CD)",
+      color: "linear-gradient(to bottom right, #F5F1EC, #e3c6b8)",
       actionText: "Tomar fotos"
     },
     {
@@ -79,7 +79,7 @@ export default function ProcessFlowSection(): React.ReactElement {
       fullDescription: "Toma fotos de tus prendas y Lia Las combinará con tu fondo de armario para entregarte 7 propuestas de look semanales.",
       icon: <Cloud className="h-6 w-6" />,
       imageUrl: "/process/step-3.jpeg",
-      color: "linear-gradient(to bottom right, #E2D8CD, #4B3F36)",
+      color: "linear-gradient(to bottom right, #F5F1EC, #e3c6b8)",
       actionText: "Indicar contexto"
     },
     {
@@ -89,7 +89,7 @@ export default function ProcessFlowSection(): React.ReactElement {
       fullDescription: "Comparte tus actividades del día, clima actual y tipo de ocasión para para la que necesites vestirte, Lia te guiará y te propondrá prendas y accesorios para comprar.",
       icon: <Shirt className="h-6 w-6" />,
       imageUrl: "/process/step-4.png",
-      color: "linear-gradient(to bottom right, #4B3F36, #e3c6b8)",
+      color: "linear-gradient(to bottom right, #F5F1EC, #e3c6b8)",
       actionText: "Crear look"
     }
   ];
@@ -225,16 +225,16 @@ export default function ProcessFlowSection(): React.ReactElement {
 
   // Función para obtener el color del texto basado en el fondo
   const getTextColorForStep = (stepId: number): { color: string; opacity: string } => {
-    if (stepId >= 3) return { color: '#FFFFFF', opacity: '0.95' };
+    if (stepId >= 5) return { color: '#FFFFFF', opacity: '0.95' };
     return { color: '#4B3F36', opacity: '0.9' };
   };
 
   const getOverlayOpacity = (stepId: number): string => {
     switch (stepId) {
       case 1: return 'opacity-75';
-      case 2: return 'opacity-80';
-      case 3: return 'opacity-85';
-      case 4: return 'opacity-90';
+      case 2: return 'opacity-75';
+      case 3: return 'opacity-75';
+      case 4: return 'opacity-75';
       default: return 'opacity-80';
     }
   };
@@ -510,7 +510,16 @@ export default function ProcessFlowSection(): React.ReactElement {
             </div>
             
             <h2 className="text-4xl sm:text-5xl font-bold mb-6" style={{ color: '#4B3F36' }}>
-              Tu Journey con <span className="font-serif italic">LIA</span>
+              Tu Journey con {" "}
+                <span 
+                  className="bg-clip-text"
+                  style={{ 
+                    fontFamily: 'var(--font-playfair-display), serif',
+                    fontWeight: '400',
+                    letterSpacing: '0.02em',
+                    lineHeight: '0.9'
+                  }}
+                >LIA</span>
             </h2>
             
             <p className="text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: '#4B3F36CC' }}>
@@ -584,28 +593,34 @@ export default function ProcessFlowSection(): React.ReactElement {
           </div>
 
           <div className="mt-16 grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-gray-300">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-300">
-                <span className="text-2xl">⚡</span>
+            <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto shadow-lg mb-4 bg-[#E2D8CD]">
+                <span className="icon-container">
+                  <Zap className="w-8 h-8 text-stone-500" />
+                </span> 
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Rápido</h3>
-              <p className="text-gray-700">Todo el proceso toma menos de 10 minutos</p>
+              <h3 className="text-xl font-semibold text-[#4B3F36] mb-3">Rápido</h3>
+              <p className="text-[#4B3F36]">Todo el proceso toma menos de 10 minutos</p>
             </div>
             
             <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-gray-300">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-300">
-                <span className="text-2xl">🎯</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto shadow-lg mb-4 bg-[#E2D8CD]">
+                <span className="icon-container">
+                  <Goal className="w-8 h-8 text-stone-500" />
+                </span> 
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Personalizado</h3>
-              <p className="text-gray-700">Cada recomendación está hecha específicamente para ti</p>
+              <h3 className="text-xl font-semibold mb-3 text-[#4B3F36]">Personalizado</h3>
+              <p className="text-[#4B3F36]">Cada recomendación está hecha específicamente para ti</p>
             </div>
             
             <div className="text-center p-6 bg-white/40 backdrop-blur-sm rounded-xl hover:bg-white/50 transition-all duration-300 border border-gray-300">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-300">
-                <span className="text-2xl">🔄</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto shadow-lg mb-4 bg-[#E2D8CD]">
+                <span className="icon-container">
+                  <Combine className="w-8 h-8 text-stone-500" />
+                </span> 
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">Adaptable</h3>
-              <p className="text-gray-700">Siempre puedes actualizar tu perfil y preferencias</p>
+              <h3 className="text-xl font-semibold text-[#4B3F36] mb-3">Adaptable</h3>
+              <p className="text-[#4B3F36]">Siempre puedes actualizar tu perfil y preferencias</p>
             </div>
           </div>
 
@@ -619,7 +634,16 @@ export default function ProcessFlowSection(): React.ReactElement {
                 border: '1px solid rgba(255, 255, 255, 0.2)'
               }}
             >
-              Comenzar mi Journey con <span className="font-serif italic">LIA</span>
+              Comenzar mi Journey con 
+              <span 
+                  className="ml-1 text-xl"
+                  style={{ 
+                    fontFamily: 'var(--font-playfair-display), serif',
+                    fontWeight: '400',
+                    letterSpacing: '0.02em',
+                    lineHeight: '0.9'
+                  }}
+                >LIA</span>
             </button>
             
             <p className="mt-4 text-sm" style={{ color: '#4B3F3699' }}>

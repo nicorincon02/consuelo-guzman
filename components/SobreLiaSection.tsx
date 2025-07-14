@@ -64,10 +64,10 @@ export default function SobreLiaSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {estadisticas.map((stat, index) => (
             <div key={index} className="text-center bg-white/60 rounded-xl p-6 shadow-sm">
-              <div className="text-3xl font-bold mb-2" style={{color:"#bf7c4c"}}>
+              <div className="text-3xl font-bold mb-2" style={{color:"#8A6D5B"}}>
                 {stat.numero}
               </div>
-              <div className="text-amber-800/70 text-sm">
+              <div className="text-sm" style={{color:"#4B3F36"}}>
                 {stat.descripcion}
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function SobreLiaSection() {
                 <h3 className="text-lg font-bold mb-2" style={{color:"#8a6d5b"}}>
                   {caracteristica.title}
                 </h3>
-                <p className="text-amber-800/80">
+                <p style={{ color:"#4B3F36"}}>
                   {caracteristica.description}
                 </p>
               </div>
@@ -95,15 +95,15 @@ export default function SobreLiaSection() {
 
         {/* Historia y misión con imagen */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center" style={{color:"#8a6d5b"}}>
             <div>
-              <h3 className="text-2xl font-bold text-amber-900 mb-4">
+              <h3 className="text-2xl font-bold mb-4" >
                 Nuestra Misión
               </h3>
-              <p className="text-amber-800/80 mb-4">
+              <p className="mb-4" style={{ color:"#4B3F36"}}>
                 Democratizar el acceso a la asesoría de imagen de calidad a todas las mujeres que merecen sentirse seguras y auténticas con su imagen y estilo personal, sacándole el máximo partido a su belleza y a su armario haciendo compras efectivas.
               </p>
-              <p className="text-amber-800/80">
+              <p style={{ color:"#4B3F36"}}>
                 LIA nació de la visión de Consuelo Guzmán de llevar su expertise en moda a miles de personas, combinando el toque humano con la eficiencia de la tecnología.
               </p>
             </div>

@@ -64,10 +64,10 @@ export default function ContactoSection() {
           {/* Información de contacto */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-amber-900 mb-6">
+              <h3 className="text-2xl font-bold mb-6" style={{ color:"#4B3F36"}}>
                 Hablemos
               </h3>
-              <p className="text-amber-800/80 mb-8">
+              <p className="mb-8" style={{ color:"#4B3F36"}}>
                 Estamos emocionados de conocerte y ayudarte en tu journey de estilo personal. 
                 Elige la forma que prefieras para conectar con nosotros.
               </p>
@@ -80,13 +80,13 @@ export default function ContactoSection() {
                   <MessageCircle className="h-6 w-6 text-stone-200" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-amber-900 mb-1">Chat con LIA</h4>
-                  <p className="text-amber-800/80 text-sm">
+                  <h4 className="font-semibold mb-1"style={{color:'#8A6D5B'}} >Chat con LIA</h4>
+                  <p className=" text-sm" style={{ color:"#4B3F36"}}>
                     La forma más rápida de obtener respuestas. Disponible 24/7.
                   </p>
                   <button 
                   onClick={openRegistrationModal}
-                  className="text-amber-700 font-medium text-sm mt-2 hover:text-amber-600 transition-colors">
+                  className="text-stone-500 font-medium text-sm mt-2 hover:text-amber-800 transition-colors">
                      
                     Iniciar chat →
                   </button>
@@ -98,13 +98,13 @@ export default function ContactoSection() {
                   <Mail className="h-6 w-6 text-stone-200" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-amber-900 mb-1">Email</h4>
-                  <p className="text-amber-800/80 text-sm">
+                  <h4 className="font-semibold mb-1" style={{color:'#8A6D5B'}}>Email</h4>
+                  <p className="text-sm" style={{ color:"#4B3F36"}}>
                     Para consultas detalladas y soporte técnico.
                   </p>
                   <a 
                     href="mailto:hola@lia-fashion.ai" 
-                    className="text-amber-700 font-medium text-sm mt-2 hover:text-amber-600 transition-colors block"
+                    className="text-stone-500 font-medium text-sm mt-2 hover:text-amber-800 transition-colors block"
                   >
                     hola@lia-fashion.ai
                   </a>
@@ -116,11 +116,11 @@ export default function ContactoSection() {
                   <Clock className="h-6 w-6 text-stone-200" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-amber-900 mb-1">Horarios</h4>
-                  <p className="text-amber-800/80 text-sm">
+                  <h4 className="font-semibold mb-1" style={{color:'#8A6D5B'}}>Horarios</h4>
+                  <p className="text-sm" style={{ color:"#4B3F36"}}>
                     LIA: 24/7 disponible
                   </p>
-                  <p className="text-amber-800/80 text-sm">
+                  <p className="text-sm" style={{ color:"#4B3F36"}}>
                     Soporte humano: Lun-Vie 9am-6pm COT
                   </p>
                 </div>
@@ -129,20 +129,20 @@ export default function ContactoSection() {
 
             {/* Redes sociales */}
             <div>
-              <h4 className="font-semibold text-amber-900 mb-4">Síguenos</h4>
+              <h4 className="font-semibold mb-4" style={{ color:"#4B3F36"}}>Síguenos</h4>
               <div className="flex space-x-4">
                 <a 
                     href="https://www.tiktok.com/@consueloguzmanoficial" 
-                    className="p-3 rounded-lg text-amber-800 hover:text-gray-200 hover:bg-amber-900 transition-colors"
+                    className="p-3 rounded-lg text-[#8a6d5b] hover:text-gray-200 hover:bg-[#8a6d5b] transition-colors" 
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Síguenos en TikTok"
                   >
-                    <FaTiktok className="h-6 w-6" />
+                    <FaTiktok className="h-6 w-6"/>
                   </a>
                 <a 
                   href="https://www.instagram.com/consueloguzmanoficial/" 
-                  className="p-3 rounded-lg text-amber-800 hover:text-gray-200 hover:bg-amber-900 transition-colors"
+                  className="p-3 rounded-lg text-[#8a6d5b] hover:text-gray-200 hover:bg-[#8a6d5b] transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Síguenos en Instagram"
@@ -151,7 +151,7 @@ export default function ContactoSection() {
                 </a>
                 <a 
                   href="https://www.youtube.com/@consuelopersonalshop" 
-                  className="p-3 rounded-lg text-amber-800 hover:text-gray-200 hover:bg-amber-900 transition-colors"
+                  className="p-3 rounded-lg text-[#8a6d5b] hover:text-gray-200 hover:bg-[#8a6d5b] transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Suscríbete a nuestro canal de YouTube"
@@ -164,13 +164,13 @@ export default function ContactoSection() {
 
           {/* Formulario de contacto */}
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-amber-900 mb-6">
+            <h3 className="text-2xl font-bold text-[#4B3F36] mb-6">
               Envíanos un mensaje
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-amber-900 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-[#8a6d5b] mb-2">
                   Nombre completo
                 </label>
                 <input
@@ -179,14 +179,14 @@ export default function ContactoSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 transition-colors"
+                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:border-transparent bg-white/80 transition-colors"
                   placeholder="Tu nombre"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-amber-900 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-[#8a6d5b] mb-2">
                   Correo electrónico
                 </label>
                 <input
@@ -195,14 +195,14 @@ export default function ContactoSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 transition-colors"
+                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:border-transparent bg-white/80 transition-colors"
                   placeholder="tu@email.com"
                   required
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-amber-900 mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-[#8a6d5b] mb-2">
                   Mensaje
                 </label>
                 <textarea
@@ -211,7 +211,7 @@ export default function ContactoSection() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent bg-white/80 resize-none transition-colors"
+                  className="w-full px-4 py-3 border border-stone-200 rounded-lg focus:border-transparent bg-white/80 resize-none transition-colors"
                   placeholder="Cuéntanos cómo podemos ayudarte..."
                   required
                 />
@@ -219,15 +219,15 @@ export default function ContactoSection() {
 
               <button
                 type="submit"
-                className="w-full text-white py-3 px-6 rounded-lg font-medium hover:bg-amber-700 transition-colors flex items-center justify-center space-x-2" style={{background:'#a5706d'}}
+                className="w-full text-stone-200 py-3 px-6 rounded-lg font-medium hover:bg-amber-700 transition-colors flex items-center justify-center space-x-2" style={{background:'#8a6d5b'}}
               >
                 <Send className="h-5 w-5" />
                 <span>Enviar mensaje</span>
               </button>
             </form>
 
-            <div className="mt-6 p-4 rounded-lg" style={{background:'#8a6d5b'}}>
-              <p className="text-sm text-stone-200">
+            <div className="mt-6 p-4">
+              <p className="text-sm text-[#4B3F36]">
                 <strong>Respuesta garantizada:</strong> Te responderemos en máximo 24 horas. 
                 Para asistencia inmediata, usa el chat con LIA.
               </p>
@@ -237,10 +237,10 @@ export default function ContactoSection() {
 
         {/* CTA final */}
         <div className="text-center mt-16 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-amber-900 mb-4">
+          <h3 className="text-2xl font-bold text-[#4B3F36] mb-4">
             ¿Lista para transformar tu estilo?
           </h3>
-          <p className="text-amber-800/80 mb-6 max-w-2xl mx-auto">
+          <p className="text-[#8a6d5b] mb-6 max-w-2xl mx-auto">
             Únete a miles de mujeres que ya descubrieron su mejor versión con LIA. 
             
           </p>
@@ -254,11 +254,9 @@ export default function ContactoSection() {
               border: '1px solid rgba(255, 255, 255, 0.2)'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = `linear-gradient(to right, ${liaColors.dark}, ${liaColors.brown})`;
               e.currentTarget.style.boxShadow = '0 20px 25px rgba(75, 63, 54, 0.25)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = `linear-gradient(to right, ${liaColors.brown}, ${liaColors.dark})`;
               e.currentTarget.style.boxShadow = '0 10px 15px rgba(75, 63, 54, 0.15)';
             }}
           >
@@ -266,32 +264,32 @@ export default function ContactoSection() {
             </button>
             <a
               href="#process-flow"
-              className="border-2 border-amber-800 text-amber-800 px-8 py-4 rounded-full font-medium text-lg hover:bg-amber-800 hover:text-white transition-colors">
+              className="border-2 border-[#8a6d5b] text-[#8a6d5b] px-8 py-4 rounded-full font-medium text-lg hover:bg-[#8a6d5b] hover:text-stone-200 transition-colors">
               Cómo funciona
             </a>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="mt-16 pt-8 border-t border-amber-200">
+        <div className="mt-16 pt-8 border-t border-white">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div>
-              <h4 className="font-bold text-amber-900 mb-3">LIA</h4>
-              <p className="text-amber-800/70 text-sm">
+              <h4 className="font-bold text-[#8a6d5b] mb-3">LIA</h4>
+              <p className="text-[#4B3F36] text-sm">
                 Tu asistente virtual de moda, disponible 24/7 para ayudarte a descubrir tu mejor estilo.
               </p>
             </div>
             <div>
-              <h4 className="font-bold text-amber-900 mb-3">Enlaces rápidos</h4>
-              <ul className="space-y-2 text-sm text-amber-800/70">
+              <h4 className="font-bold text-[#8a6d5b] mb-3">Enlaces rápidos</h4>
+              <ul className="space-y-2 text-sm text-[#4B3F36]">
                 <li><a href="#pricing" className="hover:text-amber-700">Servicios</a></li>
                 <li><a href="#sobre-lia" className="hover:text-amber-700">Sobre LIA</a></li>
                 <li><a href="https://consueloguzman.com/sobre-mi/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-700">Consuelo Guzmán</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-amber-900 mb-3">Legal</h4>
-              <ul className="space-y-2 text-sm text-amber-800/70">
+              <h4 className="font-bold text-[#8a6d5b] mb-3">Legal</h4>
+              <ul className="space-y-2 text-sm text-[#4B3F36]">
                 <li><a href="#" className="hover:text-amber-700">Política de Privacidad</a></li>
                 <li><a href="#" className="hover:text-amber-700">Términos de Servicio</a></li>
                 <li><a href="#" className="hover:text-amber-700">Cookies</a></li>
@@ -299,8 +297,8 @@ export default function ContactoSection() {
             </div>
           </div>
           
-          <div className="mt-8 pt-8 border-t border-amber-200 text-center">
-            <p className="text-amber-800/70 text-sm">
+          <div className="mt-8 pt-8 border-t border-white text-center">
+            <p className="text-[#4B3F36] text-sm">
               © 2025 LIA - Asistente Virtual de Moda. Todos los derechos reservados.
             </p>
           </div>

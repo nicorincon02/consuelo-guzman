@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronRight, Check, Shield, Crown } from "lucide-react";
+import { ChevronRight, Check, Shield, Crown, Zap, Gem  } from "lucide-react";
 import { useRegistrationModal } from "./RegistrationModal";
 import Image from "next/image";
 
@@ -55,7 +55,6 @@ export default function PricingSection() {
         <div className="relative z-20 px-6 lg:px-16 py-12 md:py-16 lg:py-24 w-full">
           <div className="max-w-6xl mx-auto relative z-10">
             
-            {/* 🎯 AQUÍ ES DONDE DEBES PONER TU IMAGEN */}
             {/* Header con imagen en lugar de texto */}
             <div className="text-center mb-16">
               <div className="relative w-full max-w-4xl mx-auto mb-8">
@@ -83,9 +82,8 @@ export default function PricingSection() {
                   
                   {/* Marco decorativo opcional */}
                   <div 
-                    className="absolute inset-0 rounded-3xl border-2"
+                    className="absolute inset-0 rounded-3xl"
                     style={{ 
-                      borderColor: 'rgba(138, 109, 91, 0.3)',
                       background: 'linear-gradient(45deg, transparent, rgba(138, 109, 91, 0.1), transparent)'
                     }}
                   />
@@ -97,7 +95,7 @@ export default function PricingSection() {
             <div className="flex justify-center">
               <div className="w-full max-w-lg">
                 <div 
-                  className="relative border-2 rounded-3xl p-10 transition-all shadow-2xl backdrop-blur-sm transform hover:scale-105 shimmer-effect"
+                  className="relative rounded-3xl p-10 transition-all shadow-2xl backdrop-blur-sm transform hover:scale-105 shimmer-effect"
                   style={{ 
                     background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 241, 236, 0.9) 100%)',
                   }}
@@ -137,7 +135,7 @@ export default function PricingSection() {
                       {plan.highlights.map((highlight, index) => (
                         <span 
                           key={index} 
-                          className="px-4 py-2 rounded-full text-sm font-bold border-2 shimmer-effect"
+                          className="px-4 py-2 rounded-full text-sm font-bold shimmer-effect"
                           style={{ 
                             background: 'linear-gradient(135deg, #8A6D5B, #4B3F36)',
                             color: '#fcfdfc',
@@ -177,7 +175,7 @@ export default function PricingSection() {
                     className="rounded-xl p-6 mb-8 border-2 shimmer-effect"
                     style={{ 
                       background: 'linear-gradient(135deg, #F5F1EC, #E8DDD4)',
-                      borderColor: '#D4A574',
+                      borderColor: '#8A6D5B',
                       boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.1)'
                     }}
                   >
@@ -199,21 +197,16 @@ export default function PricingSection() {
                   
                   {/* Botón principal dramático */}
                   <button
-                    onClick={handleSelectPlan}
-                    className="w-full text-white py-5 px-8 rounded-full font-bold text-xl transition-all duration-500 shadow-2xl hover:shadow-2xl transform hover:scale-105 mb-6 shimmer-effect"
-                    style={{ 
+                    onClick={openRegistrationModal} 
+                    className="w-full text-white py-5 px-8 rounded-full font-bold text-xl transition-all duration-500 shadow-lg transform hover:scale-105 mb-6"
+                    style={{
                       background: 'linear-gradient(to right, #8A6D5B, #4B3F36)',
+                      color: '#FFFFFF',
+                      border: '1px solid rgba(255, 255, 255, 0.2)'
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(to right, #4B3F36, #8A6D5B)';
-                      e.currentTarget.style.color = '#fffff';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'linear-gradient(to right, #8A6D5B, #4B3F36)';
-                      e.currentTarget.style.color = '#fff';
-                    }}
-                  >
+                    >
                     Activar <span className="lia-logo">LIA</span> Esencial
+
                   </button>
                   
                   {/* Información adicional */}
@@ -230,49 +223,38 @@ export default function PricingSection() {
             {/* Beneficios premium */}
             <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { icon: '⚡', title: 'Transformación Instantánea', desc: 'Resultados desde el primer día con LIA' },
-                { icon: '👑', title: 'Experiencia VIP', desc: 'Vivencia personalizada y exclusiva' },
-                { icon: '💎', title: 'Valor Incomparable', desc: 'Un asesor de imagen 24/7' }
+                { icon: <Zap className="w-8 h-8 text-stone-500"/>, title: 'Transformación Instantánea', desc: 'Resultados desde el primer día con LIA' },
+                { icon: <Crown className="w-8 h-8 text-stone-500"/>, title: 'Experiencia VIP', desc: 'Vivencia personalizada y exclusiva' },
+                { icon: <Gem className="w-8 h-8 text-stone-500"/>, title: 'Valor Incomparable', desc: 'Un asesor de imagen 24/7' }
               ].map((benefit, index) => (
                 <div 
                   key={index}
-                  className="text-center p-8 backdrop-blur-sm rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl hover:scale-105 shimmer-effect"
+                  className="text-center p-8 backdrop-blur-sm rounded-2xl transition-all duration-500 hover:shadow-2xl hover:scale-105"
                   style={{ 
-                    background: 'linear-gradient(135deg, rgba(245, 241, 236, 0.15) 0%, rgba(232, 221, 212, 0.1) 100%)',
+                    background: 'rgba(255, 255, 255, 0.4)',
                     borderColor: '',
                     boxShadow: '0 10px 30px rgba(212, 165, 116, 0.2)'
                   }}
                 >
                   <div 
-                    className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+                    className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
                     style={{ 
-                      background: 'linear-gradient(135deg, #D4A574, #8B7355)',
-                      boxShadow: '0 8px 25px rgba(212, 165, 116, 0.4)'
+                      background: '#E2D8CD',
                     }}
                   >
                     <span className="text-3xl">{benefit.icon}</span>
                   </div>
                   <h3 
                     className="text-2xl font-bold mb-4"
-                    style={{ color: '#000000' }}
+                    style={{ color: '#4B3F36' }}
                   >
                     {benefit.title}
                   </h3>
-                  <p style={{ color: '#000000' }}>
+                  <p style={{ color: '#4B3F36' }}>
                     {benefit.desc}
                   </p>
                 </div>
               ))}
-            </div>
-            
-            {/* Call to action final */}
-            <div className="mt-16 text-center">
-              <a 
-                href="#process-flow" 
-                className="inline-flex items-center text-xl text-black font-bold hover:underline transition-all duration-300 luxury-text-gradient hover:scale-105" 
-              >
-                Descubre la magia de  <span className="lia-logo"> LIA </span> <ChevronRight className="ml-2 w-6 h-6" />
-              </a>
             </div>
           </div>
         </div>

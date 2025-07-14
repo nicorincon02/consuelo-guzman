@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
+import { Recycle, Blend, Zap } from 'lucide-react';
 import { useRegistrationModal } from './RegistrationModal';
 
 // Tipos mejorados y simplificados
@@ -294,7 +295,12 @@ const ClosetBasicsSection = () => {
             {/* Imagen principal del closet - Ajustada a las dimensiones reales */}
             <div 
               ref={closetContainerRef}
-              className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-white shadow-lg"
+              className="relative w-full rounded-2xl overflow-hidden bg-white shadow-lg"
+              style={{
+                aspectRatio: "1/1",
+                minHeight:"500px",
+                maxHeight: "800"
+              }}
               onMouseEnter={handleClosetMouseEnter}
               onMouseLeave={handleClosetMouseLeave}
             >
@@ -309,7 +315,7 @@ const ClosetBasicsSection = () => {
                   src="/closet/closet-basics.jpeg"
                   alt="Closet a todo color"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
@@ -343,14 +349,6 @@ const ClosetBasicsSection = () => {
                   onMouseEnter={(e) => handleMouseEnter(item, e)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  {/* Overlay de hover con efecto de resaltado */}
-                  <div 
-                    className="w-full h-full rounded-lg transition-all duration-300 hover:backdrop-blur-sm hover:shadow-lg border-2 border-transparent"
-                    style={{
-                      backgroundColor: hoveredItem?.id === item.id ? `${liaColors.brown}33` : 'transparent', // 20% opacity
-                      borderColor: hoveredItem?.id === item.id ? `${liaColors.brown}80` : 'transparent' // 50% opacity
-                    }}
-                  >
                     {/* Indicator dot */}
                     <div 
                       className={`absolute top-1 right-1 w-3 h-3 rounded-full transition-opacity duration-300 animate-pulse ${
@@ -359,7 +357,6 @@ const ClosetBasicsSection = () => {
                       style={{ backgroundColor: liaColors.brown }}
                     ></div>
                   </div>
-                </div>
               ))}
             </div>
 
@@ -395,10 +392,10 @@ const ClosetBasicsSection = () => {
             <div 
               className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
               style={{
-                background: `linear-gradient(to bottom right, ${liaColors.beige}, ${liaColors.sand})`
+                background: "#E2D8CD"
               }}
             >
-              <span className="text-2xl">♻️</span>
+              <span className="icon-container"> <Recycle className='w-8 h-8 text-stone-500'/> </span>
             </div>
             <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
               Sostenibilidad
@@ -418,10 +415,10 @@ const ClosetBasicsSection = () => {
             <div 
               className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
               style={{
-                background: `linear-gradient(to bottom right, ${liaColors.beige}, ${liaColors.sand})`
+                background: `#E2D8CD`
               }}
             >
-              <span className="text-2xl">💡</span>
+              <span className="icon-container"> <Blend className='w-8 h-8 text-stone-500'/> </span>
             </div>
             <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
               Versatilidad
@@ -441,10 +438,10 @@ const ClosetBasicsSection = () => {
             <div 
               className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
               style={{
-                background: `linear-gradient(to bottom right, ${liaColors.beige}, ${liaColors.sand})`
+                background: `#E2D8CD`
               }}
             >
-              <span className="text-2xl">⚡</span>
+              <span className="icon-container"> <Zap className='w-8 h-8 text-stone-500'/> </span>
             </div>
             <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
               Eficiencia
@@ -457,23 +454,15 @@ const ClosetBasicsSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <button 
-            onClick={openRegistrationModal}
-            className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg transform hover:-translate-y-1"
-            style={{
-              background: `linear-gradient(to right, ${liaColors.brown}, ${liaColors.dark})`,
-              color: '#FFFFFF',
-              border: '1px solid rgba(255, 255, 255, 0.2)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = `linear-gradient(to right, ${liaColors.dark}, ${liaColors.brown})`;
-              e.currentTarget.style.boxShadow = '0 20px 25px rgba(75, 63, 54, 0.25)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = `linear-gradient(to right, ${liaColors.brown}, ${liaColors.dark})`;
-              e.currentTarget.style.boxShadow = '0 10px 15px rgba(75, 63, 54, 0.15)';
-            }}
-          >
+            <button 
+              onClick={openRegistrationModal} 
+              className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg transform hover:-translate-y-1"
+              style={{
+                background: 'linear-gradient(to right, #8A6D5B, #4B3F36)',
+                color: '#FFFFFF',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}
+            >
             Descubre tu Fondo de armario con <span className='lia-logo text-xl'>
               LIA
             </span>
