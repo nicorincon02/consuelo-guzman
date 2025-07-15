@@ -119,7 +119,7 @@ const Navbar = () => {
                 </div>
                 
                 {/* Nombre LIA */}
-                <span className="text-2xl sm:text-3xl lia-logo transition-colors duration-300 group-hover:text-amber-700">
+                <span className="text-2xl sm:text-3xl lia-logo transition-colors duration-300 group-hover:text-[#8a6d5b]">
                   LIA
                 </span>
                 
@@ -128,7 +128,7 @@ const Navbar = () => {
                   By{" "}
                   <a 
                     href="https://consueloguzman.com/" 
-                    className="hover:text-amber-800 transition-colors underline"
+                    className="hover:text-[#8a6d5b] transition-colors underline"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
@@ -145,7 +145,7 @@ const Navbar = () => {
                 {navLinks.map((link, index) => (
                   <div key={index} className="relative group">
                     <button 
-                      className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-amber-800 transition-colors"
+                      className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#8a6d5b] transition-colors"
                       onClick={() => handleNavigation(link.href)}
                     >
                       {link.title}
@@ -178,7 +178,7 @@ const Navbar = () => {
               <div className="md:hidden">
                 <button
                   onClick={() => setIsOpen(true)}
-                  className="rounded-full bg-amber-100 px-4 py-1 text-amber-900 font-medium text-sm hover:bg-amber-200 transition-colors focus:outline-none"
+                  className="rounded-full px-4 py-1 text-[#8a6d5b] font-medium text-sm hover:bg-amber-200 transition-colors focus:outline-none"
                 >
                   Menú
                 </button>
@@ -188,7 +188,7 @@ const Navbar = () => {
               <div className="flex items-center space-x-1">
                 <a 
                   href="https://www.tiktok.com/@consueloguzmanoficial" 
-                  className="text-gray-700 hover:text-amber-800 p-2 transition-colors rounded-full hover:bg-amber-50"
+                  className="text-gray-700 hover:text-gray-200 p-2 transition-colors rounded-full hover:bg-[#8a6d5b]"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Síguenos en TikTok"
@@ -197,7 +197,7 @@ const Navbar = () => {
                 </a>
                 <a 
                   href="https://www.instagram.com/consueloguzmanoficial/" 
-                  className="text-gray-700 hover:text-amber-800 p-2 transition-colors rounded-full hover:bg-amber-50"
+                  className="text-gray-700 hover:text-gray-200 p-2 transition-colors rounded-full hover:bg-[#8a6d5b]"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Síguenos en Instagram"
@@ -206,7 +206,7 @@ const Navbar = () => {
                 </a>
                 <a 
                   href="https://www.youtube.com/@consuelopersonalshop" 
-                  className="text-gray-700 hover:text-amber-800 p-2 transition-colors rounded-full hover:bg-amber-50"
+                  className="text-gray-700 hover:text-gray-200 p-2 transition-colors rounded-full hover:bg-[#8a6d5b]"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Suscríbete a nuestro canal de YouTube"

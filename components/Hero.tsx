@@ -17,9 +17,6 @@ const sectionBackgrounds = {
 export default function Hero() {
   const { openRegistrationModal } = useRegistrationModal();
   
-  // Estados para el demo móvil
-  const [showMobileDemo, setShowMobileDemo] = useState(false);
-  
   // Interfaces para tipos de mensajes
   interface TextMessage {
     role: "assistant" | "user";
@@ -116,17 +113,6 @@ export default function Hero() {
     }
   };
 
-  // Funciones para manejar el demo móvil
-  const openMobileDemo = () => {
-    setShowMobileDemo(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeMobileDemo = () => {
-    setShowMobileDemo(false);
-    document.body.style.overflow = 'auto';
-  };
-
   if (!isMounted) {
     return (
       <section className="relative min-h-screen flex items-center justify-center">
@@ -143,7 +129,7 @@ export default function Hero() {
       <section
         id="hero"
         data-bg={sectionBackgrounds.hero}
-        className="relative overflow-hidden flex flex-col-reverse lg:flex-row items-center justify-center gap-8 lg:gap-16 px-6 lg:px-16 py-12 md:py-16 lg:py-24 min-h-screen w-full pt-20 md:pt-24"
+        className="relative overflow-hidden px-6 lg:px-16 py-12 md:py-16 lg:py-24 min-h-screen w-full pt-20 md:pt-24"
         suppressHydrationWarning={true}
         style={{ background: sectionBackgrounds.hero }}
       >
@@ -186,26 +172,6 @@ export default function Hero() {
             transform: scale(1.05);
           }
           
-          .whatsapp-highlight {
-            color: #25D366;
-            font-weight: 600;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s ease;
-            text-decoration: underline;
-            text-decoration-color: rgba(37, 211, 102, 0.3);
-            text-underline-offset: 2px;
-          }
-
-          .whatsapp-highlight:hover {
-            color: #128C7E;
-            text-decoration-color: #128C7E;
-            transform: translateY(-1px);
-          }
-
-          .whatsapp-highlight:active {
-            transform: translateY(0);
-          }
           /* AISLAMIENTO ESPECÍFICO PARA HERO */
           #hero {
             isolation: isolate;
@@ -268,663 +234,703 @@ export default function Hero() {
           </svg>
         </div>
 
-        {/* Contenedor central */}
-        <div className="w-full max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-between">
-          
-          {/* Texto + CTA */}
-          <div className="hero-text-content relative z-10 max-w-2xl text-center lg:text-left space-y-4">
-            <h1
-              style={{ color: "#4B3F36" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
-            >
-              <span 
-                className="bg-clip-text"
-                style={{ 
-                  fontSize: 'clamp(4rem, 8vw, 6rem)',
-                  color: 'black',
-                  fontFamily: 'var(--font-playfair-display), serif',
-                  fontWeight: '400',
-                  letterSpacing: '0.03em',
-                  lineHeight: '0.8',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.15)'
-                }}
+        {/* Contenedor principal con layout corregido */}
+        <div className="max-w-6xl mx-auto">
+          {/* Layout para desktop */}
+          <div className="hidden lg:flex items-center justify-between gap-16">
+            {/* Texto + CTA */}
+            <div className="hero-text-content relative z-10 max-w-2xl text-left space-y-4">
+              <h1
+                style={{ color: "#4B3F36" }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight"
               >
-                LIA
-              </span>
-              <span className="mt-2 block">
-                Tu asistente personal de imagen, estilo y moda en{" "}
                 <span 
-                  className="whatsapp-highlight lg:hidden"
-                  onClick={openMobileDemo}
-                >
-                  WhatsApp
-                </span>
-                <span className="hidden lg:inline">WhatsApp</span>
-              </span>
-            </h1>
-            
-            <p
-              style={{ color: "#4b3f36" }}
-              className="text-base lg:text-lg"
-            >
-              Descubre combinaciones perfectas y renueva tu armario en segundos
-            </p>
-
-            {/* Características rápidas */}
-            <div className="grid grid-cols-1 gap-3 my-6 text-left">
-              <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
-                <h3 className="font-bold text-amber-800 text-lg">Análisis 24/7</h3>
-                <p className="text-sm text-gray-700">Recomendaciones de imagen y estilo personal a cualquier hora desde WhatsApp</p>
-              </div>
-              <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
-                <h3 className="font-bold text-amber-800 text-lg">Compras Efectivas</h3>
-                <p className="text-sm text-gray-700">Adapta las sugerencias a tu tipo de rostro, cuerpo y colorimetria teniendo en cuenta la ocasión</p>
-              </div>
-              <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
-                <h3 className="font-bold text-amber-800 text-lg">7 Looks semanales</h3>
-                <p className="text-sm text-gray-700">Desde tu armario diferentes propuestas de looks cada semana</p>
-              </div>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <button
-                onClick={openRegistrationModal}
-                style={{ backgroundColor: "#8A6D5B", color: "#ffffff" }}
-                className="inline-flex items-center justify-center font-medium px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition text-lg"
-              >
-                <FaWhatsapp className="w-5 h-5 mr-2" />
-                Habla con{" "}
-                <span 
-                  className="ml-1 text-xl"
+                  className="bg-clip-text"
                   style={{ 
+                    fontSize: 'clamp(4rem, 8vw, 6rem)',
+                    color: 'black',
                     fontFamily: 'var(--font-playfair-display), serif',
                     fontWeight: '400',
-                    letterSpacing: '0.02em',
-                    lineHeight: '0.9'
+                    letterSpacing: '0.03em',
+                    lineHeight: '0.8',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.15)'
                   }}
                 >
                   LIA
                 </span>
-              </button>
-              <button
-                onClick={openMobileDemo}
-                className="lg:hidden inline-flex items-center justify-center font-medium px-5 py-2.5 rounded-full shadow-sm bg-transparent text-amber-800 border border-amber-800 hover:bg-amber-50 transition text-sm"
-              >
-                <FaCirclePlay className="w-4 h-4 mr-2" />
-                Ver demo WhatsApp
-              </button>
-              <a
-                href="#"
-                style={{color:"#8A6D5B"}}
-                className="hidden lg:inline-flex items-center justify-center font-medium px-5 py-2.5 rounded-full shadow-sm bg-transparent border  hover:bg-gray-50 transition text-sm"
-              >
-                <FaCirclePlay className="w-4 h-4 mr-2" />
-                Ver cómo funciona
-              </a>
-            </div>
-          </div>
-
-          {/* Chat simulado estilo WhatsApp - Solo desktop */}
-          <div className="hidden lg:block relative z-10 hero-chat">
-  
-
-            {/* Mockup del teléfono */}
-            <div className="relative w-96 h-[750px]">
-              {/* Tu imagen del teléfono como fondo/marco */}
-              <div 
-                className="absolute inset-0 bg-contain bg-no-repeat bg-center z-10"
-                style={{
-                  backgroundImage: "url('/phone-mockup.png')",
-                  backgroundSize: 'contain'
-                }}
-              />
+                <span className="mt-2 block">
+                  Tu asistente personal de imagen, estilo y moda en WhatsApp
+                </span>
+              </h1>
               
-              {/* Pantalla del teléfono */}
-              <div 
-                className="absolute bg-white rounded-3xl overflow-hidden shadow-inner"
-                style={{ 
-                  top: '1%',         
-                  bottom: '1.5%',      
-                  left: '5%',        
-                  right: '5%',       
-                  zIndex: 5
-                }}
+              <p
+                style={{ color: "#4b3f36" }}
+                className="text-base lg:text-lg"
               >
-                
-                {/* Status Bar */}
-                <div 
-                  className="flex justify-between items-center px-6 py-2 text-black"
-                  style={{
-                    height: '44px',
-                    backgroundColor: '#f2f1ec',
-                    fontSize: '14px',
-                    fontWeight: '600'
-                  }}
-                >
-                  <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                  <div className="flex items-center gap-1">
-                    <FaSignal style={{ width: '20px', height: '20px' }} />
-                    <IoIosWifi style={{ width: '20px', height: '20px' }} />
-                    <IoIosBatteryFull style={{ width: '20px', height: '20px' }} />
-                  </div>
-                </div>
-                
-                {/* Header estilo WhatsApp */}
-                <div 
-                  style={{
-                    height: '60px',
-                    backgroundColor: '#f2f1ec',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '0 16px',
-                    gap: '12px',
-                    textAlign: 'left'
-                  }}
-                >
-                  {/* Botón de regresar */}
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="#000000" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  
-                  {/* Avatar de Lia */}
-                  <div style={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '2px solid rgba(255, 255, 255, 0.2)',
-                    position: 'relative',
-                    overflow: 'hidden'
-                  }}>
-                    <Image
-                      src="/LIA-color.png"
-                      alt="LIA Avatar"
-                      width={40}
-                      height={40}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  </div>
+                Descubre combinaciones perfectas y renueva tu armario en segundos
+              </p>
 
-                  {/* Info del contacto */}
-                  <div style={{ flex: 1 }}>
-                    <div style={{
-                      color: '#000000',
+              {/* Características rápidas */}
+              <div className="grid grid-cols-1 gap-3 my-6 text-left">
+                <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
+                  <h3 className="font-bold text-amber-800 text-lg">Análisis 24/7</h3>
+                  <p className="text-sm text-gray-700">Recomendaciones de imagen y estilo personal a cualquier hora desde WhatsApp</p>
+                </div>
+                <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
+                  <h3 className="font-bold text-amber-800 text-lg">Compras Efectivas</h3>
+                  <p className="text-sm text-gray-700">Adapta las sugerencias a tu tipo de rostro, cuerpo y colorimetria teniendo en cuenta la ocasión</p>
+                </div>
+                <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm">
+                  <h3 className="font-bold text-amber-800 text-lg">7 Looks semanales</h3>
+                  <p className="text-sm text-gray-700">Desde tu armario diferentes propuestas de looks cada semana</p>
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-start">
+                <button
+                  onClick={openRegistrationModal}
+                  style={{ backgroundColor: "#8A6D5B", color: "#ffffff" }}
+                  className="inline-flex items-center justify-center font-medium px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition text-lg"
+                >
+                  <FaWhatsapp className="w-5 h-5 mr-2" />
+                  Habla con{" "}
+                  <span 
+                    className="ml-1 text-xl"
+                    style={{ 
+                      fontFamily: 'var(--font-playfair-display), serif',
                       fontWeight: '400',
-                      fontSize: '15px'
-                    }}>LIA</div>
-                    <div style={{
-                      color: '#9a9994',
-                      fontSize: '12px'
-                    }}>en línea</div>
-                  </div>
-                  
-                  {/* Iconos de acción */}
-                  <div style={{ display: 'flex', gap: '16px' }}>
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="#000000" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="#000000" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    <svg className="w-4 h-4 text-white" fill="#000000" viewBox="0 0 24 24">
-                      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                    </svg>
-                  </div>
-                </div>
-                
-                {/* Área de mensajes con scroll automático */}
-                <div 
-                  ref={messagesContainerRef}
-                  style={{
-                    height: 'calc(100% - 164px)',
-                    overflowY: 'auto',
-                    overflowX: 'hidden',
-                    backgroundImage: 'url("/whatsapp-background.png")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundColor: '#E5DDD5',
-                    padding: '16px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px',
-                    scrollBehavior: 'smooth'
-                  }}
+                      letterSpacing: '0.02em',
+                      lineHeight: '0.9'
+                    }}
+                  >
+                    LIA
+                  </span>
+                </button>
+                <a
+                  href="#process-flow"
+                  style={{color:"#8A6D5B"}}
+                  className="inline-flex items-center justify-center font-medium px-5 py-2.5 rounded-full shadow-sm bg-transparent border hover:bg-gray-50 transition text-sm"
                 >
-                  {chatMessages.slice(0, visibleMessages).map((message, index) => (
-                    <div 
-                      key={index}
-                      className="message-animate"
-                      style={{
-                        display: 'flex',
-                        justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
-                        animationDelay: `${index * 0.3}s`,
-                        textAlign: 'left'
-                      }}
-                    >
-                      <div 
-                        style={{
-                          maxWidth: message.type === 'image' ? '85%' : '75%',
-                          padding: message.type === 'image' ? '4px' : '6px 10px',
-                          borderRadius: message.role === 'user' 
-                            ? '16px 16px 4px 16px' 
-                            : '16px 16px 16px 4px',
-                          backgroundColor: message.role === 'user' ? '#DCF8C6' : '#FFFFFF',
-                          color: '#000000',
-                          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
-                          fontSize: '13px',
-                          lineHeight: '1.3',
-                          textAlign: 'left',
-                          wordWrap: 'break-word',
-                          position: 'relative'
-                        }}
-                      >
-                        {message.type === 'image' ? (
-                          <div className="message-image">
-                            <Image
-                              src={message.imageUrl}
-                              alt={message.imageAlt}
-                              width={200}
-                              height={250}
-                              className="rounded-lg w-full h-auto object-cover"
-                              style={{
-                                maxWidth: '100%',
-                                height: 'auto'
-                              }}
-                              onLoad={() => {
-                                setTimeout(scrollToBottom, 100);
-                              }}
-                            />
-                            <div style={{
-                              fontSize: '10px',
-                              color: '#999999',
-                              textAlign: 'right',
-                              marginTop: '4px',
-                              padding: '0 4px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'flex-end',
-                              gap: '3px'
-                            }}>
-                              <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                              {message.role === 'user' && (
-                                <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                              )}
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            {message.content}
-                            <div style={{
-                              fontSize: '10px',
-                              color: '#999999',
-                              textAlign: 'right',
-                              marginTop: '2px',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'flex-end',
-                              gap: '3px'
-                            }}>
-                              <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                              {message.role === 'user' && (
-                                <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                              )}
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                  <FaCirclePlay className="w-4 h-4 mr-2" />
+                  Ver cómo funciona
+                </a>
+              </div>
+            </div>
 
-                {/* Input de WhatsApp */}
+            {/* Chat simulado estilo WhatsApp - Solo desktop */}
+            <div className="relative z-10 hero-chat">
+              {/* Mockup del teléfono */}
+              <div className="relative w-96 h-[750px]">
+                {/* Tu imagen del teléfono como fondo/marco */}
                 <div 
+                  className="absolute inset-0 bg-contain bg-no-repeat bg-center z-10"
                   style={{
-                    height: '60px',
-                    backgroundColor: '#f3f1eb',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '0 12px',
-                    gap: '8px',
-                    borderTop: '1px solid #E5E5E5'
+                    backgroundImage: "url('/phone-mockup.png')",
+                    backgroundSize: 'contain'
+                  }}
+                />
+                
+                {/* Pantalla del teléfono */}
+                <div 
+                  className="absolute bg-white rounded-3xl overflow-hidden shadow-inner"
+                  style={{ 
+                    top: '1%',         
+                    bottom: '1.5%',      
+                    left: '5%',        
+                    right: '5%',       
+                    zIndex: 5
                   }}
                 >
-                  {/* Botón + */}
-                  <div style={{
-                    width: '20px',
-                    height: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <svg style={{ width: '18px', height: '18px' }} fill="none" stroke="#8E8E93" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
+                  
+                  {/* Status Bar */}
+                  <div 
+                    className="flex justify-between items-center px-6 py-2 text-black"
+                    style={{
+                      height: '44px',
+                      backgroundColor: '#f2f1ec',
+                      fontSize: '14px',
+                      fontWeight: '600'
+                    }}
+                  >
+                    <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                    <div className="flex items-center gap-1">
+                      <FaSignal style={{ width: '20px', height: '20px' }} />
+                      <IoIosWifi style={{ width: '20px', height: '20px' }} />
+                      <IoIosBatteryFull style={{ width: '20px', height: '20px' }} />
+                    </div>
                   </div>
                   
-                  {/* Campo de input */}
-                  <div style={{
-                    flex: 1,
-                    height: '32px',
-                    backgroundColor: '#ffffff',
-                    borderRadius: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '0 12px'
-                  }}>
+                  {/* Header estilo WhatsApp */}
+                  <div 
+                    style={{
+                      height: '60px',
+                      backgroundColor: '#f2f1ec',
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '0 16px',
+                      gap: '12px',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {/* Botón de regresar */}
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="#000000" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    
+                    {/* Avatar de Lia */}
                     <div style={{
-                      fontSize: '14px',
-                      color: '#8E8E93',
-                      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
-                      fontWeight: '400'
+                      width: '50px',
+                      height: '50px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: '2px solid rgba(255, 255, 255, 0.2)',
+                      position: 'relative',
+                      overflow: 'hidden'
                     }}>
-                      Mensaje
+                      <Image
+                        src="/LIA-color.png"
+                        alt="LIA Avatar"
+                        width={40}
+                        height={40}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+
+                    {/* Info del contacto */}
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        color: '#000000',
+                        fontWeight: '400',
+                        fontSize: '15px'
+                      }}>LIA</div>
+                      <div style={{
+                        color: '#9a9994',
+                        fontSize: '12px'
+                      }}>en línea</div>
                     </div>
                     
+                    {/* Iconos de acción */}
+                    <div style={{ display: 'flex', gap: '16px' }}>
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="#000000" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="#000000" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                      <svg className="w-4 h-4 text-white" fill="#000000" viewBox="0 0 24 24">
+                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  {/* Área de mensajes con scroll automático */}
+                  <div 
+                    ref={messagesContainerRef}
+                    style={{
+                      height: 'calc(100% - 164px)',
+                      overflowY: 'auto',
+                      overflowX: 'hidden',
+                      backgroundImage: 'url("/whatsapp-background.png")',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundColor: '#E5DDD5',
+                      padding: '16px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px',
+                      scrollBehavior: 'smooth'
+                    }}
+                  >
+                    {chatMessages.slice(0, visibleMessages).map((message, index) => (
+                      <div 
+                        key={index}
+                        className="message-animate"
+                        style={{
+                          display: 'flex',
+                          justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
+                          animationDelay: `${index * 0.3}s`,
+                          textAlign: 'left'
+                        }}
+                      >
+                        <div 
+                          style={{
+                            maxWidth: message.type === 'image' ? '85%' : '75%',
+                            padding: message.type === 'image' ? '4px' : '6px 10px',
+                            borderRadius: message.role === 'user' 
+                              ? '16px 16px 4px 16px' 
+                              : '16px 16px 16px 4px',
+                            backgroundColor: message.role === 'user' ? '#DCF8C6' : '#FFFFFF',
+                            color: '#000000',
+                            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+                            fontSize: '13px',
+                            lineHeight: '1.3',
+                            textAlign: 'left',
+                            wordWrap: 'break-word',
+                            position: 'relative'
+                          }}
+                        >
+                          {message.type === 'image' ? (
+                            <div className="message-image">
+                              <Image
+                                src={message.imageUrl}
+                                alt={message.imageAlt}
+                                width={200}
+                                height={250}
+                                className="rounded-lg w-full h-auto object-cover"
+                                style={{
+                                  maxWidth: '100%',
+                                  height: 'auto'
+                                }}
+                                onLoad={() => {
+                                  setTimeout(scrollToBottom, 100);
+                                }}
+                              />
+                              <div style={{
+                                fontSize: '10px',
+                                color: '#999999',
+                                textAlign: 'right',
+                                marginTop: '4px',
+                                padding: '0 4px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                gap: '3px'
+                              }}>
+                                <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                                {message.role === 'user' && (
+                                  <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                  </svg>
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <>
+                              {message.content}
+                              <div style={{
+                                fontSize: '10px',
+                                color: '#999999',
+                                textAlign: 'right',
+                                marginTop: '2px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-end',
+                                gap: '3px'
+                              }}>
+                                <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                                {message.role === 'user' && (
+                                  <svg className="w-3 h-3 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                  </svg>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Input de WhatsApp */}
+                  <div 
+                    style={{
+                      height: '60px',
+                      backgroundColor: '#f3f1eb',
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '0 12px',
+                      gap: '8px',
+                      borderTop: '1px solid #E5E5E5'
+                    }}
+                  >
+                    {/* Botón + */}
                     <div style={{
-                      width: '16px',
-                      height: '16px',
+                      width: '20px',
+                      height: '20px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <PiSticker 
-                        style={{ 
-                          width: '14px', 
-                          height: '14px',
-                          color: '#8E8E93'
-                        }} 
-                      />
+                      <svg style={{ width: '18px', height: '18px' }} fill="none" stroke="#8E8E93" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                      </svg>
                     </div>
-                  </div>
-                  
-                  {/* Icono de cámara */}
-                  <div style={{
-                    width: '20px',
-                    height: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <svg style={{ width: '18px', height: '18px' }} fill="#8E8E93" viewBox="0 0 24 24">
-                      <path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
-                    </svg>
-                  </div>
-                  
-                  {/* Icono de micrófono */}
-                  <div style={{
-                    width: '20px',
-                    height: '20px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <svg style={{ width: '16px', height: '16px' }} fill="#8E8E93" viewBox="0 0 24 24">
-                      <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Modal móvil de WhatsApp */}
-      {showMobileDemo && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            onClick={closeMobileDemo}
-          />
-          
-          {/* Contenedor del modal */}
-          <div className="relative h-full flex items-center justify-center p-4">
-            <div className="relative w-full max-w-sm mx-auto bg-black rounded-3xl overflow-hidden shadow-2xl">
-              
-              {/* Botón de cerrar */}
-              <button
-                onClick={closeMobileDemo}
-                className="absolute top-4 right-4 z-50 bg-black/50 backdrop-blur-sm rounded-full p-2 text-white hover:bg-black/70 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              
-              {/* Pantalla del móvil */}
-              <div className="bg-white rounded-3xl overflow-hidden" style={{ height: '640px' }}>
-                
-                {/* Status Bar móvil */}
-                <div 
-                  className="flex justify-between items-center px-4 py-2 text-black"
-                  style={{
-                    height: '40px',
-                    backgroundColor: '#f2f1ec',
-                    fontSize: '12px',
-                    fontWeight: '600'
-                  }}
-                >
-                  <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                  <div className="flex items-center gap-1">
-                    <FaSignal style={{ width: '16px', height: '16px' }} />
-                    <IoIosWifi style={{ width: '16px', height: '16px' }} />
-                    <IoIosBatteryFull style={{ width: '16px', height: '16px' }} />
-                  </div>
-                </div>
-                
-                {/* Header WhatsApp móvil */}
-                <div 
-                  style={{
-                    height: '56px',
-                    backgroundColor: '#f2f1ec',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '0 12px',
-                    gap: '10px',
-                    textAlign: 'left'
-                  }}
-                >
-                  {/* Botón atrás */}
-                  <button onClick={closeMobileDemo}>
-                    <svg className="w-4 h-4" fill="none" stroke="#000000" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  
-                  {/* Avatar */}
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '50%',
-                    overflow: 'hidden'
-                  }}>
-                    <Image
-                      src="/LIA-color.png"
-                      alt="LIA Avatar"
-                      width={40}
-                      height={40}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
-                  </div>
-
-                  {/* Info */}
-                  <div style={{ flex: 1 }}>
+                    
+                    {/* Campo de input */}
                     <div style={{
-                      color: '#000000',
-                      fontWeight: '400',
-                      fontSize: '14px'
-                    }}>LIA</div>
-                    <div style={{
-                      color: '#9a9994',
-                      fontSize: '11px'
-                    }}>en línea</div>
-                  </div>
-                  
-                  {/* Acciones */}
-                  <div style={{ display: 'flex', gap: '12px' }}>
-                    <svg className="w-4 h-4" fill="none" stroke="#000000" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                    <svg className="w-4 h-4" fill="none" stroke="#000000" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                </div>
-                
-                {/* Área de mensajes móvil */}
-                <div 
-                  style={{
-                    height: 'calc(100% - 152px)',
-                    overflowY: 'auto',
-                    backgroundColor: '#E5DDD5',
-                    backgroundImage: 'linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(0,0,0,0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.05) 75%)',
-                    backgroundSize: '20px 20px',
-                    padding: '12px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '6px'
-                  }}
-                >
-                  {chatMessages.slice(0, visibleMessages).map((message, index) => (
-                    <div 
-                      key={index}
-                      className="message-animate"
-                      style={{
+                      flex: 1,
+                      height: '32px',
+                      backgroundColor: '#ffffff',
+                      borderRadius: '16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0 12px'
+                    }}>
+                      <div style={{
+                        fontSize: '14px',
+                        color: '#8E8E93',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif',
+                        fontWeight: '400'
+                      }}>
+                        Mensaje
+                      </div>
+                      
+                      <div style={{
+                        width: '16px',
+                        height: '16px',
                         display: 'flex',
-                        justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
-                        animationDelay: `${index * 0.3}s`
-                      }}
-                    >
-                      <div 
-                        style={{
-                          maxWidth: message.type === 'image' ? '80%' : '70%',
-                          padding: message.type === 'image' ? '3px' : '6px 8px',
-                          borderRadius: message.role === 'user' 
-                            ? '14px 14px 3px 14px' 
-                            : '14px 14px 14px 3px',
-                          backgroundColor: message.role === 'user' ? '#DCF8C6' : '#FFFFFF',
-                          color: '#000000',
-                          boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
-                          fontSize: '12px',
-                          lineHeight: '1.3',
-                          wordWrap: 'break-word'
-                        }}
-                      >
-                        {message.type === 'image' ? (
-                          <div className="message-image">
-                            <Image
-                              src={message.imageUrl}
-                              alt={message.imageAlt}
-                              width={160}
-                              height={200}
-                              className="rounded-lg w-full h-auto object-cover"
-                              style={{
-                                maxWidth: '100%',
-                                height: 'auto'
-                              }}
-                            />
-                            <div style={{
-                              fontSize: '9px',
-                              color: '#999999',
-                              textAlign: 'right',
-                              marginTop: '2px',
-                              padding: '0 3px'
-                            }}>
-                              <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            {message.content}
-                            <div style={{
-                              fontSize: '9px',
-                              color: '#999999',
-                              textAlign: 'right',
-                              marginTop: '2px'
-                            }}>
-                              <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
-                            </div>
-                          </>
-                        )}
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}>
+                        <PiSticker 
+                          style={{ 
+                            width: '14px', 
+                            height: '14px',
+                            color: '#8E8E93'
+                          }} 
+                        />
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                {/* Input móvil */}
-                <div 
-                  style={{
-                    height: '56px',
-                    backgroundColor: '#f3f1eb',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '0 10px',
-                    gap: '6px',
-                    borderTop: '1px solid #E5E5E5'
-                  }}
-                >
-                  <div style={{
-                    width: '16px',
-                    height: '16px'
-                  }}>
-                    <svg style={{ width: '14px', height: '14px' }} fill="none" stroke="#8E8E93" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
-                  </div>
-                  
-                  <div style={{
-                    flex: 1,
-                    height: '28px',
-                    backgroundColor: '#ffffff',
-                    borderRadius: '14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '0 10px',
-                    fontSize: '13px',
-                    color: '#8E8E93'
-                  }}>
-                    Mensaje
-                  </div>
-                  
-                  <div style={{ width: '16px', height: '16px' }}>
-                    <svg style={{ width: '14px', height: '14px' }} fill="#8E8E93" viewBox="0 0 24 24">
-                      <path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
-                    </svg>
-                  </div>
-                  
-                  <div style={{ width: '16px', height: '16px' }}>
-                    <svg style={{ width: '14px', height: '14px' }} fill="#8E8E93" viewBox="0 0 24 24">
-                      <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
-                    </svg>
+                    
+                    {/* Icono de cámara */}
+                    <div style={{
+                      width: '20px',
+                      height: '20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <svg style={{ width: '18px', height: '18px' }} fill="#8E8E93" viewBox="0 0 24 24">
+                        <path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                      </svg>
+                    </div>
+                    
+                    {/* Icono de micrófono */}
+                    <div style={{
+                      width: '20px',
+                      height: '20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <svg style={{ width: '16px', height: '16px' }} fill="#8E8E93" viewBox="0 0 24 24">
+                        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
-          {/* Texto instructivo */}
-          <div className="absolute bottom-8 left-0 right-0 text-center px-4">
-            <p className="text-white/90 text-sm bg-black/30 backdrop-blur-sm rounded-full px-4 py-2 inline-block">
-              Así es como funciona LIA en WhatsApp ✨
-            </p>
+
+          {/* Layout para móvil */}
+          <div className="lg:hidden">
+            {/* Contenido principal móvil */}
+            <div className="text-center space-y-6 mb-12">
+              <h1
+                style={{ color: "#4B3F36" }}
+                className="text-4xl sm:text-5xl font-extrabold leading-tight"
+              >
+                <span 
+                  className="bg-clip-text"
+                  style={{ 
+                    fontSize: 'clamp(3rem, 15vw, 4rem)',
+                    color: 'black',
+                    fontFamily: 'var(--font-playfair-display), serif',
+                    fontWeight: '400',
+                    letterSpacing: '0.03em',
+                    lineHeight: '0.8',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.15)'
+                  }}
+                >
+                  LIA
+                </span>
+                <span className="mt-2 block text-2xl sm:text-3xl">
+                  Tu asistente personal de imagen, estilo y moda en WhatsApp
+                </span>
+              </h1>
+              
+              <p
+                style={{ color: "#4b3f36" }}
+                className="text-base px-4"
+              >
+                Descubre combinaciones perfectas y renueva tu armario en segundos
+              </p>
+
+              {/* Características rápidas */}
+              <div className="grid grid-cols-1 gap-3 my-6 px-4">
+                <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm text-left">
+                  <h3 className="font-bold text-amber-800 text-lg">Análisis 24/7</h3>
+                  <p className="text-sm text-gray-700">Recomendaciones de imagen y estilo personal a cualquier hora desde WhatsApp</p>
+                </div>
+                <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm text-left">
+                  <h3 className="font-bold text-amber-800 text-lg">Compras Efectivas</h3>
+                  <p className="text-sm text-gray-700">Adapta las sugerencias a tu tipo de rostro, cuerpo y colorimetria teniendo en cuenta la ocasión</p>
+                </div>
+                <div className="bg-white bg-opacity-60 p-3 rounded-lg shadow-sm text-left">
+                  <h3 className="font-bold text-amber-800 text-lg">7 Looks semanales</h3>
+                  <p className="text-sm text-gray-700">Desde tu armario diferentes propuestas de looks cada semana</p>
+                </div>
+              </div>
+
+              {/* CTAs móvil */}
+              <div className="flex flex-col gap-3 px-4">
+                <button
+                  onClick={openRegistrationModal}
+                  style={{ backgroundColor: "#8A6D5B", color: "#ffffff" }}
+                  className="inline-flex items-center justify-center font-medium px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition text-lg w-full"
+                >
+                  <FaWhatsapp className="w-5 h-5 mr-2" />
+                  Habla con{" "}
+                  <span 
+                    className="ml-1 text-xl"
+                    style={{ 
+                      fontFamily: 'var(--font-playfair-display), serif',
+                      fontWeight: '400',
+                      letterSpacing: '0.02em',
+                      lineHeight: '0.9'
+                    }}
+                  >
+                    LIA
+                  </span>
+                </button>
+                <a
+                  href="#process-flow"
+                  style={{color:"#8A6D5B"}}
+                  className="inline-flex items-center justify-center font-medium px-5 py-2.5 rounded-full shadow-sm bg-transparent border hover:bg-gray-50 transition text-sm w-full"
+                >
+                  <FaCirclePlay className="w-4 h-4 mr-2" />
+                  Ver cómo funciona
+                </a>
+              </div>
+            </div>
+
+            {/* Chat simulado estilo WhatsApp - Solo móvil */}
+            <div className="w-full max-w-sm mx-auto hero-chat">
+              <div className="relative bg-black rounded-3xl overflow-hidden shadow-2xl">
+                <div className="bg-white rounded-3xl overflow-hidden" style={{ height: '640px' }}>
+                    
+                    {/* Status Bar móvil */}
+                    <div 
+                      className="flex justify-between items-center px-4 py-2 text-black"
+                      style={{
+                        height: '40px',
+                        backgroundColor: '#f2f1ec',
+                        fontSize: '12px',
+                        fontWeight: '600'
+                      }}
+                    >
+                      <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                      <div className="flex items-center gap-1">
+                        <FaSignal style={{ width: '16px', height: '16px' }} />
+                        <IoIosWifi style={{ width: '16px', height: '16px' }} />
+                        <IoIosBatteryFull style={{ width: '16px', height: '16px' }} />
+                      </div>
+                    </div>
+                    
+                    {/* Header WhatsApp móvil */}
+                    <div 
+                      style={{
+                        height: '56px',
+                        backgroundColor: '#f2f1ec',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '0 12px',
+                        gap: '10px',
+                        textAlign: 'left'
+                      }}
+                    >
+                      {/* Avatar */}
+                      <div style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        overflow: 'hidden'
+                      }}>
+                        <Image
+                          src="/LIA-color.png"
+                          alt="LIA Avatar"
+                          width={40}
+                          height={40}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                      </div>
+
+                      {/* Info */}
+                      <div style={{ flex: 1 }}>
+                        <div style={{
+                          color: '#000000',
+                          fontWeight: '400',
+                          fontSize: '14px'
+                        }}>LIA</div>
+                        <div style={{
+                          color: '#9a9994',
+                          fontSize: '11px'
+                        }}>en línea</div>
+                      </div>
+                      
+                      {/* Acciones */}
+                      <div style={{ display: 'flex', gap: '12px' }}>
+                        <svg className="w-4 h-4" fill="none" stroke="#000000" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        <svg className="w-4 h-4" fill="none" stroke="#000000" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    {/* Área de mensajes móvil */}
+                    <div 
+                      style={{
+                        height: 'calc(100% - 152px)',
+                        overflowY: 'auto',
+                        backgroundColor: '#E5DDD5',
+                        backgroundImage: 'linear-gradient(45deg, rgba(0,0,0,0.05) 25%, transparent 25%), linear-gradient(-45deg, rgba(0,0,0,0.05) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.05) 75%), linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.05) 75%)',
+                        backgroundSize: '20px 20px',
+                        padding: '12px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '6px'
+                      }}
+                    >
+                      {chatMessages.slice(0, visibleMessages).map((message, index) => (
+                        <div 
+                          key={index}
+                          className="message-animate"
+                          style={{
+                            display: 'flex',
+                            justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start',
+                            animationDelay: `${index * 0.3}s`
+                          }}
+                        >
+                          <div 
+                            style={{
+                              maxWidth: message.type === 'image' ? '80%' : '70%',
+                              padding: message.type === 'image' ? '3px' : '6px 8px',
+                              borderRadius: message.role === 'user' 
+                                ? '14px 14px 3px 14px' 
+                                : '14px 14px 14px 3px',
+                              backgroundColor: message.role === 'user' ? '#DCF8C6' : '#FFFFFF',
+                              color: '#000000',
+                              boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+                              fontSize: '12px',
+                              lineHeight: '1.3',
+                              wordWrap: 'break-word'
+                            }}
+                          >
+                            {message.type === 'image' ? (
+                              <div className="message-image">
+                                <Image
+                                  src={message.imageUrl}
+                                  alt={message.imageAlt}
+                                  width={160}
+                                  height={200}
+                                  className="rounded-lg w-full h-auto object-cover"
+                                  style={{
+                                    maxWidth: '100%',
+                                    height: 'auto'
+                                  }}
+                                />
+                                <div style={{
+                                  fontSize: '9px',
+                                  color: '#999999',
+                                  textAlign: 'right',
+                                  marginTop: '2px',
+                                  padding: '0 3px'
+                                }}>
+                                  <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                                </div>
+                              </div>
+                            ) : (
+                              <>
+                                {message.content}
+                                <div style={{
+                                  fontSize: '9px',
+                                  color: '#999999',
+                                  textAlign: 'right',
+                                  marginTop: '2px'
+                                }}>
+                                  <span>{new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Input móvil */}
+                    <div 
+                      style={{
+                        height: '56px',
+                        backgroundColor: '#f3f1eb',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '0 10px',
+                        gap: '6px',
+                        borderTop: '1px solid #E5E5E5'
+                      }}
+                    >
+                      <div style={{
+                        width: '16px',
+                        height: '16px'
+                      }}>
+                        <svg style={{ width: '14px', height: '14px' }} fill="none" stroke="#8E8E93" strokeWidth="2" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                        </svg>
+                      </div>
+                      
+                      <div style={{
+                        flex: 1,
+                        height: '28px',
+                        backgroundColor: '#ffffff',
+                        borderRadius: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '0 10px',
+                        fontSize: '13px',
+                        color: '#8E8E93'
+                      }}>
+                        Mensaje
+                      </div>
+                      
+                      <div style={{ width: '16px', height: '16px' }}>
+                        <svg style={{ width: '14px', height: '14px' }} fill="#8E8E93" viewBox="0 0 24 24">
+                          <path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                        </svg>
+                      </div>
+                      
+                      <div style={{ width: '16px', height: '16px' }}>
+                        <svg style={{ width: '14px', height: '14px' }} fill="#8E8E93" viewBox="0 0 24 24">
+                          <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              {/* Texto instructivo para móvil */}
+              <div className="text-center mt-4">
+               <p className="text-sm" style={{ color: '#4B3F36CC' }}>
+                Así es como funciona LIA en WhatsApp
+               </p>
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      </section>    
     </>
   );
 }

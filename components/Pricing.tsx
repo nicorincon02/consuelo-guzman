@@ -59,33 +59,14 @@ export default function PricingSection() {
             <div className="text-center mb-16">
               <div className="relative w-full max-w-4xl mx-auto mb-8">
                 {/* Contenedor de la imagen con efectos estéticos */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl backdrop-blur-sm">
+                <div className="relative rounded-3xl overflow-hidden">
                   <Image
                     src="/pricing.png" 
                     alt="Plan Exclusivo LIA"
                     width={800}
                     height={400}
                     className="w-full h-auto object-cover"
-                    style={{
-                      filter: 'brightness(1.1) contrast(1.05) saturate(1.1)',
-                    }}
                     priority
-                  />
-                  
-                  {/* Overlay sutil para mejor legibilidad si hay texto superpuesto */}
-                  <div 
-                    className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"
-                    style={{ 
-                      background: 'linear-gradient(135deg, rgba(0,0,0,0.1) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)'
-                    }}
-                  />
-                  
-                  {/* Marco decorativo opcional */}
-                  <div 
-                    className="absolute inset-0 rounded-3xl"
-                    style={{ 
-                      background: 'linear-gradient(45deg, transparent, rgba(138, 109, 91, 0.1), transparent)'
-                    }}
                   />
                 </div>          
               </div>
@@ -117,19 +98,23 @@ export default function PricingSection() {
                       )}
                     </h3>
                     
+                    {/* Precio con layout responsive corregido */}
                     <div className="mb-6">
-                      <span 
-                        className="text-6xl font-bold luxury-text-gradient"
-                      >
-                        {plan.price}
-                      </span>
-                      <span 
-                        className="text-xl ml-2"
-                        style={{ color: '#8B7355' }}
-                      >
-                        {plan.period}
-                      </span>
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                        <span 
+                          className="text-4xl sm:text-6xl font-bold luxury-text-gradient"
+                        >
+                          {plan.price}
+                        </span>
+                        <span 
+                          className="text-lg sm:text-xl"
+                          style={{ color: '#8B7355' }}
+                        >
+                          {plan.period}
+                        </span>
+                      </div>
                     </div>
+                    
                    {/* Highlights premium */}
                     <div className="flex flex-wrap justify-center gap-3 mb-8">
                       {plan.highlights.map((highlight, index) => (

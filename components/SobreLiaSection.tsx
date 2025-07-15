@@ -109,9 +109,9 @@ export default function SobreLiaSection() {
             </div>
             
             {/* Reemplazar el cuadro amarillo por la imagen */}
-            <div className="relative rounded-xl overflow-hidden shadow-md">
+            <div className="relative rounded-xl overflow-hidden">
               <Image
-                src="/banner-horizontal.jpeg"
+                src="/pricing.png"
                 alt="LIA - Love, Intelligence & Authenticity"
                 width={400}
                 height={300}

@@ -146,12 +146,11 @@ const ClosetBasicsSection = () => {
 
     return (
       <div 
-        className="fixed z-50 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-4 w-72 pointer-events-none"
+        className="fixed z-50 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl p-4 w-72 pointer-events-none closet-tooltip"
         style={{ 
           top: position.y - 10, 
           left: adjustedX,
           transform: 'translateX(-50%)',
-          animation: 'tooltipFadeIn 0.3s ease-out',
           border: `1px solid ${liaColors.sand}`,
           boxShadow: '0 20px 25px rgba(75, 63, 54, 0.15)'
         }}
@@ -220,258 +219,13 @@ const ClosetBasicsSection = () => {
   };
 
   return (
-    <section 
-      className="min-h-screen py-20 px-4 relative overflow-hidden"
-      data-bg="linear-gradient(135deg, #f8f6f3 0%, #e8e2db 100%)"
-    >
-      {/* Imagen de fondo con opacidad */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/closet/closet-background.png"
-          alt="Fondo de closet"
-          fill
-          className="object-cover opacity-10"
-          quality={100}
-          priority
-        />
-        {/* Overlay opcional para mejorar la legibilidad */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/30"></div>
-      </div>
-
-      {/* Patrón decorativo de fondo */}
-      <div className="absolute inset-0 opacity-20 z-0">
-        <div 
-          className="absolute top-10 left-10 w-20 h-20 border rounded-full animate-pulse"
-          style={{ borderColor: liaColors.sand }}
-        ></div>
-        <div 
-          className="absolute top-40 right-20 w-16 h-16 border rounded-full animate-pulse delay-1000"
-          style={{ borderColor: liaColors.sand }}
-        ></div>
-        <div 
-          className="absolute bottom-20 left-1/4 w-12 h-12 border rounded-full animate-pulse delay-2000"
-          style={{ borderColor: liaColors.sand }}
-        ></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-20">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div 
-            className="inline-flex items-center gap-2 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
-            style={{
-              backgroundColor: `${liaColors.beige}E6`, // 90% opacity
-              border: `1px solid ${liaColors.sand}80` // 50% opacity
-            }}
-          >
-            <span 
-              className="w-2 h-2 rounded-full animate-pulse"
-              style={{ backgroundColor: liaColors.brown }}
-            ></span>
-            <span className="font-medium text-sm" style={{ color: liaColors.brown }}>
-              FUNDAMENTOS DEL ESTILO
-            </span>
-          </div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-sm" style={{ color: liaColors.dark }}>
-            Tu <span style={{ color: liaColors.brown }}>Fondo de Armario</span>
-          </h2>
-          
-          <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: `${liaColors.dark}E6` }}>
-            Descubre las prendas esenciales que forman la base de un guardarropa versátil. 
-            Con <span className="lia-logo text-xl" style={{ color: liaColors.dark }}>
-              LIA
-            </span>, aprende a crear infinitas combinaciones con menos piezas.
-          </p>
-        </div>
-
-        {/* Interactive Closet Display */}
-        <div className="relative flex justify-center mb-16">
-          <div 
-            className="relative backdrop-blur-sm rounded-3xl p-8 shadow-2xl w-full max-w-5xl"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
-          >
-            
-            {/* Imagen principal del closet - Ajustada a las dimensiones reales */}
-            <div 
-              ref={closetContainerRef}
-              className="relative w-full rounded-2xl overflow-hidden bg-white shadow-lg"
-              style={{
-                aspectRatio: "1/1",
-                minHeight:"500px",
-                maxHeight: "800"
-              }}
-              onMouseEnter={handleClosetMouseEnter}
-              onMouseLeave={handleClosetMouseLeave}
-            >
-              
-              {/* Imagen a color (se muestra cuando isHoveringCloset es true) */}
-              <div 
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                  isHoveringCloset ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <Image
-                  src="/closet/closet-basics.jpeg"
-                  alt="Closet a todo color"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              
-              {/* Imagen en escala de grises (estado por defecto) */}
-              <div 
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                  isHoveringCloset ? 'opacity-0' : 'opacity-100'
-                }`}
-              >
-                <Image
-                  src="/closet/closet-basics.jpeg"
-                  alt="Fondo de closet"
-                  fill
-                  className="object-cover filter grayscale"
-                  priority
-                />
-              </div>
-
-              {/* Áreas interactivas - Ajustadas a la distribución 4x3 */}
-              {closetItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-20"
-                  style={{
-                    left: `${item.area.x}%`,
-                    top: `${item.area.y}%`,
-                    width: `${item.area.width}%`,
-                    height: `${item.area.height}%`,
-                  }}
-                  onMouseEnter={(e) => handleMouseEnter(item, e)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                    {/* Indicator dot */}
-                    <div 
-                      className={`absolute top-1 right-1 w-3 h-3 rounded-full transition-opacity duration-300 animate-pulse ${
-                        hoveredItem?.id === item.id ? 'opacity-100' : 'opacity-0'
-                      }`}
-                      style={{ backgroundColor: liaColors.brown }}
-                    ></div>
-                  </div>
-              ))}
-            </div>
-
-            {/* Instrucciones */}
-            <div className="text-center mt-6">
-              <p className="text-sm" style={{ color: `${liaColors.dark}B3` }}> {/* 70% opacity */}
-                <span className="inline-flex items-center gap-1">
-                  <span 
-                    className="w-2 h-2 rounded-full animate-pulse"
-                    style={{ backgroundColor: liaColors.brown }}
-                  ></span>
-                  Pasa el mouse sobre las prendas para descubrir más
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Tooltip */}
-        {hoveredItem && (
-          <Tooltip item={hoveredItem} position={tooltipPosition} />
-        )}
-
-        {/* Benefits Section */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div 
-            className="text-center p-6 backdrop-blur-sm rounded-xl border hover:bg-white/60 transition-all duration-300"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.4)',
-              borderColor: `${liaColors.sand}4D` // 30% opacity
-            }}
-          >
-            <div 
-              className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
-              style={{
-                background: "#E2D8CD"
-              }}
-            >
-              <span className="icon-container"> <Recycle className='w-8 h-8 text-stone-500'/> </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
-              Sostenibilidad
-            </h3>
-            <p style={{ color: `${liaColors.dark}CC` }}> {/* 80% opacity */}
-              Invierte en piezas de calidad que duran años y se combinan infinitamente
-            </p>
-          </div>
-          
-          <div 
-            className="text-center p-6 backdrop-blur-sm rounded-xl border hover:bg-white/60 transition-all duration-300"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.4)',
-              borderColor: `${liaColors.sand}4D` // 30% opacity
-            }}
-          >
-            <div 
-              className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
-              style={{
-                background: `#E2D8CD`
-              }}
-            >
-              <span className="icon-container"> <Blend className='w-8 h-8 text-stone-500'/> </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
-              Versatilidad
-            </h3>
-            <p style={{ color: `${liaColors.dark}CC` }}> {/* 80% opacity */}
-              Crea múltiples looks con pocas prendas, maximizando tu inversión
-            </p>
-          </div>
-          
-          <div 
-            className="text-center p-6 backdrop-blur-sm rounded-xl border hover:bg-white/60 transition-all duration-300"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.4)',
-              borderColor: `${liaColors.sand}4D` // 30% opacity
-            }}
-          >
-            <div 
-              className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
-              style={{
-                background: `#E2D8CD`
-              }}
-            >
-              <span className="icon-container"> <Zap className='w-8 h-8 text-stone-500'/> </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
-              Eficiencia
-            </h3>
-            <p style={{ color: `${liaColors.dark}CC` }}> {/* 80% opacity */}
-              Ahorra tiempo decidiendo qué ponerte cada mañana
-            </p>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center">
-            <button 
-              onClick={openRegistrationModal} 
-              className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg transform hover:-translate-y-1"
-              style={{
-                background: 'linear-gradient(to right, #8A6D5B, #4B3F36)',
-                color: '#FFFFFF',
-                border: '1px solid rgba(255, 255, 255, 0.2)'
-              }}
-            >
-            Descubre tu Fondo de armario con <span className='lia-logo text-xl'>
-              LIA
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* Estilos CSS personalizados */}
+    <>
+      {/* Estilos CSS consolidados - UN SOLO BLOQUE */}
       <style jsx>{`
+        .closet-tooltip {
+          animation: tooltipFadeIn 0.3s ease-out;
+        }
+
         @keyframes tooltipFadeIn {
           from {
             opacity: 0;
@@ -482,8 +236,296 @@ const ClosetBasicsSection = () => {
             transform: translateY(0) translateX(-50%);
           }
         }
+
+        /* Móvil: imagen con aspect ratio fijo */
+        .closet-container {
+          aspect-ratio: 4/3;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+        }
+
+        /* Desktop: imagen con dimensiones naturales */
+        @media (min-width: 768px) {
+          .closet-container {
+            aspect-ratio: auto;
+            width: auto;
+            max-width: 600px;
+            height: auto;
+            min-height: 500px;
+          }
+        }
+
+        .icon-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       `}</style>
-    </section>
+
+      <section 
+        className="min-h-screen py-20 px-4 relative overflow-hidden"
+        data-bg="linear-gradient(135deg, #f8f6f3 0%, #e8e2db 100%)"
+      >
+        {/* Imagen de fondo con opacidad */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/closet/closet-background.png"
+            alt="Fondo de closet"
+            fill
+            className="object-cover opacity-10"
+            quality={100}
+            priority
+          />
+          {/* Overlay opcional para mejorar la legibilidad */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-white/30"></div>
+        </div>
+
+        {/* Patrón decorativo de fondo */}
+        <div className="absolute inset-0 opacity-20 z-0">
+          <div 
+            className="absolute top-10 left-10 w-20 h-20 border rounded-full animate-pulse"
+            style={{ borderColor: liaColors.sand }}
+          ></div>
+          <div 
+            className="absolute top-40 right-20 w-16 h-16 border rounded-full animate-pulse delay-1000"
+            style={{ borderColor: liaColors.sand }}
+          ></div>
+          <div 
+            className="absolute bottom-20 left-1/4 w-12 h-12 border rounded-full animate-pulse delay-2000"
+            style={{ borderColor: liaColors.sand }}
+          ></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-20">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div 
+              className="inline-flex items-center gap-2 backdrop-blur-sm px-4 py-2 rounded-full mb-6"
+              style={{
+                backgroundColor: `${liaColors.beige}E6`, // 90% opacity
+                border: `1px solid ${liaColors.sand}80` // 50% opacity
+              }}
+            >
+              <span 
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ backgroundColor: liaColors.brown }}
+              ></span>
+              <span className="font-medium text-sm" style={{ color: liaColors.brown }}>
+                FUNDAMENTOS DEL ESTILO
+              </span>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-sm" style={{ color: liaColors.dark }}>
+              Tu <span style={{ color: liaColors.brown }}>Fondo de Armario</span>
+            </h2>
+            
+            <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" style={{ color: `${liaColors.dark}E6` }}>
+              Descubre las prendas esenciales que forman la base de un guardarropa versátil. 
+              Con <span className="lia-logo text-xl" style={{ color: liaColors.dark }}>
+                LIA
+              </span>, aprende a crear infinitas combinaciones con menos piezas.
+            </p>
+          </div>
+
+          {/* Interactive Closet Display */}
+          <div className="relative flex justify-center mb-16">
+            <div 
+              className="relative backdrop-blur-sm rounded-3xl p-8 shadow-2xl w-full max-w-5xl"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
+            >
+              
+              {/* Imagen principal del closet - CONTENEDOR ADAPTATIVO INTELIGENTE */}
+              <div 
+                ref={closetContainerRef}
+                className="closet-container relative w-full md:w-auto md:max-w-2xl rounded-2xl overflow-hidden bg-white shadow-lg mx-auto"
+                onMouseEnter={handleClosetMouseEnter}
+                onMouseLeave={handleClosetMouseLeave}
+              >
+                
+                {/* Imagen a color (se muestra cuando isHoveringCloset es true) */}
+                <div 
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    isHoveringCloset ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <Image
+                    src="/closet/closet-basics.jpeg"
+                    alt="Closet a todo color"
+                    fill
+                    className="object-cover md:object-contain"
+                    style={{
+                      objectPosition: 'center'
+                    }}
+                    priority
+                  />
+                </div>
+                
+                {/* Imagen en escala de grises (estado por defecto) */}
+                <div 
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    isHoveringCloset ? 'opacity-0' : 'opacity-100'
+                  }`}
+                >
+                  <Image
+                    src="/closet/closet-basics.jpeg"
+                    alt="Fondo de closet"
+                    fill
+                    className="object-cover md:object-contain filter grayscale"
+                    style={{
+                      objectPosition: 'center'
+                    }}
+                    priority
+                  />
+                </div>
+
+                {/* Áreas interactivas */}
+                <div className="absolute inset-0">
+                  {closetItems.map((item) => (
+                    <div
+                      key={item.id}
+                      className="absolute cursor-pointer transition-all duration-300 hover:scale-105 hover:z-20"
+                      style={{
+                        left: `${item.area.x}%`,
+                        top: `${item.area.y}%`,
+                        width: `${item.area.width}%`,
+                        height: `${item.area.height}%`,
+                      }}
+                      onMouseEnter={(e) => handleMouseEnter(item, e)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      {/* Overlay de hover con efecto de resaltado */}
+                      <div 
+                        className="w-full h-full rounded-lg transition-all duration-300 hover:backdrop-blur-sm hover:shadow-lg border-2 border-transparent"
+                        style={{
+                          backgroundColor: hoveredItem?.id === item.id ? `${liaColors.brown}33` : 'transparent',
+                          borderColor: hoveredItem?.id === item.id ? `${liaColors.brown}80` : 'transparent'
+                        }}
+                      >
+                        {/* Indicator dot */}
+                        <div 
+                          className={`absolute top-1 right-1 w-3 h-3 rounded-full transition-opacity duration-300 animate-pulse ${
+                            hoveredItem?.id === item.id ? 'opacity-100' : 'opacity-0'
+                          }`}
+                          style={{ backgroundColor: liaColors.brown }}
+                        ></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Instrucciones */}
+              <div className="text-center mt-6">
+                <p className="text-sm" style={{ color: `${liaColors.dark}B3` }}> {/* 70% opacity */}
+                  <span className="inline-flex items-center gap-1">
+                    <span 
+                      className="w-2 h-2 rounded-full animate-pulse"
+                      style={{ backgroundColor: liaColors.brown }}
+                    ></span>
+                    Pasa el mouse sobre las prendas para descubrir más
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Tooltip */}
+          {hoveredItem && (
+            <Tooltip item={hoveredItem} position={tooltipPosition} />
+          )}
+
+          {/* Benefits Section */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div 
+              className="text-center p-6 backdrop-blur-sm rounded-xl border hover:bg-white/60 transition-all duration-300"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                borderColor: `${liaColors.sand}4D` // 30% opacity
+              }}
+            >
+              <div 
+                className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
+                style={{
+                  background: "#E2D8CD"
+                }}
+              >
+                <span className="icon-container"> <Recycle className='w-8 h-8 text-stone-500'/> </span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
+                Sostenibilidad
+              </h3>
+              <p style={{ color: `${liaColors.dark}CC` }}> {/* 80% opacity */}
+                Invierte en piezas de calidad que duran años y se combinan infinitamente
+              </p>
+            </div>
+            
+            <div 
+              className="text-center p-6 backdrop-blur-sm rounded-xl border hover:bg-white/60 transition-all duration-300"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                borderColor: `${liaColors.sand}4D` // 30% opacity
+              }}
+            >
+              <div 
+                className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
+                style={{
+                  background: `#E2D8CD`
+                }}
+              >
+                <span className="icon-container"> <Blend className='w-8 h-8 text-stone-500'/> </span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
+                Versatilidad
+              </h3>
+              <p style={{ color: `${liaColors.dark}CC` }}> {/* 80% opacity */}
+                Crea múltiples looks con pocas prendas, maximizando tu inversión
+              </p>
+            </div>
+            
+            <div 
+              className="text-center p-6 backdrop-blur-sm rounded-xl border hover:bg-white/60 transition-all duration-300"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                borderColor: `${liaColors.sand}4D` // 30% opacity
+              }}
+            >
+              <div 
+                className="w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
+                style={{
+                  background: `#E2D8CD`
+                }}
+              >
+                <span className="icon-container"> <Zap className='w-8 h-8 text-stone-500'/> </span>
+              </div>
+              <h3 className="text-xl font-semibold mb-3" style={{ color: liaColors.dark }}>
+                Eficiencia
+              </h3>
+              <p style={{ color: `${liaColors.dark}CC` }}> {/* 80% opacity */}
+                Ahorra tiempo decidiendo qué ponerte cada mañana
+              </p>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+              <button 
+                onClick={openRegistrationModal} 
+                className="px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg transform hover:-translate-y-1"
+                style={{
+                  background: 'linear-gradient(to right, #8A6D5B, #4B3F36)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+              Descubre tu Fondo de armario con <span className='lia-logo text-xl'>
+                LIA
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
