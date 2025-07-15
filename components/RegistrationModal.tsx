@@ -104,7 +104,7 @@ const RegistrationModal: React.FC = () => {
 
     try {
       // Guardar datos en la base de datos
-      await fetch('https://script.google.com/macros/s/AKfycby0P7riBgH07kmJpEws37fqNiOdlSBu-UTl1oDxvALajIhV5YSi4Rz3OSYIc9HNY789AA/exec', {
+      await fetch('https://script.google.com/macros/s/AKfycbzlCgm6FFVHcTgkQhOkPCrVXO1e6jY3PO7BtIYZbn4RNliPc7IlVIfzS4hExOM34CzIBw/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -279,7 +279,7 @@ const RegistrationModal: React.FC = () => {
                     value={formData.nombre}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg transition-colors ${
                       errors.nombre ? 'border-red-300 bg-red-50' : 'border-gray-300'
                     }`}
                     placeholder="Tu nombre favorito"
@@ -300,7 +300,7 @@ const RegistrationModal: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg transition-colors ${
                       errors.email ? 'border-red-300 bg-red-50' : 'border-gray-300'
                     }`}
                     placeholder="tu@email.com"
@@ -321,7 +321,7 @@ const RegistrationModal: React.FC = () => {
                     value={formData.telefono}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
-                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-colors ${
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg transition-colors ${
                       errors.telefono ? 'border-red-300 bg-red-50' : 'border-gray-300'
                     }`}
                     placeholder="+57 300 123 4567"
@@ -343,7 +343,7 @@ const RegistrationModal: React.FC = () => {
               <button
                 onClick={handleSubmit}
                 disabled={status === 'loading'}
-                className="w-full bg-gradient-to-r from-amber-600 to-amber-700 text-white py-3 px-6 rounded-lg font-medium hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                className="w-full bg-[#8A6D5B] text-white py-3 px-6 rounded-lg font-medium hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 {status === 'loading' ? (
                   <>

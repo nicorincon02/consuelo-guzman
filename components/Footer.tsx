@@ -128,7 +128,7 @@ export default function Footer(): React.ReactElement {
               <div className="space-y-2 text-sm" style={{ color: "rgba(75,63,54,0.7)" }}>
                 <div className="flex items-center">
                   <MapPin className="h-4 w-4 mr-2" />
-                  <span>Popayán, Cauca, Colombia</span>
+                  <span>Colombia</span>
                 </div>
                 <div className="flex items-center">
                   <Mail className="h-4 w-4 mr-2" />

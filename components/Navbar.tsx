@@ -226,7 +226,7 @@ const Navbar = () => {
           <div className="bg-white p-4 flex items-center justify-between shadow-md">
             {/* Logo móvil - también en una línea */}
             <div className="flex items-center space-x-2">
-              <span className="text-xs text-gray-500">Popayán, Colombia</span>
+              <span className="text-xs text-gray-500">Colombia</span>
               <div 
                 className="flex items-center cursor-pointer space-x-2"
                 onClick={() => handleNavigation('#hero')}
