@@ -124,7 +124,7 @@ const Navbar = () => {
                 </span>
                 
                 {/* Crédito del creador */}
-                <span className="text-xs text-gray-600 hidden lg:block">
+                <span className="text-xs text-gray-600">
                   By{" "}
                   <a 
                     href="https://consueloguzman.com/" 

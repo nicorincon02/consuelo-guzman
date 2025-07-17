@@ -36,7 +36,7 @@ export default function PricingSection() {
       'Servicio 24/7 por WhatsApp'
     ],
     highlights: [
-      'Respaldado por Consuelo Guzmán'
+      'By Consuelo Guzmán'
     ]
   };
   

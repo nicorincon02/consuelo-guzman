@@ -127,7 +127,7 @@ const RegistrationModal: React.FC = () => {
 
   // Función para abrir WhatsApp con mensaje predefinido
   const openWhatsApp = (): void => {
-    const phoneNumber = "573166308080"; // Número de WhatsApp sin signos + ni espacios
+    const phoneNumber = "17866510286"; // Número de WhatsApp sin signos + ni espacios
     const message = `¡Hola! Soy ${formData.nombre} y quiero comenzar mi transformación de estilo con LIA 🌟\n\nMis datos de contacto:\n📧 ${formData.email}\n📱 ${formData.telefono}\n\n¿Podemos empezar? ✨`;
     
     const encodedMessage = encodeURIComponent(message);

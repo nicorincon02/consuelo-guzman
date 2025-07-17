@@ -103,10 +103,10 @@ export default function ContactoSection() {
                     Para consultas detalladas y soporte técnico.
                   </p>
                   <a 
-                    href="mailto:hola@lia-fashion.ai" 
+                    href="mailto:lia@consueloguzman.com" 
                     className="text-stone-500 font-medium text-sm mt-2 hover:text-amber-800 transition-colors block"
                   >
-                    hola@lia-fashion.ai
+                    lia@consueloguzman.com
                   </a>
                 </div>
               </div>
